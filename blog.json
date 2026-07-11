@@ -1,8 +1,18 @@
 {
   "meta": {
     "note": "SINGLE SOURCE OF TRUTH for every blog article. Same pattern as products.json — edit here only, then run python tools/generate-blog-pages.py to regenerate the static SEO shells and sitemap.xml.",
-    "howToAdd": "Add an object to \"articles\": id, slug, title, category, excerpt, body (array of paragraph strings — rendered as <p> tags, keep it plain text/simple HTML like <strong> or <a>, no markdown), publishedDate (YYYY-MM-DD), relatedProductSlugs (array of real slugs from products.json), seoTitle, seoDescription, metaKeywords.",
-    "categories": ["Recipes", "Health Benefits", "Buying Guides", "Traditional Foods", "Murabba Benefits", "Pickle Storage", "Regional Foods"]
+    "howToAdd": "Add an object to \"articles\": id, slug, title, category, excerpt, body (array of blocks — a plain string renders as <p>; {\"h2\":\"text\"}/{\"h3\":\"text\"} render headings; {\"ul\":[...]}/{\"ol\":[...]} render lists — keep inline HTML simple, like <strong> or <a>, no markdown), publishedDate (YYYY-MM-DD), relatedProductSlugs (array of real slugs from products.json), seoTitle, seoDescription, metaKeywords.",
+    "categories": [
+      "Recipes",
+      "Health Benefits",
+      "Buying Guides",
+      "Traditional Foods",
+      "Murabba Benefits",
+      "Pickle Storage",
+      "Regional Foods",
+      "Comparisons",
+      "Seasonal Guides"
+    ]
   },
   "articles": [
     {
@@ -12,10 +22,19 @@
       "category": "Recipes",
       "excerpt": "Achar isn't just a side for daal chawal. Here are five traditional ways Sindhi households actually use their pickle jars.",
       "publishedDate": "2026-07-11",
-      "relatedProductSlugs": ["mix-achar", "lehsan-ka-achar", "green-chutney"],
+      "relatedProductSlugs": [
+        "mix-achar",
+        "lehsan-ka-achar",
+        "green-chutney"
+      ],
       "seoTitle": "How To Use Achar Beyond Daal Chawal | ShikarpuriAchar.pk",
       "seoDescription": "Five traditional ways to use Shikarpuri achar and chutney beyond the usual daal chawal pairing — parathas, biryani, raita, sandwiches and barbecue.",
-      "metaKeywords": ["how to eat achar", "achar recipes", "shikarpuri achar uses", "اچار کھانے کا طریقہ"],
+      "metaKeywords": [
+        "how to eat achar",
+        "achar recipes",
+        "shikarpuri achar uses",
+        "اچار کھانے کا طریقہ"
+      ],
       "body": [
         "Ask most people outside Sindh what achar is for, and they'll say the same thing: a small spoonful next to daal chawal. That's accurate, but it undersells how much a good jar of achar actually does in a Sindhi kitchen. Here are five other ways it regularly ends up on the table.",
         "<strong>Inside parathas.</strong> A thin layer of Mix Achar or Lehsan Ka Achar folded into the dough before rolling, or simply spread on one half after cooking, turns a plain paratha into something with real depth. The mustard oil the achar is pickled in actually helps the paratha stay soft rather than drying out.",
@@ -34,10 +53,19 @@
       "category": "Health Benefits",
       "excerpt": "Achar and murabba have long been valued in Sindhi households for more than just flavour. Here's what that traditional reputation is actually based on.",
       "publishedDate": "2026-07-11",
-      "relatedProductSlugs": ["adrak-ka-achar", "amla-murabba", "moringa-achar"],
+      "relatedProductSlugs": [
+        "adrak-ka-achar",
+        "amla-murabba",
+        "moringa-achar"
+      ],
       "seoTitle": "Traditional Value of Achar & Murabba | ShikarpuriAchar.pk",
       "seoDescription": "Why achar and murabba have traditionally been valued in Sindhi households beyond taste — fermentation, preservation, and traditional everyday uses.",
-      "metaKeywords": ["achar benefits", "murabba benefits", "traditional pickle uses", "اچار کے فوائد"],
+      "metaKeywords": [
+        "achar benefits",
+        "murabba benefits",
+        "traditional pickle uses",
+        "اچار کے فوائد"
+      ],
       "body": [
         "Achar and murabba are, first and foremost, food — made for flavour, not as medicine. But it's worth understanding why they've held a steady place in Sindhi households for generations beyond just tasting good, because the reasons are genuinely practical, not mystical.",
         "<strong>Preservation without refrigeration.</strong> Long before refrigerators were common in rural Sindh, pickling in mustard oil, vinegar or sugar syrup was simply how households kept fruit and vegetables edible for months after harvest season ended. Achar and murabba exist because of a real, practical problem — seasonal produce needed to last through the rest of the year — and the techniques developed to solve it happen to also produce distinctive, complex flavours.",
@@ -55,10 +83,19 @@
       "category": "Buying Guides",
       "excerpt": "Same vegetable, three different pickling methods, three different results. Here's how to pick the right one for your taste.",
       "publishedDate": "2026-07-11",
-      "relatedProductSlugs": ["aam-ka-achar", "mango-vinegar-achar", "mix-vegetable-achar"],
+      "relatedProductSlugs": [
+        "aam-ka-achar",
+        "mango-vinegar-achar",
+        "mix-vegetable-achar"
+      ],
       "seoTitle": "How To Choose The Right Achar (Oil vs Vinegar vs Water) | ShikarpuriAchar.pk",
       "seoDescription": "Confused between oil, vinegar and water-brined achar? Here's what actually differs in taste, texture and shelf life so you can pick the right jar.",
-      "metaKeywords": ["oil pickle vs vinegar pickle", "how to choose achar", "achar price in pakistan", "اچار کیسے خریدیں"],
+      "metaKeywords": [
+        "oil pickle vs vinegar pickle",
+        "how to choose achar",
+        "achar price in pakistan",
+        "اچار کیسے خریدیں"
+      ],
       "body": [
         "We sell several versions of the same vegetable — mango, for instance, comes as an oil achar, a vinegar achar, and a sweet-and-sour achar. That's not us padding out the catalogue; each method genuinely produces a different pickle, and picking the right one comes down to what you actually want from it.",
         "<strong>Oil-based achar</strong> is the traditional Shikarpuri method — vegetables or fruit matured slowly in cold-pressed mustard oil with whole and ground spices. This is the slowest method, but it produces the deepest, roundest flavour, since the oil mellows sharp edges over weeks or months rather than days. Aam Ka Achar is our clearest example — the mango's sourness is still there, but mustard oil rounds it into something richer than a quick pickle would achieve. Oil achar also tends to have the longest shelf life at room temperature, since oil itself acts as a preservative.",
@@ -75,10 +112,20 @@
       "category": "Traditional Foods",
       "excerpt": "Achar is made all over Pakistan, but Shikarpur has its own distinct style. Here's what actually sets it apart.",
       "publishedDate": "2026-07-11",
-      "relatedProductSlugs": ["aam-ka-achar", "lasooray-ka-achar", "larkana-bhei-achar"],
+      "relatedProductSlugs": [
+        "aam-ka-achar",
+        "lasooray-ka-achar",
+        "larkana-bhei-achar"
+      ],
       "seoTitle": "What Makes Shikarpuri Achar Different | ShikarpuriAchar.pk",
       "seoDescription": "Shikarpuri achar has a distinct regional style compared to Punjabi or other Pakistani pickles. Here's what sets it apart — ingredients, technique and tradition.",
-      "metaKeywords": ["shikarpuri achar", "shikarpur achar", "shikarpuri pickle", "best achar in pakistan", "شکارپوری اچار"],
+      "metaKeywords": [
+        "shikarpuri achar",
+        "shikarpur achar",
+        "shikarpuri pickle",
+        "best achar in pakistan",
+        "شکارپوری اچار"
+      ],
       "body": [
         "\"Achar\" is not one single thing across Pakistan — the word covers a huge range of regional styles, and Shikarpur's version has its own identity within that. Shikarpur, a city in upper Sindh with a long trading history, developed a pickling tradition shaped by what grew locally and how households actually preserved food before refrigeration was common.",
         "<strong>Fenugreek and mustard seed lead the spice profile.</strong> Where some regional styles lean sweeter or use a heavier, more complex masala, Shikarpuri achar — especially our Aam Ka Achar — tends to be sharper and more sour-forward, built around fenugreek and mustard seed rather than sugar or a large spice blend. This gives it a more direct, tangy character rather than a rounded, sweet-savoury one.",
@@ -96,10 +143,19 @@
       "category": "Murabba Benefits",
       "excerpt": "Murabba isn't achar's sweet cousin by accident — it's a completely different preserving tradition. Here's what it actually is.",
       "publishedDate": "2026-07-11",
-      "relatedProductSlugs": ["mango-murabba", "amla-murabba", "gulqand"],
+      "relatedProductSlugs": [
+        "mango-murabba",
+        "amla-murabba",
+        "gulqand"
+      ],
       "seoTitle": "What Is Murabba? Traditional Sweet Preserve Guide | ShikarpuriAchar.pk",
       "seoDescription": "Murabba explained — what it is, how it differs from achar, and how to eat it. A guide to Pakistan's traditional sugar-syrup fruit preserves.",
-      "metaKeywords": ["what is murabba", "murabba benefits", "murabba pakistan", "مربہ"],
+      "metaKeywords": [
+        "what is murabba",
+        "murabba benefits",
+        "murabba pakistan",
+        "مربہ"
+      ],
       "body": [
         "If achar is Shikarpur's savoury pickle tradition, murabba is its sweet counterpart — and the two are made completely differently, even though they often use the same raw fruit.",
         "<strong>The basic method.</strong> Murabba is fruit (or occasionally vegetables) slow-cooked in sugar syrup until it softens completely and takes on a glossy, preserved texture — closer to a fruit preserve or candied fruit than a pickle. There's no oil, no vinegar, no chili masala. Sugar and slow cooking do all the work, which is why murabba tastes and feels completely different from achar even when it starts from the exact same fruit, as with our Mango Murabba versus Aam Ka Achar.",
@@ -117,10 +173,19 @@
       "category": "Pickle Storage",
       "excerpt": "A few simple habits make the difference between a jar that lasts months and one that spoils in weeks. Here's how to store achar and murabba properly.",
       "publishedDate": "2026-07-11",
-      "relatedProductSlugs": ["mix-achar", "green-chutney", "mango-murabba"],
+      "relatedProductSlugs": [
+        "mix-achar",
+        "green-chutney",
+        "mango-murabba"
+      ],
       "seoTitle": "How To Store Achar & Murabba Properly | ShikarpuriAchar.pk",
       "seoDescription": "Simple, practical storage tips for oil achar, vinegar achar, chutney and murabba — how to keep every jar fresh for as long as possible.",
-      "metaKeywords": ["how to store achar", "achar storage tips", "pickle storage pakistan", "اچار کیسے محفوظ رکھیں"],
+      "metaKeywords": [
+        "how to store achar",
+        "achar storage tips",
+        "pickle storage pakistan",
+        "اچار کیسے محفوظ رکھیں"
+      ],
       "body": [
         "Achar and murabba are traditionally preserved foods, built to last — but how you store the jar after it's opened still makes a real difference to how long it stays good.",
         "<strong>Oil-based achar.</strong> This is the easiest to store: no refrigeration needed. Keep the jar tightly closed in a cool, dry place away from direct sunlight, and — this is the part people skip — make sure the pieces stay submerged under the oil. Oil exposed to air does its preserving job; pieces poking above the oil line are the first thing to spoil. Always use a dry spoon; any moisture introduced into the jar shortens its life significantly.",
@@ -138,10 +203,19 @@
       "category": "Regional Foods",
       "excerpt": "Shikarpur's reputation for achar isn't a marketing invention — it's rooted in the city's history as a trading centre. Here's the background.",
       "publishedDate": "2026-07-11",
-      "relatedProductSlugs": ["aam-ka-achar", "lasooray-ka-achar", "chicken-achar"],
+      "relatedProductSlugs": [
+        "aam-ka-achar",
+        "lasooray-ka-achar",
+        "chicken-achar"
+      ],
       "seoTitle": "Shikarpur's Pickling Legacy | Original Shikarpuri Achar Since 1985",
       "seoDescription": "Why Shikarpur became known as Pakistan's achar capital — the city's trading history, regional ingredients and pickling traditions explained.",
-      "metaKeywords": ["shikarpur achar history", "shikarpuri achar", "original shikarpuri achar", "شکارپور اچار کی تاریخ"],
+      "metaKeywords": [
+        "shikarpur achar history",
+        "shikarpuri achar",
+        "original shikarpuri achar",
+        "شکارپور اچار کی تاریخ"
+      ],
       "body": [
         "Shikarpur, a city in upper Sindh, has a reputation for achar that extends well beyond its own borders — \"Shikarpuri achar\" is a recognised term across Pakistan, the way certain cities become associated with a specific food. That reputation didn't happen by accident.",
         "<strong>A historical trading centre.</strong> Shikarpur was, for centuries, an important trading hub connecting Sindh to Central Asia and beyond. Trading cities develop food cultures shaped by preservation — goods and people travelled long distances, and preserved food that could survive the journey and last through lean seasons became a practical necessity, not just a culinary preference. Achar-making grew out of that same practical logic.",
@@ -150,6 +224,2300 @@
         "<strong>Beyond fruit and vegetables.</strong> Shikarpur's achar tradition isn't limited to produce — meat-based achar like our Chicken Achar reflects the same preserving logic applied to protein, historically useful before refrigeration made fresh meat storage simple, and still valued today for its rich, ready-to-eat flavour.",
         "The short version: Shikarpur's status as Pakistan's achar capital is rooted in real history — a trading city's practical need to preserve food, combined with specific regional ingredients and generations of household knowledge. It's not just a label; it describes an actual, traceable food tradition.",
         "See our full range of <a href=\"/products.html\">traditional Shikarpuri achar, chutney and murabba</a>, or read more about <a href=\"/blog/what-makes-shikarpuri-achar-different.html\">what makes the Shikarpuri style distinct</a> from other regional pickles."
+      ]
+    },
+    {
+      "id": "B008",
+      "slug": "aam-ka-achar-recipe",
+      "title": "آم کا اچار بنانے کی آسان ترکیب (Aam Ka Achar Recipe)",
+      "category": "Recipes",
+      "excerpt": "Ghar par asal Shikarpuri andaz mein Aam Ka Achar banane ka mukammal, aasan tareeqa — sahi ajza se le kar maturing tak.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "aam-ka-achar",
+        "mix-achar",
+        "chilli-oil-achar"
+      ],
+      "seoTitle": "آم کا اچار بنانے کی آسان ترکیب | Aam Ka Achar Recipe | ShikarpuriAchar.pk",
+      "seoDescription": "Ghar par Shikarpuri andaz mein Aam Ka Achar banane ki step-by-step recipe — kachay aam, sarson ka tael aur asal masalon ke sath. Ajza, tareeqa aur zaroori tips.",
+      "metaKeywords": [
+        "aam ka achar recipe",
+        "aam ka achar banane ka tareeqa",
+        "mango pickle recipe pakistan",
+        "آم کا اچار",
+        "shikarpuri achar recipe"
+      ],
+      "body": [
+        "Shikarpur mein har ghar ka apna Aam Ka Achar recipe hota hai, lekin buniyaad hamesha wahi rehti hai — kacha, sakht aam, khaalis sarson ka tael, aur sabar se pakaya hua masala. Ye recipe wahi purana, aazmaya hua tareeqa hai jo naslon se chala aa raha hai. Ghar par bana kar aap iski taazgi aur asliyat khud mehsoos kar sakte hain.",
+        {
+          "h2": "Zaroori Ajza (Ingredients)"
+        },
+        {
+          "ul": [
+            "1 kg kacha aam (sakht, hara, bina daagh ke) — chotay tukron mein kata hua",
+            "250 ml sarson ka tael (mustard oil)",
+            "3 tbsp sendha namak ya sada namak",
+            "2 tbsp pisi laal mirch",
+            "1 tbsp haldi",
+            "2 tbsp saunf (fennel seeds), halka sa kuta hua",
+            "2 tbsp rai / sarson dana (mustard seeds)",
+            "1 tbsp methi dana (fenugreek seeds)",
+            "1 tsp kalonji (nigella seeds)"
+          ]
+        },
+        {
+          "h2": "Banane Ka Tareeqa (Method)"
+        },
+        {
+          "ol": [
+            "Aam ko dho kar mukammal khushk (dry) kar lein — pani ka ek qatra bhi achar ko kharab kar sakta hai. Phir chotay, barabar tukron mein kaat lein.",
+            "Kate huay aam par namak lagaen aur 4-5 ghante ya raat bhar dhak kar rakh dein — is se aam ka faaltu pani nikal jata hai.",
+            "Agle din nikla hua pani nitaar dein. Aam ko ek saaf, khushk cloth se halka sa poonch lein.",
+            "Sarson ke tael ko halki aanch par garam karein jab tak dhuwan na uthay, phir aanch band kar ke thanda hone dein — is se tael ka kaccha pan (raw smell) khatam ho jata hai.",
+            "Thanday tael mein saari khushk masala (mirch, haldi, saunf, rai, methi, kalonji) achi tarah mila lein.",
+            "Is masaledar tael ko aam ke tukron par dalen aur haathon se (ya chamach se) achi tarah mix karein taake har tukra tael aur masale mein lipat jaye.",
+            "Sab kuch ek saaf, khushk shishe ke martaban (glass jar) mein bhar dein. Upar se itna tael dalen ke aam poori tarah doob jayen — ye achar ko kharab hone se bachata hai."
+          ]
+        },
+        {
+          "h2": "Dhoop Aur Maturing"
+        },
+        "Martaban ka dhakkan halka sa dhak kar 5-7 din dhoop mein rakhein, roz ek baar saaf chamach se hilate rahein. Dhoop achar ko pakati hai aur masalon ka swaad tael mein poori tarah ghol deti hai. Jitna zyada achar pakega, utna hi behtar swaad aayega — asal Shikarpuri Aam Ka Achar aksar 2-3 hafte dhoop mein maturing ke baad apne asal rang aur taste par aata hai.",
+        {
+          "h2": "Zaroori Tips"
+        },
+        {
+          "ul": [
+            "Hamesha khushk, saaf chamach use karein — geela ya jhoota chamach achar ko fauran kharab kar sakta hai.",
+            "Agar tael kam lage to aur garam kiya hua sarson ka tael dal dein, aam hamesha doobe rehne chahiyen.",
+            "Behtareen swaad ke liye poora sakht, kacha aam chunein — pakka aam achar ke liye theek nahi."
+          ]
+        },
+        "Aam Ka Achar ka taste daal chawal, paratha aur biryani ke sath khaas taur par pasand kiya jata hai. Agar khud banane ka waqt na ho to <a href=\"/products/aam-ka-achar.html\">ShikarpuriAchar.pk ka asal Aam Ka Achar</a> seedha WhatsApp par order kar sakte hain — 1985 se wahi traditional recipe, ghar tak delivery ke sath. Achar ko sahi tareeqe se store karne ke liye hamara <a href=\"/blog/achar-store-karne-ka-tareeqa.html\">Achar Store Karne Ka Tareeqa</a> guide bhi zaroor dekhein."
+      ]
+    },
+    {
+      "id": "B009",
+      "slug": "mix-achar-recipe",
+      "title": "مکس اچار بنانے کی ترکیب (Mix Achar Recipe)",
+      "category": "Recipes",
+      "excerpt": "Aam, gajar, hari mirch aur lehsan ko mila kar asal Sindhi Mix Achar banane ka tareeqa — ghar par aasani se.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "mix-achar",
+        "gajar-ka-achar",
+        "lehsan-ka-achar"
+      ],
+      "seoTitle": "مکس اچار بنانے کی ترکیب | Mix Achar Recipe | ShikarpuriAchar.pk",
+      "seoDescription": "Sindhi andaz ka Mix Achar ghar par banayein — aam, gajar, lehsan aur hari mirch ke sath. Aasan ajza, mukammal tareeqa aur maturing tips.",
+      "metaKeywords": [
+        "mix achar recipe",
+        "mix achar banane ka tareeqa",
+        "sindhi mixed pickle recipe",
+        "مکس اچار",
+        "achar recipe pakistan"
+      ],
+      "body": [
+        "Mix Achar ka asal maza is baat mein hai ke ek hi martaban mein kai swaad ikattha mil jate hain — kachay aam ki khatas, gajar ki halki mithaas, lehsan ki tez khushboo aur hari mirch ka tikhapan. Ye Sindhi ghar ka sab se zyada pasandeeda achar hai kyunke ye har khaane ke sath jama deta hai.",
+        {
+          "h2": "Zaroori Ajza (Ingredients)"
+        },
+        {
+          "ul": [
+            "500 g kacha aam, kata hua",
+            "250 g gajar, lambi patti mein kati hui",
+            "150 g sabut lehsan ke joay (garlic cloves)",
+            "100 g hari mirch, sabut ya darmiyan se chiri hui",
+            "300 ml sarson ka tael",
+            "3 tbsp namak",
+            "2 tbsp pisi laal mirch",
+            "1 tbsp haldi",
+            "2 tbsp rai (mustard seeds)",
+            "1 tbsp methi dana",
+            "1 tbsp saunf"
+          ]
+        },
+        {
+          "h2": "Banane Ka Tareeqa (Method)"
+        },
+        {
+          "ol": [
+            "Aam, gajar, lehsan aur hari mirch ko dho kar mukammal khushk kar lein — geelaapan achar ki sab se badi dushman hai.",
+            "Sab sabziyon ko namak lagakar 5-6 ghante dhak kar rakh dein taake faaltu pani nikal jaye, phir pani nitaar dein.",
+            "Sarson ke tael ko garam kar ke thanda karein, phir usme rai, methi, saunf, haldi aur laal mirch mila lein.",
+            "Masaledar tael ko sabziyon ke sath achi tarah mix karein — har tukra achi tarah tael mein lipatna chahiye.",
+            "Saaf, khushk shishe ke martaban mein bhar kar upar se tael se doob dein.",
+            "5-7 din dhoop mein rakhein, roz khushk chamach se halka sa hilate rahein jab tak achar pak na jaye."
+          ]
+        },
+        {
+          "h2": "Behtareen Combination Kaise Banayein"
+        },
+        "Mix Achar ka raaz sahi tanasub (ratio) mein hai — agar lehsan zyada ho jaye to teekha zyada hoga, agar gajar zyada ho to halki mithaas ubhrega. Pehli baar banate waqt upar diya gaya ratio follow karein, phir agli baar apne ghar ke zaiqe ke mutabiq kami-beshi kar sakte hain.",
+        {
+          "h2": "Zaroori Tips"
+        },
+        {
+          "ul": [
+            "Lehsan ke joay chhotay rakhein taake wo jaldi aur barabar pak jayen.",
+            "Agar teekha kam pasand ho to hari mirch ki miqdar kam kar dein, baaki ajza wahi rakhein.",
+            "Martaban dhoop mein rakhते waqt dhakkan poori tarah band na karein — halki hawa lagne dein."
+          ]
+        },
+        "Agar ye poora process time-consuming lage to <a href=\"/products/mix-achar.html\">ShikarpuriAchar.pk ka Mix Achar</a> seedha order kar sakte hain — wahi asal Sindhi swaad, bina kisi mehnat ke. Order WhatsApp par karein aur Cash on Delivery ki sahoolat poore Pakistan mein hasil karein."
+      ]
+    },
+    {
+      "id": "B010",
+      "slug": "lehsan-ka-achar-recipe",
+      "title": "لہسن کا اچار بنانے کی ترکیب (Lehsan Ka Achar Recipe)",
+      "category": "Recipes",
+      "excerpt": "Tez khushboo aur gehra swaad rakhne wala Lehsan Ka Achar ghar par banane ka mukammal tareeqa.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "lehsan-ka-achar",
+        "garlic-vinegar-achar",
+        "mix-achar"
+      ],
+      "seoTitle": "لہسن کا اچار بنانے کی ترکیب | Lehsan Ka Achar Recipe | ShikarpuriAchar.pk",
+      "seoDescription": "Sabut lehsan ke joay se Lehsan Ka Achar ghar par banayein — asal Shikarpuri masala aur sarson ke tael ke sath. Aasan step-by-step tareeqa.",
+      "metaKeywords": [
+        "lehsan ka achar recipe",
+        "garlic pickle recipe pakistan",
+        "لہسن کا اچار",
+        "lehsan achar banane ka tareeqa"
+      ],
+      "body": [
+        "Lehsan Ka Achar un logon ke liye khaas hai jo tez, gehra aur thora sa teekha swaad pasand karte hain. Sabut lehsan ke joay dheere dheere pak kar naram ho jate hain aur unka tez zaiqa halka ho kar ek behtareen, savoury achar ban jata hai — biryani aur barbecue ke sath is ka jor koi nahi.",
+        {
+          "h2": "Zaroori Ajza (Ingredients)"
+        },
+        {
+          "ul": [
+            "500 g sabut lehsan ke joay, chilkay utaray huay",
+            "200 ml sarson ka tael",
+            "2 tbsp pisi laal mirch",
+            "1 tbsp haldi",
+            "1.5 tbsp rai (mustard seeds), pisi hui",
+            "2 tbsp namak",
+            "2-3 tbsp sirka (vinegar) — behtar maturing ke liye"
+          ]
+        },
+        {
+          "h2": "Banane Ka Tareeqa (Method)"
+        },
+        {
+          "ol": [
+            "Lehsan ke joay chhil kar khushk kapre se poonch lein — ek qatra pani bhi nahi rehna chahiye.",
+            "Sarson ke tael ko halki aanch par garam kar ke thanda karein.",
+            "Thanday tael mein namak, haldi, laal mirch aur pisi rai mila kar ek gaadha masala tayar karein.",
+            "Lehsan ke joay is masale mein daal kar achi tarah mix karein taake har joay par masala lag jaye.",
+            "Sirka mila dein — ye lehsan ko naram karne aur achar ko lambay arsay tak mehfooz rakhne mein madad karta hai.",
+            "Saaf shishe ke martaban mein bhar kar upar se tael se poori tarah doob dein.",
+            "10-15 din dhoop mein rakhein — lehsan ke joay dheere dheere naram hote hain, is liye is achar ko doosre acharon ke muqablay thora zyada waqt lagta hai."
+          ]
+        },
+        {
+          "h2": "Ye Achar Zyada Waqt Kyun Leta Hai"
+        },
+        "Sabut lehsan ka joay mota hota hai aur usme masala andar tak jaane mein waqt lagta hai. Jaldi khaane ki koshish na karein — jitna zyada ye achar maturing hoga, utna hi naram aur khushbudaar banega. Behtareen swaad tab aata hai jab achar kam az kam do hafte dhoop dekh chuka ho.",
+        {
+          "h2": "Zaroori Tips"
+        },
+        {
+          "ul": [
+            "Lehsan ke choton joay istemal karein — bade joay pakne mein zyada waqt lete hain.",
+            "Sirka zyada na dalen, warna achar ka mustard-oil wala asal swaad dab jayega.",
+            "Martaban ko roz halka sa hilana na bhoolein taake masala barabar lagta rahe."
+          ]
+        },
+        "Agar aap ye tez, savoury achar bina intezar ke enjoy karna chahte hain to <a href=\"/products/lehsan-ka-achar.html\">ShikarpuriAchar.pk ka Lehsan Ka Achar</a> abhi order karein — pehle se pakaya, taiyar aur asal Shikarpuri recipe ke mutabiq banaya hua."
+      ]
+    },
+    {
+      "id": "B011",
+      "slug": "lasooray-ka-achar-recipe",
+      "title": "لسوڑے کا اچار بنانے کی ترکیب (Lasooray Ka Achar Recipe)",
+      "category": "Recipes",
+      "excerpt": "Sindh ka khaas Lasoora (Gunda) achar ghar par banane ka tareeqa — naram, teekha aur asal dehaati swaad ke sath.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "lasooray-ka-achar",
+        "mix-achar",
+        "chilli-oil-achar"
+      ],
+      "seoTitle": "لسوڑے کا اچار بنانے کی ترکیب | Lasooray Ka Achar Recipe | ShikarpuriAchar.pk",
+      "seoDescription": "Lasoora (Gunda) achar ghar par banayein — Sindh ka traditional, naram aur teekha achar. Asal Shikarpuri tareeqa, ajza aur maturing tips.",
+      "metaKeywords": [
+        "lasooray ka achar recipe",
+        "lasoora achar",
+        "lasura pickle recipe",
+        "gunda achar",
+        "لسوڑا",
+        "لسوڑے کا اچار"
+      ],
+      "body": [
+        "Lasoora — jise Lasooray, Lasoora, ya Lasura bhi kaha jata hai — Sindh ke ilaqon mein khaas taur par pasand kiya jane wala phal hai jo achar ke liye istemal hota hai. Iska naram, thora chipchipa texture aur mitha-teekha swaad ise doosre acharon se alag banata hai. Ye ghar mein banana thora dhyan maangta hai, lekin natija bilkul lajawaab hota hai.",
+        {
+          "h2": "Zaroori Ajza (Ingredients)"
+        },
+        {
+          "ul": [
+            "500 g Lasoora (Gunda), dhoya aur khushk kiya hua",
+            "200 ml sarson ka tael",
+            "2 tbsp namak",
+            "1.5 tbsp pisi laal mirch",
+            "1 tsp haldi",
+            "1 tbsp saunf",
+            "1 tbsp rai (mustard seeds)"
+          ]
+        },
+        {
+          "h2": "Banane Ka Tareeqa (Method)"
+        },
+        {
+          "ol": [
+            "Lasoora ko achi tarah dho kar ek saaf cloth par phaila dein taake pani mukammal khushk ho jaye — is phal mein waise hi thora pani hota hai, is liye ye step bohat zaroori hai.",
+            "Namak lagakar 1 din dhoop mein rakh dein, is se andar ka faaltu pani nikal aata hai aur texture behtar hota hai.",
+            "Sarson ke tael ko garam kar ke thanda karein, phir usme haldi, laal mirch, saunf aur rai mila lein.",
+            "Lasoora ko is masaledar tael mein daal kar halke haathon se mix karein — zyada zor se hilane se ye tootre sakte hain.",
+            "Shishe ke saaf martaban mein bhar kar tael se doob dein.",
+            "7-10 din dhoop mein rakhein, roz halka sa hilate rahein."
+          ]
+        },
+        {
+          "h2": "Zaroori Tips"
+        },
+        {
+          "ul": [
+            "Lasoora chunte waqt wo dane chunein jo sakht ho aur daagh-dhabbe se paak ho.",
+            "Pehla din khaas taur par dhyan se namak lagayen — ye achar ke texture ko decide karta hai.",
+            "Halke haathon se mix karein taake phal ka shape kharab na ho."
+          ]
+        },
+        "Lasooray Ka Achar zyada tar daal chawal ya paratha ke sath khaya jata hai, aur ye Sindh ke bahar kam log jaante hain — isi liye jab log pehli baar chakhte hain to hairaan ho jate hain. Agar ghar par banane ka waqt na ho to <a href=\"/products/lasooray-ka-achar.html\">ShikarpuriAchar.pk se asal Lasooray Ka Achar</a> order karein, traditional Sindhi tareeqe se taiyar kiya hua."
+      ]
+    },
+    {
+      "id": "B012",
+      "slug": "pyaz-ka-achar-recipe",
+      "title": "پیاز کا اچار بنانے کی ترکیب (Pyaz Ka Achar Recipe)",
+      "category": "Recipes",
+      "excerpt": "Chotay pyaz ka mitha-teekha, karara achar ghar par banane ka aasan tareeqa.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "pyaz-ka-achar",
+        "onion-cut-achar",
+        "mix-vinegar-achar"
+      ],
+      "seoTitle": "پیاز کا اچار بنانے کی ترکیب | Pyaz Ka Achar Recipe | ShikarpuriAchar.pk",
+      "seoDescription": "Chotay pyaz se karara Pyaz Ka Achar banayein — aasan ajza aur mukammal tareeqa, ghar par asal Shikarpuri swaad ke sath.",
+      "metaKeywords": [
+        "pyaz ka achar recipe",
+        "onion pickle recipe pakistan",
+        "پیاز کا اچار",
+        "pyaz achar banane ka tareeqa"
+      ],
+      "body": [
+        "Pyaz Ka Achar apne karare texture aur mitha-teekha swaad ki wajah se har dastarkhwan par pasand kiya jata hai. Chotay, sabut pyaz istemal karna is achar ka raaz hai — ye tael aur masale ko andar tak jazb kar lete hain jabke bahar se karare rehte hain.",
+        {
+          "h2": "Zaroori Ajza (Ingredients)"
+        },
+        {
+          "ul": [
+            "500 g chotay pyaz (baby onions), chilkay utaray huay",
+            "200 ml sarson ka tael",
+            "2 tbsp namak",
+            "1.5 tbsp pisi laal mirch",
+            "1 tbsp rai (mustard seeds)",
+            "2-3 tbsp sirka (vinegar)"
+          ]
+        },
+        {
+          "h2": "Banane Ka Tareeqa (Method)"
+        },
+        {
+          "ol": [
+            "Pyaz ke chilkay utaar kar dho lein, phir mukammal khushk hone dein.",
+            "Namak lagakar 3-4 ghante dhak kar rakhein taake faaltu pani nikal jaye, phir pani nitaar dein.",
+            "Sarson ke tael ko garam kar ke thanda karein, phir usme laal mirch aur pisi rai mila lein.",
+            "Pyaz ko is masaledar tael mein daal kar achi tarah mix karein.",
+            "Sirka mila dein — is se pyaz ka karara pan barqarar rehta hai aur achar jaldi khaane ke qabil ho jata hai.",
+            "Shishe ke martaban mein bhar kar tael se doob dein, 4-5 din dhoop dikhayein."
+          ]
+        },
+        {
+          "h2": "Zaroori Tips"
+        },
+        {
+          "ul": [
+            "Bilkul chotay, barabar size ke pyaz chunein taake sab barabar pak jayen.",
+            "Zyada sirka na dalen — sirf itna ke pyaz ka karara pan bana rahe.",
+            "Ye achar doosre acharon ke muqablay jaldi taiyar ho jata hai, is liye is par nazar rakhein taake zyada khatta na ho jaye."
+          ]
+        },
+        "Pyaz Ka Achar biryani, pulao aur barbecue ke sath khaas taur par pasand kiya jata hai. Taiyar-shuda, asal swaad ke liye <a href=\"/products/pyaz-ka-achar.html\">ShikarpuriAchar.pk ka Pyaz Ka Achar</a> WhatsApp par order karein."
+      ]
+    },
+    {
+      "id": "B013",
+      "slug": "lemon-ka-achar-recipe",
+      "title": "لیموں کا اچار بنانے کی ترکیب (Lemon Ka Achar Recipe)",
+      "category": "Recipes",
+      "excerpt": "Sabut nimbu se gehra, khatta-teekha Lemon Ka Achar ghar par banane ka asal Shikarpuri tareeqa.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "lemon-ka-achar",
+        "lemon-vinegar-achar",
+        "lemon-water-achar"
+      ],
+      "seoTitle": "لیموں کا اچار بنانے کی ترکیب | Lemon Ka Achar Recipe | ShikarpuriAchar.pk",
+      "seoDescription": "Sabut nimbu se Lemon Ka Achar ghar par banayein — namak-cured, gehra aur khatta swaad. Mukammal ajza aur tareeqa is guide mein.",
+      "metaKeywords": [
+        "lemon ka achar recipe",
+        "nimbu ka achar recipe",
+        "lemon pickle recipe pakistan",
+        "لیموں کا اچار"
+      ],
+      "body": [
+        "Lemon Ka Achar doosre acharon se thora mukhtalif hai — is mein bunyadi tael ki jagah namak ka istemal ziyada hota hai, jo nimbu ko dheere dheere cure kar ke uska gehra, khaas swaad nikaal deta hai. Ye sabar ka kaam hai, lekin natija bilkul asal aur behtareen hota hai.",
+        {
+          "h2": "Zaroori Ajza (Ingredients)"
+        },
+        {
+          "ul": [
+            "10-12 sabut, taaza nimbu",
+            "4-5 tbsp sendha namak (rock salt)",
+            "1 tbsp pisi laal mirch",
+            "1 tbsp methi dana, halka bhuna aur pisa hua",
+            "2-3 tbsp sarson ka tael (finishing ke liye)"
+          ]
+        },
+        {
+          "h2": "Banane Ka Tareeqa (Method)"
+        },
+        {
+          "ol": [
+            "Nimbu ko achi tarah dho kar khushk kar lein, phir har nimbu ko 4 hisson mein kaat lein (lekin mukammal alag na karein, jaise phool ki shakal).",
+            "Har nimbu ke andar khoob sendha namak bhar dein.",
+            "Sab nimbu ko shishe ke saaf martaban mein bhar dein, upar se bacha hua namak bhi daal dein.",
+            "Martaban ko dhoop mein rakh dein aur roz halka sa hilate rahein — nimbu apna pani chorna shuru karenge.",
+            "10-15 din baad jab nimbu naram ho jayen aur unka rang gehra ho jaye, to unme pisi laal mirch aur methi mila dein.",
+            "Upar se thora sarson ka tael dal dein — ye achar ko lambay arsay tak mehfooz rakhta hai.",
+            "Aur 1 hafta dhoop dikha kar istemal shuru karein."
+          ]
+        },
+        {
+          "h2": "Sabar Kyun Zaroori Hai"
+        },
+        "Ye achar jitna zyada waqt legta hai, utna hi behtar banta hai. Shuru ke hafton mein nimbu sakht aur kacha lagega, lekin namak ke asar se wo dheere dheere gal kar naram ho jata hai aur uska khatta-teekha swaad poori tarah khul jata hai. Kam se kam 3 hafte ka waqt dein.",
+        {
+          "h2": "Zaroori Tips"
+        },
+        {
+          "ul": [
+            "Patle chilke wale, ras-daar nimbu behtareen result dete hain.",
+            "Namak kam na karein — ye is achar ka asal preservative hai.",
+            "Martaban roz dhoop mein rakhna na bhoolein, khaas taur par pehle 2 hafte."
+          ]
+        },
+        "Agar itna intezar mushkil lage to <a href=\"/products/lemon-ka-achar.html\">ShikarpuriAchar.pk ka Lemon Ka Achar</a> pehle se taiyar milta hai — wahi gehra, asal swaad, seedha WhatsApp order se ghar tak."
+      ]
+    },
+    {
+      "id": "B014",
+      "slug": "adrak-ka-achar-recipe",
+      "title": "ادرک کا اچار بنانے کی ترکیب (Adrak Ka Achar Recipe)",
+      "category": "Recipes",
+      "excerpt": "Taaza adrak se tez aur khushbudaar Adrak Ka Achar ghar par banane ka aasan tareeqa.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "adrak-ka-achar",
+        "lehsan-ka-achar",
+        "mix-achar"
+      ],
+      "seoTitle": "ادرک کا اچار بنانے کی ترکیب | Adrak Ka Achar Recipe | ShikarpuriAchar.pk",
+      "seoDescription": "Taaza adrak se Adrak Ka Achar ghar par banayein — asal Shikarpuri masala aur sarson ke tael ke sath. Aasan ajza aur mukammal tareeqa.",
+      "metaKeywords": [
+        "adrak ka achar recipe",
+        "ginger pickle recipe pakistan",
+        "ادرک کا اچار",
+        "adrak achar banane ka tareeqa"
+      ],
+      "body": [
+        "Adrak Ka Achar apni tez khushboo aur garam, teekhay swaad ki wajah se pasand kiya jata hai. Ye achar sirf khaane ka lutf hi nahi badhata balke bhari, tail-daar khaanon ke sath halka pan bhi laata hai. Taaza, rasay-daar adrak istemal karna is recipe ka sab se zaroori hissa hai.",
+        {
+          "h2": "Zaroori Ajza (Ingredients)"
+        },
+        {
+          "ul": [
+            "500 g taaza adrak, patli lambi katiyon mein kata hua",
+            "200 ml sarson ka tael",
+            "1.5 tbsp rai (mustard seeds), pisi hui",
+            "1.5 tbsp pisi laal mirch",
+            "1 tsp haldi",
+            "2 tbsp namak"
+          ]
+        },
+        {
+          "h2": "Banane Ka Tareeqa (Method)"
+        },
+        {
+          "ol": [
+            "Adrak ko chheel kar dho lein, phir patli patli katiyon ya barikiyon mein kaat lein.",
+            "Namak lagakar 3-4 ghante dhak kar rakhein, faaltu pani nitaar dein.",
+            "Sarson ke tael ko garam kar ke thanda karein, phir usme haldi, laal mirch aur pisi rai mila lein.",
+            "Adrak ko is masaledar tael mein daal kar achi tarah mix karein.",
+            "Shishe ke saaf martaban mein bhar kar tael se poori tarah doob dein.",
+            "5-7 din dhoop mein rakhein jab tak adrak naram na ho jaye aur masala achi tarah jazb na ho jaye."
+          ]
+        },
+        {
+          "h2": "Zaroori Tips"
+        },
+        {
+          "ul": [
+            "Adrak ki katiyan jitni patli hongi, achar utni jaldi taiyar hoga.",
+            "Purana, reshay-daar (fibrous) adrak istemal na karein — ye achar mein sakht reh jata hai.",
+            "Agar tez khushbo pasand ho to thora sa saunf bhi mila sakte hain."
+          ]
+        },
+        "Adrak Ka Achar chai ke sath bhi khaaya jata hai aur khaanay ke sath bhi — iski versatility hi ise khaas banati hai. Taiyar-shuda, asal swaad ke liye <a href=\"/products/adrak-ka-achar.html\">ShikarpuriAchar.pk ka Adrak Ka Achar</a> order karein."
+      ]
+    },
+    {
+      "id": "B015",
+      "slug": "gajar-ka-achar-recipe",
+      "title": "گاجر کا اچار بنانے کی ترکیب (Gajar Ka Achar Recipe)",
+      "category": "Recipes",
+      "excerpt": "Karara aur teekha Gajar Ka Achar ghar par banane ka aasan, jaldi taiyar hone wala tareeqa.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "gajar-ka-achar",
+        "carrot-vinegar-achar",
+        "mix-achar"
+      ],
+      "seoTitle": "گاجر کا اچار بنانے کی ترکیب | Gajar Ka Achar Recipe | ShikarpuriAchar.pk",
+      "seoDescription": "Karara Gajar Ka Achar ghar par banayein — aasan ajza, jaldi taiyar hone wala tareeqa, asal Shikarpuri masale ke sath.",
+      "metaKeywords": [
+        "gajar ka achar recipe",
+        "carrot pickle recipe pakistan",
+        "گاجر کا اچار",
+        "gajar achar banane ka tareeqa"
+      ],
+      "body": [
+        "Gajar Ka Achar un acharon mein se hai jo sab se jaldi taiyar ho jate hain aur roz-mara khaane mein rang aur karara pan dono add karte hain. Ye bachon aur baron dono ko pasand aata hai kyunke iska swaad zyada tez nahi, balke mutadil aur mazedaar hota hai.",
+        {
+          "h2": "Zaroori Ajza (Ingredients)"
+        },
+        {
+          "ul": [
+            "500 g taaza gajar, lambi patti mein kati hui",
+            "200 ml sarson ka tael",
+            "1.5 tbsp rai (mustard seeds)",
+            "1 tbsp pisi laal mirch",
+            "1 tsp haldi",
+            "2 tbsp namak"
+          ]
+        },
+        {
+          "h2": "Banane Ka Tareeqa (Method)"
+        },
+        {
+          "ol": [
+            "Gajar ko dho kar chheel lein, phir lambi, barabar patti mein kaat lein.",
+            "Namak lagakar 2-3 ghante dhak kar rakhein, phir faaltu pani nitaar dein.",
+            "Sarson ke tael ko garam kar ke thanda karein, phir haldi, laal mirch aur rai mila lein.",
+            "Gajar ko masaledar tael mein daal kar achi tarah mix karein.",
+            "Shishe ke martaban mein bhar kar tael se doob dein.",
+            "3-4 din dhoop mein rakhein — ye achar doosre acharon ke muqablay jaldi taiyar ho jata hai."
+          ]
+        },
+        {
+          "h2": "Zaroori Tips"
+        },
+        {
+          "ul": [
+            "Gajar ka karara pan barqarar rakhne ke liye zyada dair dhoop mein na rakhein.",
+            "Chotay, taaza gajar behtareen swaad dete hain.",
+            "Agar meetha halka sa swaad pasand ho to thori si cheeni bhi mila sakte hain."
+          ]
+        },
+        "Gajar Ka Achar sardiyon mein khaas taur par mashhoor hota hai jab taaza gajar bazaar mein aasani se milte hain. Taiyar-shuda version ke liye <a href=\"/products/gajar-ka-achar.html\">ShikarpuriAchar.pk ka Gajar Ka Achar</a> abhi order karein."
+      ]
+    },
+    {
+      "id": "B016",
+      "slug": "hari-chutney-recipe",
+      "title": "ہری چٹنی بنانے کی ترکیب (Hari Chutney Recipe)",
+      "category": "Recipes",
+      "excerpt": "Taaza hari mirch aur dhaniya se teekhi Hari Chutney ghar par banane ka aasan tareeqa.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "green-chutney",
+        "chilli-oil-achar",
+        "mix-achar"
+      ],
+      "seoTitle": "ہری چٹنی بنانے کی ترکیب | Hari Chutney Recipe | ShikarpuriAchar.pk",
+      "seoDescription": "Hari Chutney ghar par banayein — dhaniya, hari mirch aur lehsan se, asal Sindhi andaz mein. Aasan tareeqa aur zaroori tips.",
+      "metaKeywords": [
+        "hari chutney recipe",
+        "green chutney recipe pakistan",
+        "ہری چٹنی",
+        "dhaniya chutney recipe"
+      ],
+      "body": [
+        "Hari Chutney kisi bhi khaane ko taaza aur tez bana deti hai — chahe barbecue ho, snacks hon, ya roz ka saada khaana. Ye chutney doosre acharon ki tarah dhoop mein nahi rakhi jati, balke fauran taiyar ho kar khai jati hai, is liye ye jaldi taiyar hone wali sab se aasan recipe hai.",
+        {
+          "h2": "Zaroori Ajza (Ingredients)"
+        },
+        {
+          "ul": [
+            "1 gucha taaza dhaniya (coriander), dhoya hua",
+            "8-10 hari mirch (zaiqe ke mutabiq kam-zyada)",
+            "4-5 lehsan ke joay",
+            "1 nimbu ka ras",
+            "1 tsp namak",
+            "2-3 tbsp sirka (vinegar) — behtar maturing ke liye"
+          ]
+        },
+        {
+          "h2": "Banane Ka Tareeqa (Method)"
+        },
+        {
+          "ol": [
+            "Dhaniya ke motay dandal alag kar dein, patte dho kar khushk kar lein.",
+            "Dhaniya, hari mirch aur lehsan ko grinder mein daal kar barik pees lein.",
+            "Nimbu ka ras, namak aur sirka mila kar achi tarah mix karein.",
+            "Agar chutney zyada gaadi lage to thora sa pani ya sirka mila sakte hain.",
+            "Saaf shishe ke martaban mein bhar kar fridge mein rakhein."
+          ]
+        },
+        {
+          "h2": "Zaroori Tips"
+        },
+        {
+          "ul": [
+            "Taaza dhaniya aur hari mirch se hi behtareen rang aur swaad milta hai.",
+            "Sirka is chutney ko kuch hafte tak fridge mein mehfooz rakhne mein madad karta hai.",
+            "Agar tez teekha pasand ho to hari mirch ke beej bhi shamil rakhein."
+          ]
+        },
+        "Hari Chutney parathay, samosay, aur biryani — har jagah fit ho jati hai. Taiyar-shuda, hamesha ek jaisi taaza chutney ke liye <a href=\"/products/green-chutney.html\">ShikarpuriAchar.pk ki Hari Chutney</a> order karein."
+      ]
+    },
+    {
+      "id": "B017",
+      "slug": "imli-chutney-recipe",
+      "title": "املی چٹنی بنانے کی ترکیب (Imli Chutney Recipe)",
+      "category": "Recipes",
+      "excerpt": "Khatti-mithi Imli Chutney ghar par banane ka asal tareeqa — samosay aur chaat ke liye behtareen.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "imli-chutney",
+        "green-chutney",
+        "dates-chutney"
+      ],
+      "seoTitle": "املی چٹنی بنانے کی ترکیب | Imli Chutney Recipe | ShikarpuriAchar.pk",
+      "seoDescription": "Khatti-mithi Imli Chutney ghar par banayein — samosay, chaat aur pakoron ke liye behtareen. Aasan ajza aur mukammal tareeqa.",
+      "metaKeywords": [
+        "imli chutney recipe",
+        "tamarind chutney recipe pakistan",
+        "املی چٹنی",
+        "khatti meethi chutney"
+      ],
+      "body": [
+        "Imli Chutney Pakistan ke har ghar mein chaat, samosay aur pakoron ke sath zaroori samjhi jati hai. Iska khatta-mitha swaad kisi bhi tale huay ya bhari khaane ko halka aur mazedaar bana deta hai.",
+        {
+          "h2": "Zaroori Ajza (Ingredients)"
+        },
+        {
+          "ul": [
+            "200 g imli, pani mein bhigoi hui",
+            "150 g gur ya cheeni (zaiqe ke mutabiq)",
+            "1 tsp bhuna zeera, pisa hua",
+            "1/2 tsp laal mirch",
+            "Namak zaiqe ke mutabiq",
+            "2 cup pani"
+          ]
+        },
+        {
+          "h2": "Banane Ka Tareeqa (Method)"
+        },
+        {
+          "ol": [
+            "Imli ko garam pani mein 30 minute bhigo dein, phir haathon se mal kar gooda (pulp) nikal lein aur beej-chilka alag kar dein.",
+            "Imli ke ras ko degchi mein dal kar gur ya cheeni shamil karein, halki aanch par pakayen.",
+            "Jab chutney thori gaadi hone lage to zeera, laal mirch aur namak mila dein.",
+            "5-7 minute aur pakayen jab tak chutney chamach ke peechay chipakne wali consistency par na aa jaye.",
+            "Thanda kar ke shishe ki bottle mein bhar lein."
+          ]
+        },
+        {
+          "h2": "Zaroori Tips"
+        },
+        {
+          "ul": [
+            "Consistency thori patli rakhein, thandi ho kar ye khud gaadi ho jati hai.",
+            "Behtareen swaad ke liye purani, gehri imli istemal karein.",
+            "Ye chutney fridge mein kai hafte tak mehfooz rehti hai."
+          ]
+        },
+        "Agar taiyar-shuda, hamesha ek jaisa consistent swaad chahiye to <a href=\"/products/imli-chutney.html\">ShikarpuriAchar.pk ki Imli Chutney</a> order karein — asal recipe, koi shortcut nahi."
+      ]
+    },
+    {
+      "id": "B018",
+      "slug": "mix-vegetable-achar-recipe",
+      "title": "مکس سبزی اچار بنانے کی ترکیب (Mix Vegetable Achar Recipe)",
+      "category": "Recipes",
+      "excerpt": "Halka, paani wala Mix Vegetable Achar ghar par banane ka asal Sindhi tareeqa.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "mix-vegetable-achar",
+        "salad-vinegar-achar",
+        "mix-achar"
+      ],
+      "seoTitle": "مکس سبزی اچار بنانے کی ترکیب | Mix Vegetable Achar Recipe | ShikarpuriAchar.pk",
+      "seoDescription": "Halka, paani wala Mix Vegetable Achar ghar par banayein — traditional Sindhi tareeqa, thora tael, zyada taazgi.",
+      "metaKeywords": [
+        "mix vegetable achar recipe",
+        "sabzi achar recipe pakistan",
+        "مکس سبزی اچار",
+        "water pickle recipe"
+      ],
+      "body": [
+        "Har achar tael mein doobi hui nahi hoti — Mix Vegetable Achar (water achar) unke liye behtareen hai jo halka, kam tael wala achar pasand karte hain. Ye paani-namak ke brine mein banta hai, is liye taste bhi thora mukhtalif aur taaza hota hai.",
+        {
+          "h2": "Zaroori Ajza (Ingredients)"
+        },
+        {
+          "ul": [
+            "300 g gobhi (cauliflower), chotay tukron mein",
+            "200 g gajar, patti mein kati hui",
+            "150 g shalgham (turnip), kata hua",
+            "4-5 hari mirch, sabut",
+            "4 cup pani",
+            "3 tbsp namak",
+            "1 tbsp rai (mustard seeds), pisi hui",
+            "1 tbsp pisi laal mirch"
+          ]
+        },
+        {
+          "h2": "Banane Ka Tareeqa (Method)"
+        },
+        {
+          "ol": [
+            "Sab sabziyon ko dho kar khushk kar lein.",
+            "Pani ko ubaal kar usme namak ghol dein, phir mukammal thanda hone dein — ye brine hai.",
+            "Sabziyon ko rai aur laal mirch ke sath halka sa mix karein.",
+            "Sabziyon ko shishe ke bade martaban mein daal kar thanda namak wala pani (brine) dal dein — sabziyan poori tarah doobi honi chahiyen.",
+            "Martaban ko dhak kar 4-5 din dhoop mein rakhein, roz hilate rahein."
+          ]
+        },
+        {
+          "h2": "Zaroori Tips"
+        },
+        {
+          "ul": [
+            "Sabziyon ko bara zyada kaat kar na rakhein taake brine andar tak pahunche.",
+            "Ye achar tael wale acharon ke muqablay kam waqt tak mehfooz rehta hai, is liye fridge mein rakhein taiyar hone ke baad.",
+            "Zaiqa mutadil rakhne ke liye hari mirch ki miqdar kam-zyada kar sakte hain."
+          ]
+        },
+        "Mix Vegetable Achar un logon ke liye behtareen hai jo halka, kam-oily khaana pasand karte hain. Taiyar version <a href=\"/products/mix-vegetable-achar.html\">ShikarpuriAchar.pk se yahan order karein</a>."
+      ]
+    },
+    {
+      "id": "B019",
+      "slug": "chicken-achar-recipe",
+      "title": "چکن اچار بنانے کی ترکیب (Chicken Achar Recipe)",
+      "category": "Recipes",
+      "excerpt": "Ghar par asal Sindhi andaz mein Chicken Achar banane ka mukammal tareeqa.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "chicken-achar",
+        "lehsan-ka-achar",
+        "chilli-oil-achar"
+      ],
+      "seoTitle": "چکن اچار بنانے کی ترکیب | Chicken Achar Recipe | ShikarpuriAchar.pk",
+      "seoDescription": "Chicken Achar ghar par banayein — asal Shikarpuri masala aur sarson ke tael mein pakaya hua. Mukammal step-by-step tareeqa.",
+      "metaKeywords": [
+        "chicken achar recipe",
+        "chicken pickle recipe pakistan",
+        "چکن اچار",
+        "murghi achar banane ka tareeqa"
+      ],
+      "body": [
+        "Chicken Achar un doston mein alag khaas maqam rakhta hai jo tez, masaledaar khaana pasand karte hain. Doosre acharon ke bar-aks ye kaccha nahi rehta — chicken ko pehle pakaya jata hai, phir masalon aur tael mein maturing ke liye rakha jata hai.",
+        {
+          "h2": "Zaroori Ajza (Ingredients)"
+        },
+        {
+          "ul": [
+            "1 kg boneless chicken, chotay tukron mein",
+            "300 ml sarson ka tael",
+            "8-10 lehsan ke joay, kutay huay",
+            "2 inch adrak, kutta hua",
+            "2 tbsp pisi laal mirch",
+            "1 tbsp haldi",
+            "2 tbsp rai (mustard seeds), pisi hui",
+            "1 tbsp sirka (vinegar)",
+            "Namak zaiqe ke mutabiq"
+          ]
+        },
+        {
+          "h2": "Banane Ka Tareeqa (Method)"
+        },
+        {
+          "ol": [
+            "Chicken ko namak aur haldi lagakar 30 minute marinate karein.",
+            "Sarson ke tael ko garam karein, usme adrak-lehsan daal kar halka sa bhoonein.",
+            "Chicken shamil karein aur tez aanch par bhoonein jab tak pani khushk na ho jaye aur chicken pak na jaye.",
+            "Laal mirch, pisi rai aur namak mila kar 5-7 minute aur pakayen.",
+            "Aanch se utaar kar sirka mila dein, mukammal thanda hone dein.",
+            "Shishe ke saaf martaban mein bhar kar upar se tael se doob dein — chicken poori tarah tael mein doobi honi chahiye taake ye mehfooz rahe.",
+            "Fridge mein rakhein aur 2-3 din baad istemal shuru karein."
+          ]
+        },
+        {
+          "h2": "Zaroori Tips"
+        },
+        {
+          "ul": [
+            "Chicken Achar ko hamesha fridge mein hi store karein — ye doosre acharon ki tarah kamre ke temperature par mehfooz nahi rehta.",
+            "Chicken poori tarah pak jani chahiye, adhoora pakaya hua gosht achar mein kharab ho sakta hai.",
+            "Tael ki miqdar poori rakhein taake chicken hawa ke saath na aaye."
+          ]
+        },
+        "Chicken Achar ka swaad bilkul mukhtalif tajurba deta hai — masaledar, tez aur bharpoor. Taiyar version ke liye <a href=\"/products/chicken-achar.html\">ShikarpuriAchar.pk ka Chicken Achar</a> order karein."
+      ]
+    },
+    {
+      "id": "B020",
+      "slug": "amla-murabba-benefits",
+      "title": "آملہ مربہ کھانے کے فوائد (Amla Murabba Benefits)",
+      "category": "Murabba Benefits",
+      "excerpt": "Amla Murabba ka roayti istemal, zaiqa aur iski ghizai khasosiyat — asal Sindhi tareeqe se banaya hua.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "amla-murabba",
+        "gulqand",
+        "ashrafi-murabba"
+      ],
+      "seoTitle": "آملہ مربہ کھانے کے فوائد | Amla Murabba Benefits | ShikarpuriAchar.pk",
+      "seoDescription": "Amla Murabba ka roayti istemal aur ghizai khususiyat jaanein — Vitamin C se bharpoor amla, cheeni ke shiray mein pakaya hua asal Sindhi murabba.",
+      "metaKeywords": [
+        "amla murabba benefits",
+        "amla murabba ke fayde",
+        "gooseberry murabba",
+        "مربہ آملہ",
+        "amla murabba pakistan"
+      ],
+      "body": [
+        "Amla (Indian gooseberry) barson se Baras-ke-upmahad aur Sindh ke ilaqon mein murabbe ki shakal mein khaaya jata hai. Iska teekha-khatta zaiqa cheeni ke shiray mein pak kar ek khoobsurat, mulayam mithai ban jata hai jo dastarkhwan par khaas jagah rakhti hai.",
+        {
+          "h2": "Roayti Istemal"
+        },
+        "Purani generation mein Amla Murabba ko roz subah ek ya do tukron ki shakal mein khaane ka rivaaj tha — is se din ki shuruaat taazgi ke sath hoti thi. Ye rivaaj aaj bhi kai gharon mein zinda hai, khaas taur par sardiyon mein jab amla taaza milta hai.",
+        {
+          "h2": "Zaiqa Aur Ghizai Khususiyat"
+        },
+        "Amla apne aap mein Vitamin C ka ek qudrati zariya samjha jata hai, jo isay ek mashhoor phal banata hai. Murabbe ki shakal mein iska teekha pan cheeni ke shiray se mutwazin ho jata hai, aur ek khaas, thora tuxture wala mithas rehta hai jo doosri mithaiyon se mukhtalif hai.",
+        {
+          "h2": "Ghar Mein Kaise Shamil Karein"
+        },
+        {
+          "ul": [
+            "Naashte ke sath ek-do tukray, chai ya paratha ke sath",
+            "Khaane ke baad halki mithaas ke taur par",
+            "Mehmano ke saamne roayti mithai ke tor par pesh karein"
+          ]
+        },
+        "Amla Murabba ke fayde sirf zaiqe tak mehdood nahi — ye ek asal, purani Sindhi roayat ka hissa hai jo har naslon se chalta aa raha hai. Taaza aur asal <a href=\"/products/amla-murabba.html\">ShikarpuriAchar.pk ka Amla Murabba</a> abhi order karein, traditional recipe ke mutabiq banaya hua."
+      ]
+    },
+    {
+      "id": "B021",
+      "slug": "bans-ka-murabba-benefits",
+      "title": "بنس کا مربہ کھانے کے فوائد (Bans Ka Murabba Benefits)",
+      "category": "Murabba Benefits",
+      "excerpt": "Bans (Bamboo) Murabba ek nayaab, kam-mashhoor lekin behtareen roayti mithai hai — iska zaiqa aur istemal jaanein.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "bamboo-murabba",
+        "amla-murabba",
+        "gulqand"
+      ],
+      "seoTitle": "بنس کا مربہ کھانے کے فوائد | Bans Ka Murabba Benefits | Bamboo Murabba | ShikarpuriAchar.pk",
+      "seoDescription": "Bans Ka Murabba (Bamboo Murabba) ka roayti istemal aur khususiyat jaanein — Sindh ka ek nadir, khaas murabba jo har jagah nahi milta.",
+      "metaKeywords": [
+        "bans ka murabba",
+        "bamboo murabba benefits",
+        "بنس کا مربہ",
+        "baans murabba pakistan",
+        "rare murabba"
+      ],
+      "body": [
+        "Bans Ka Murabba (Bamboo Murabba) un murabbon mein se hai jo aam bazaar mein aasani se nahi milte. Bamboo ke naram tukron ko cheeni ke shiray mein pakaya jata hai, aur natija ek aisa murabba hota hai jo apne taste aur texture mein doosre murabbon se bilkul mukhtalif hai.",
+        {
+          "h2": "Ye Murabba Itna Khaas Kyun Hai"
+        },
+        "Bamboo shoot ko murabba banane ke liye taiyar karna aasan kaam nahi — is mein waqt aur mehnat dono lagti hai. Yehi wajah hai ke Bans Ka Murabba zyada mashhoor nahi hai, lekin jo log ise chakhte hain wo iski nayaab pehchaan bhool nahi paate.",
+        {
+          "h2": "Zaiqa Aur Texture"
+        },
+        "Iska texture doosre murabbon se zyada firm hota hai, aur zaiqa halka meetha, thora earthy — jo isay khaas banata hai. Shikarpur ke purane gharon mein ye murabba khaas mauqon par mehmano ke liye taiyar kiya jata tha.",
+        {
+          "h2": "Ghar Mein Kaise Shamil Karein"
+        },
+        {
+          "ul": [
+            "Khaas mauqon par mehmano ke liye pesh karein — ye ek nayaab tohfa bhi ban sakta hai",
+            "Chai ke sath ek roayti, kam-mashhoor mithai ke tor par"
+          ]
+        },
+        "Agar aap kuch mukhtalif aur asal Sindhi khoj rahe hain, to <a href=\"/products/bamboo-murabba.html\">ShikarpuriAchar.pk ka Bans Ka Murabba</a> zaroor try karein — ye har jagah nahi milta."
+      ]
+    },
+    {
+      "id": "B022",
+      "slug": "harar-murabba-benefits",
+      "title": "ہرڑ مربہ کھانے کے فوائد (Harar Murabba Benefits)",
+      "category": "Murabba Benefits",
+      "excerpt": "Harar Murabba ka roayti maqam aur zaiqa — Sindh ke purane dastarkhwan ka hissa.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "harar-murabba",
+        "amla-murabba",
+        "quince-murabba"
+      ],
+      "seoTitle": "ہرڑ مربہ کھانے کے فوائد | Harar Murabba Benefits | ShikarpuriAchar.pk",
+      "seoDescription": "Harar Murabba ka roayti istemal aur zaiqa jaanein — ek purana, kam-mashhoor lekin khaas Sindhi murabba.",
+      "metaKeywords": [
+        "harar murabba benefits",
+        "harar murabba ke fayde",
+        "مربہ ہرڑ",
+        "harar murabba pakistan"
+      ],
+      "body": [
+        "Harar ek aisa phal hai jo purani hakeemi aur ghareloo roayaat mein aksar zikar hota hai, lekin aaj kal iska istemal kam ho gaya hai. Murabba ki shakal mein Harar ka teekha pan cheeni ke shiray se mutwazin ho jata hai, aur ek aisa zaiqa banta hai jo purani nasal ke logon ko fauran yaad dila deta hai.",
+        {
+          "h2": "Roayti Istemal"
+        },
+        "Purane gharon mein Harar Murabba khaas mauqon aur mausamon mein banaya jata tha. Ye aaj bhi kai Sindhi gharon mein roayat ke tor par zinda hai, khaas taur par bado ke bataye huay tareeqon se.",
+        {
+          "h2": "Zaiqa"
+        },
+        "Harar Murabba ka zaiqa thora teekha aur khaas hota hai — ye har kisi ke liye nahi, lekin jo log ise pasand karte hain wo isay doosre murabbon par tarjeeh dete hain.",
+        {
+          "h2": "Ghar Mein Kaise Shamil Karein"
+        },
+        {
+          "ul": [
+            "Khaane ke baad ek chota tukra, roayti tareeqe se",
+            "Bado ke tajurbe se seekh kar naye tareeqon mein bhi shamil kar sakte hain"
+          ]
+        },
+        "Purani roayat ka ye zaiqa <a href=\"/products/harar-murabba.html\">ShikarpuriAchar.pk ke Harar Murabba</a> mein zinda hai — asal recipe, jaisa pehle banaya jata tha."
+      ]
+    },
+    {
+      "id": "B023",
+      "slug": "ashrafi-murabba-benefits",
+      "title": "اشرفی مربہ کھانے کے فوائد (Ashrafi Murabba Benefits)",
+      "category": "Murabba Benefits",
+      "excerpt": "Ashrafi Murabba ka khaas swaad aur iska Sindhi dastarkhwan mein maqam.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "ashrafi-murabba",
+        "gulqand",
+        "amla-murabba"
+      ],
+      "seoTitle": "اشرفی مربہ کھانے کے فوائد | Ashrafi Murabba Benefits | ShikarpuriAchar.pk",
+      "seoDescription": "Ashrafi Murabba ka roayti swaad aur istemal jaanein — Sindh ka ek khaas, meetha murabba.",
+      "metaKeywords": [
+        "ashrafi murabba benefits",
+        "ashrafi murabba ke fayde",
+        "مربہ اشرفی",
+        "ashrafi murabba pakistan"
+      ],
+      "body": [
+        "Ashrafi Murabba apne naam ki tarah hi khaas aur qeemti samjha jata hai. Iska zaiqa halka meetha aur khushbudaar hota hai, jo isay har umar ke logon ke liye pasandeeda banata hai.",
+        {
+          "h2": "Roayti Maqam"
+        },
+        "Sindh ke purane dastarkhwanon par Ashrafi Murabba ko khaas mauqon par shamil kiya jata tha — shaadi-biyah, Eid aur mehmano ki dawat mein. Aaj bhi ye roayat kai gharon mein qaim hai.",
+        {
+          "h2": "Zaiqa Aur Texture"
+        },
+        "Iska texture naram aur shiray mein achi tarah bhiga hua hota hai, jo ise chamach se khane mein bhi aasan banata hai — bachon aur bado dono ke liye.",
+        {
+          "h2": "Ghar Mein Kaise Shamil Karein"
+        },
+        {
+          "ul": [
+            "Khaane ke baad mithai ke tor par",
+            "Mehmano ke liye khaas pesh karein",
+            "Chai ke sath halke naashte mein"
+          ]
+        },
+        "Asal, roayti zaiqa chakhne ke liye <a href=\"/products/ashrafi-murabba.html\">ShikarpuriAchar.pk ka Ashrafi Murabba</a> order karein."
+      ]
+    },
+    {
+      "id": "B024",
+      "slug": "apple-murabba-benefits",
+      "title": "سیب مربہ کھانے کے فوائد (Apple Murabba Benefits)",
+      "category": "Murabba Benefits",
+      "excerpt": "Apple Murabba ka zaiqa aur ghar mein istemal ke aasan tareeqe.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "apple-murabba",
+        "carrot-murabba",
+        "gulqand"
+      ],
+      "seoTitle": "سیب مربہ کھانے کے فوائد | Apple Murabba Benefits | ShikarpuriAchar.pk",
+      "seoDescription": "Apple Murabba ka roayti zaiqa aur istemal jaanein — taaza seb, cheeni ke shiray mein pakaya hua, asal Sindhi tareeqe se.",
+      "metaKeywords": [
+        "apple murabba benefits",
+        "seb murabba ke fayde",
+        "مربہ سیب",
+        "apple murabba pakistan"
+      ],
+      "body": [
+        "Apple Murabba doosre murabbon ke muqablay halka aur sabke liye pasandeeda hota hai. Seb ki qudrati mithaas cheeni ke shiray ke sath mil kar ek nafees zaiqa banati hai jo bachon ko bhi khaas pasand aata hai.",
+        {
+          "h2": "Roayti Istemal"
+        },
+        "Sardiyon mein jab seb sasta aur taaza milta hai, tab kai Sindhi ghar Apple Murabba ghar par banate hain aur poore saal ke liye rakh lete hain.",
+        {
+          "h2": "Zaiqa Aur Ghizai Khususiyat"
+        },
+        "Seb apne aap mein ek mash-hoor phal hai jo apni qudrati mithaas ke liye jaana jata hai. Murabbe ki shakal mein iska naram texture aur halka zaiqa isay roz ka hissa banana aasan bana deta hai.",
+        {
+          "h2": "Ghar Mein Kaise Shamil Karein"
+        },
+        {
+          "ul": [
+            "Naashte ke sath, paratha ya chai ke sath",
+            "Bachon ke liye ek healthy, meethi option ke tor par",
+            "Khaane ke baad halki mithaas"
+          ]
+        },
+        "Ghar jaisa, asal zaiqa chahiye to <a href=\"/products/apple-murabba.html\">ShikarpuriAchar.pk ka Apple Murabba</a> abhi order karein."
+      ]
+    },
+    {
+      "id": "B025",
+      "slug": "bael-giri-murabba-benefits",
+      "title": "بیل گری مربہ کھانے کے فوائد (Bael Giri Murabba Benefits)",
+      "category": "Murabba Benefits",
+      "excerpt": "Bael Giri Murabba ka khaas zaiqa aur roayti istemal — Sindh ka ek mukhtalif murabba.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "bael-giri-murabba",
+        "harar-murabba",
+        "amla-murabba"
+      ],
+      "seoTitle": "بیل گری مربہ کھانے کے فوائد | Bael Giri Murabba Benefits | ShikarpuriAchar.pk",
+      "seoDescription": "Bael Giri Murabba ka roayti zaiqa aur istemal jaanein — Sindh ka ek khaas, kam-mashhoor murabba.",
+      "metaKeywords": [
+        "bael giri murabba benefits",
+        "bael giri murabba ke fayde",
+        "مربہ بیل گری",
+        "bael giri pakistan"
+      ],
+      "body": [
+        "Bael Giri Murabba un murabbon mein se hai jo aaj kal bahot kam gharon mein banaya jata hai, lekin jinhe iska zaiqa yaad hai wo ise dhundte zaroor hain. Iska maza thora khaas aur mukhtalif hai — na bilkul meetha, na bilkul teekha, balke darmiyan mein ek khoobsurat balance.",
+        {
+          "h2": "Roayti Istemal"
+        },
+        "Purani generation Bael Giri ko murabba ki shakal mein khaas mausam mein taiyar karti thi. Ye roayat ab kam hoti ja rahi hai, lekin kuch gharon mein aaj bhi zinda hai.",
+        {
+          "h2": "Zaiqa Aur Khususiyat"
+        },
+        "Iska texture aur zaiqa doosre aam murabbon se kaafi mukhtalif hai, is liye jo log naye zaiqe azmana chahte hain unke liye ye ek behtareen intekhaab hai.",
+        {
+          "h2": "Ghar Mein Kaise Shamil Karein"
+        },
+        {
+          "ul": [
+            "Khaas mauqon par mehmano ko pesh karein",
+            "Purani roayaat ko zinda rakhne ke liye ghar mein shamil karein"
+          ]
+        },
+        "Nayaab, kam-mashhoor zaiqa chakhne ke liye <a href=\"/products/bael-giri-murabba.html\">ShikarpuriAchar.pk ka Bael Giri Murabba</a> order karein."
+      ]
+    },
+    {
+      "id": "B026",
+      "slug": "ginger-murabba-benefits",
+      "title": "ادرک مربہ کھانے کے فوائد (Ginger Murabba Benefits)",
+      "category": "Murabba Benefits",
+      "excerpt": "Ginger Murabba ka garam, khaas zaiqa aur iska roayti istemal.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "ginger-murabba",
+        "amla-murabba",
+        "gulqand"
+      ],
+      "seoTitle": "ادرک مربہ کھانے کے فوائد | Ginger Murabba Benefits | ShikarpuriAchar.pk",
+      "seoDescription": "Ginger Murabba ka roayti zaiqa aur istemal jaanein — garam, khushbudaar adrak, cheeni ke shiray mein pakaya hua.",
+      "metaKeywords": [
+        "ginger murabba benefits",
+        "adrak murabba ke fayde",
+        "مربہ ادرک",
+        "ginger murabba pakistan"
+      ],
+      "body": [
+        "Ginger Murabba apne garam, khushbudaar zaiqe ki wajah se sardiyon mein khaas pasand kiya jata hai. Adrak ka teekha pan cheeni ke shiray se mutwazin ho kar ek aisa murabba banta hai jo garmi aur mithaas dono deta hai.",
+        {
+          "h2": "Roayti Istemal"
+        },
+        "Sardiyon ke mausam mein purane ghar Adrak Murabba khaas taur par banate the — is waqt taaza adrak aasani se milta hai aur uska zaiqa bhi behtareen hota hai.",
+        {
+          "h2": "Zaiqa Aur Ghizai Khususiyat"
+        },
+        "Adrak roz-mara ke khaane mein ek zaroori masala hai aur murabbe ki shakal mein iska garam, teekha zaiqa doosre murabbon se bilkul mukhtalif tajurba deta hai.",
+        {
+          "h2": "Ghar Mein Kaise Shamil Karein"
+        },
+        {
+          "ul": [
+            "Chai ke sath, khaas taur par sardiyon mein",
+            "Khaane ke baad garam-teekha zaiqa ke tor par"
+          ]
+        },
+        "Garam, khushbudaar zaiqa chahne walon ke liye <a href=\"/products/ginger-murabba.html\">ShikarpuriAchar.pk ka Ginger Murabba</a> behtareen intekhaab hai."
+      ]
+    },
+    {
+      "id": "B027",
+      "slug": "gajar-murabba-benefits",
+      "title": "گاجر مربہ کھانے کے فوائد (Gajar Murabba Benefits)",
+      "category": "Murabba Benefits",
+      "excerpt": "Gajar Murabba ka halka zaiqa aur roayti istemal — sardiyon ka khaas murabba.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "carrot-murabba",
+        "apple-murabba",
+        "gulqand"
+      ],
+      "seoTitle": "گاجر مربہ کھانے کے فوائد | Gajar Murabba Benefits | ShikarpuriAchar.pk",
+      "seoDescription": "Gajar Murabba ka roayti zaiqa aur istemal jaanein — taaza gajar, cheeni ke shiray mein pakayi hui, khaas sardiyon ka murabba.",
+      "metaKeywords": [
+        "gajar murabba benefits",
+        "carrot murabba ke fayde",
+        "مربہ گاجر",
+        "gajar murabba pakistan"
+      ],
+      "body": [
+        "Gajar Murabba sardiyon ke mausam ki khaas pehchaan hai. Jab bazaar mein taaza, sood gajar milti hai, tab kai gharon mein isay murabbe ki shakal mein taiyar kiya jata hai — asal maqsad iske qudrati rang aur mithaas ko cheeni ke shiray mein mehfooz karna hota hai.",
+        {
+          "h2": "Roayti Istemal"
+        },
+        "Gajar Murabba khaas taur par sardiyon ke naashte mein shamil kiya jata hai, jab garam paratha ya roti ke sath ye behtareen combination banta hai.",
+        {
+          "h2": "Zaiqa Aur Ghizai Khususiyat"
+        },
+        "Gajar apni qudrati mithaas aur khoobsurat rang ke liye jaani jati hai. Murabbe ki shakal mein iska texture naram ho jata hai lekin thora karara pan bhi barqarar rehta hai.",
+        {
+          "h2": "Ghar Mein Kaise Shamil Karein"
+        },
+        {
+          "ul": [
+            "Sardiyon ke naashte mein, garam paratha ke sath",
+            "Bachon ke liye ek rangeen, meethi option",
+            "Chai ke sath dopaher mein"
+          ]
+        },
+        "Sardiyon ke asal maza ke liye <a href=\"/products/carrot-murabba.html\">ShikarpuriAchar.pk ka Gajar Murabba</a> abhi order karein."
+      ]
+    },
+    {
+      "id": "B028",
+      "slug": "karonda-murabba-benefits",
+      "title": "کروندہ مربہ کھانے کے فوائد (Karonda Murabba Benefits)",
+      "category": "Murabba Benefits",
+      "excerpt": "Karonda Murabba ka teekha-mitha zaiqa aur roayti maqam.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "karonda-murabba",
+        "cranberry-murabba",
+        "amla-murabba"
+      ],
+      "seoTitle": "کروندہ مربہ کھانے کے فوائد | Karonda Murabba Benefits | ShikarpuriAchar.pk",
+      "seoDescription": "Karonda Murabba ka roayti zaiqa aur istemal jaanein — teekha-mitha, Sindh ka khaas mausami murabba.",
+      "metaKeywords": [
+        "karonda murabba benefits",
+        "karonda murabba ke fayde",
+        "مربہ کروندہ",
+        "karonda murabba pakistan"
+      ],
+      "body": [
+        "Karonda Murabba apne teekhay-mithay zaiqe ki wajah se un logon ki pasandeeda hai jo bilkul saada meetha murabba nahi chahte. Karonda ki berries cheeni ke shiray mein pak kar ek balanced, tangy murabba banati hain.",
+        {
+          "h2": "Roayti Istemal"
+        },
+        "Sindh ke ilaqon mein Karonda mausami taur par milta hai, aur jab bhi milta hai, gharon mein murabba banane ki roayat purani hai — taake iska zaiqa saal bhar mehfooz raha ja sake.",
+        {
+          "h2": "Zaiqa Aur Ghizai Khususiyat"
+        },
+        "Karonda ka teekha pan cheeni ke shiray ke sath achi tarah mutwazin ho jata hai, aur ek aisa zaiqa deta hai jo aam meethi mithaiyon se mukhtalif aur tazgi bhara hota hai.",
+        {
+          "h2": "Ghar Mein Kaise Shamil Karein"
+        },
+        {
+          "ul": [
+            "Khaane ke baad, tangy mithaas ke tor par",
+            "Mehmano ke liye ek mukhtalif, khaas option"
+          ]
+        },
+        "Teekha-mitha, mukhtalif zaiqa chahne walon ke liye <a href=\"/products/karonda-murabba.html\">ShikarpuriAchar.pk ka Karonda Murabba</a> zaroor try karein."
+      ]
+    },
+    {
+      "id": "B029",
+      "slug": "pumpkin-murabba-benefits",
+      "title": "کدو مربہ کھانے کے فوائد (Pumpkin Murabba Benefits)",
+      "category": "Murabba Benefits",
+      "excerpt": "Kaddu (Pumpkin) Murabba ka halka zaiqa aur roayti istemal.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "pumpkin-murabba",
+        "carrot-murabba",
+        "apple-murabba"
+      ],
+      "seoTitle": "کدو مربہ کھانے کے فوائد | Pumpkin Murabba Benefits | ShikarpuriAchar.pk",
+      "seoDescription": "Kaddu Murabba ka roayti zaiqa aur istemal jaanein — halka, naram, aur poore Pakistan mein pasand kiya jane wala murabba.",
+      "metaKeywords": [
+        "pumpkin murabba benefits",
+        "kaddu murabba ke fayde",
+        "مربہ کدو",
+        "kaddu murabba pakistan"
+      ],
+      "body": [
+        "Kaddu Murabba doosre murabbon ke muqablay bohat halka aur naram hota hai, is liye ye har umar ke logon mein pasand kiya jata hai — khaas taur par bado aur baccho dono ke liye.",
+        {
+          "h2": "Roayti Istemal"
+        },
+        "Kaddu Murabba Sindh aur Punjab dono ilaqon mein taiyar kiya jata hai, aur ye dastarkhwan par ek asal, sadgi bhari mithai ke tor par jani jati hai.",
+        {
+          "h2": "Zaiqa Aur Ghizai Khususiyat"
+        },
+        "Kaddu ka naram texture cheeni ke shiray mein achi tarah jazb ho jata hai, aur natija ek soft, halke meethay murabbe ki shakal mein nikalta hai jo chabane mein bhi aasan hai.",
+        {
+          "h2": "Ghar Mein Kaise Shamil Karein"
+        },
+        {
+          "ul": [
+            "Naashte ke sath, halka meetha",
+            "Bado ke liye ek naram, aasani se khaane wali option"
+          ]
+        },
+        "Asal, ghar jaisa zaiqa chahiye to <a href=\"/products/pumpkin-murabba.html\">ShikarpuriAchar.pk ka Pumpkin Murabba</a> abhi order karein."
+      ]
+    },
+    {
+      "id": "B030",
+      "slug": "murabba-khane-ke-fayde",
+      "title": "مربہ کھانے کے فوائد (Murabba Khane Ke Fayde)",
+      "category": "Murabba Benefits",
+      "excerpt": "Murabba Pakistan ke gharon mein sadiyon se khaya jata hai — iska roayti maqam aur ghizai pehlu jaanein.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "amla-murabba",
+        "gulqand",
+        "ashrafi-murabba"
+      ],
+      "seoTitle": "مربہ کھانے کے فوائد | Murabba Khane Ke Fayde | Murabba Benefits Pakistan | ShikarpuriAchar.pk",
+      "seoDescription": "Murabba khane ke roayti fayde aur iska Pakistan mein maqam jaanein — mukhtalif phalon se banaya jane wala asal, purana Sindhi meetha.",
+      "metaKeywords": [
+        "murabba khane ke fayde",
+        "murabba benefits pakistan",
+        "مربہ",
+        "murabba pakistan",
+        "traditional murabba"
+      ],
+      "body": [
+        "Murabba — phal ya sabzi ko cheeni ke shiray mein dheeray dheeray pakane ka tareeqa — Baras-ke-upmahad mein sadiyon purani roayat hai. Har ilaqe ka apna khaas murabba hai, aur Sindh ismein khaas taur par mash-hoor hai, jahan ashrafi, amla, aur bael giri jaise nayaab murabbay aaj bhi banaye jate hain.",
+        {
+          "h2": "Murabba Kyun Khaas Hai"
+        },
+        "Murabba banane ka asal maqsad phal ya sabzi ki taazgi aur zaiqa ko lambay arsay tak mehfooz karna tha — bijli aur fridge se pehle ke zamane mein ye ek zaroori tareeqa tha jo aaj tak zaiqe ki wajah se zinda hai.",
+        {
+          "h2": "Ghizai Pehlu"
+        },
+        "Har murabba apne mool phal ki khususiyat lekar aata hai — misaal ke tor par amla apni tezi ke liye jana jata hai, gajar apni qudrati mithaas ke liye. Cheeni ka shira in phalon ko mehfooz rakhne ke sath sath ek khaas texture aur zaiqa bhi deta hai.",
+        {
+          "h2": "Murabba Ko Roz Marra Mein Kaise Shamil Karein"
+        },
+        {
+          "ul": [
+            "Naashte ke sath thoray tukray",
+            "Khaane ke baad halki mithaas ke tor par",
+            "Mehmano ke liye roayti pesh-kash"
+          ]
+        },
+        "Chahe Amla ho, Gajar ho, ya kam-mashhoor Bael Giri — <a href=\"/products.html?category=murabba\">ShikarpuriAchar.pk ki poori Murabba range</a> asal, roayti recipe ke mutabiq banayi jati hai. Poori list <a href=\"/price-list.html\">price list</a> mein dekhein."
+      ]
+    },
+    {
+      "id": "B031",
+      "slug": "achar-khane-ke-fayde",
+      "title": "اچار کھانے کے فوائد (Achar Khane Ke Fayde)",
+      "category": "Health Benefits",
+      "excerpt": "Achar sirf zaiqa nahi badhata — Pakistan ke dastarkhwan mein iska roayti aur ghizai maqam jaanein.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "mix-achar",
+        "aam-ka-achar",
+        "lehsan-ka-achar"
+      ],
+      "seoTitle": "اچار کھانے کے فوائد | Achar Khane Ke Fayde | Achar Benefits Pakistan | ShikarpuriAchar.pk",
+      "seoDescription": "Achar khane ke roayti fayde aur iska Pakistan mein dastarkhwan par maqam jaanein — asal Shikarpuri achar, mustard oil aur khaas masalon mein pakaya hua.",
+      "metaKeywords": [
+        "achar khane ke fayde",
+        "achar benefits pakistan",
+        "اچار",
+        "achaar pakistan",
+        "traditional achar"
+      ],
+      "body": [
+        "Achar Pakistan ke har dastarkhwan ka lazmi hissa hai — chahe roz ki daal-chawal ho ya khaas mauqe ki biryani. Sadiyon se sabziyan aur phal tael, sirka ya namak mein mehfooz kar ke saal bhar ke liye rakhne ka ye tareeqa hamare khaane ki roayat ka buniyaadi hissa hai.",
+        {
+          "h2": "Achar Kyun Har Ghar Mein Zaroori Hai"
+        },
+        "Achar ka asal maqsad khaane mein tez, khatta ya teekha zaiqa shamil karna hai jo bhaari ya saada khaanon ko balance karta hai. Ek chota chamach achar poore khaane ka andaz badal sakta hai.",
+        {
+          "h2": "Traditional Ghizai Pehlu"
+        },
+        "Mustard oil (sarson ka tael), jo zyada tar Shikarpuri achar mein istemal hota hai, sadiyon se Sindh aur Punjab ki cooking ka hissa raha hai. Sabziyan aur phal khud apni qudrati ghizai khususiyat rakhte hain, jo achar ki shakal mein bhi barqarar rehti hain.",
+        {
+          "h2": "Achar Ko Roz Marra Mein Kaise Shamil Karein"
+        },
+        {
+          "ul": [
+            "Daal-chawal, biryani ya pulao ke sath",
+            "Paratha ke andar ya sath",
+            "Barbecue aur bhaari khaanon ke sath zaiqa balance karne ke liye"
+          ]
+        },
+        "1985 se Shikarpur ka asal, traditional achar banane wale <a href=\"/products.html\">ShikarpuriAchar.pk ki poori range</a> dekhein — koi artificial shortcuts nahi, sirf asal recipe."
+      ]
+    },
+    {
+      "id": "B032",
+      "slug": "green-chutney-benefits",
+      "title": "ہری چٹنی کھانے کے فوائد (Green Chutney Benefits)",
+      "category": "Health Benefits",
+      "excerpt": "Hari Chutney ka roayti istemal aur iski taazgi bhari khasosiyat jaanein.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "green-chutney",
+        "imli-chutney",
+        "mix-achar"
+      ],
+      "seoTitle": "ہری چٹنی کھانے کے فوائد | Green Chutney Benefits | ShikarpuriAchar.pk",
+      "seoDescription": "Hari Chutney khane ke roayti fayde jaanein — taaza dhaniya aur hari mirch se banayi jane wali, poore Pakistan mein pasand ki jane wali chutney.",
+      "metaKeywords": [
+        "green chutney benefits",
+        "hari chutney ke fayde",
+        "ہری چٹنی",
+        "dhaniya chutney pakistan"
+      ],
+      "body": [
+        "Hari Chutney doosri chutneyon se is liye alag hai kyunke ye taaza banayi jati hai aur fauran istemal ki jati hai — isme dhaniya aur hari mirch ka zaiqa poori tarah zinda rehta hai.",
+        {
+          "h2": "Roayti Istemal"
+        },
+        "Hari Chutney Pakistan ke har chaat-stall, samosay wale, aur ghar ke dastarkhwan par mojood hoti hai. Ye kisi bhi tale huay ya bhaari khaane ko fauran taaza aur halka bana deti hai.",
+        {
+          "h2": "Taazgi Aur Zaiqa"
+        },
+        "Dhaniya aur hari mirch dono taaza istemal hone wali cheezein hain, aur inka zaiqa fauran mehsoos hota hai — na koi bharipan, na intezaar. Yehi wajah hai ke hari chutney ko roz-mara ke khaane mein shamil karna aasan hai.",
+        {
+          "h2": "Kaise Shamil Karein"
+        },
+        {
+          "ul": [
+            "Barbecue aur tikkay ke sath",
+            "Samosay aur pakoron ke sath",
+            "Sandwich ya paratha mein spread ke tor par"
+          ]
+        },
+        "Hamesha taaza, hamesha behtareen zaiqa — <a href=\"/products/green-chutney.html\">ShikarpuriAchar.pk ki Hari Chutney</a> abhi order karein."
+      ]
+    },
+    {
+      "id": "B033",
+      "slug": "best-achar-in-pakistan",
+      "title": "پاکستان کا بہترین اچار کہاں سے خریدیں (Best Achar in Pakistan)",
+      "category": "Buying Guides",
+      "excerpt": "Best Achar in Pakistan dhundte waqt kin baaton ka khayal rakhein — asal masalon se le kar delivery tak, mukammal guide.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "mix-achar",
+        "aam-ka-achar",
+        "lehsan-ka-achar"
+      ],
+      "seoTitle": "پاکستان کا بہترین اچار (Best Achar in Pakistan) 2026 Guide | ShikarpuriAchar.pk",
+      "seoDescription": "Pakistan mein best achar kaise chunein — asal masale, sarson ka tael, hygiene aur delivery ke lihaz se mukammal buying guide, Shikarpuri Achar se.",
+      "metaKeywords": [
+        "best achar in pakistan",
+        "achar pakistan",
+        "shikarpuri achar",
+        "shikarpur achar",
+        "buy achar online",
+        "اچار پاکستان"
+      ],
+      "body": [
+        "Pakistan mein \"best achar\" dhundna itna aasan nahi jitna lagta hai — har shehar mein dukaanein hain jo apne aap ko \"asal\" ya \"traditional\" kehti hain, lekin kam hi log ye batate hain ke behtareen achar aur aam achar mein farq kya hota hai. Ye guide aap ko wo cheezein batayegi jo dekh kar aap khud faisla kar sakte hain ke aap ka achar asal hai ya nahi.",
+        {
+          "h2": "1. Ajza Aur Tael Ki Quality"
+        },
+        "Sab se pehli aur zaroori cheez hai istemal hone wala tael. Asal, purani tarz ka achar hamesha khaalis sarson ke tael (mustard oil) mein banaya jata hai, na ke sasta refined tael ya palm oil mein. Sarson ka tael achar ko na sirf khaas khushbu deta hai balke ye ek qudrati preservative bhi hai jo achar ko lambay arsay tak mehfooz rakhta hai.",
+        "Sabziyan aur phal bhi taaza aur sahi mausam mein chune huay hone chahiyen — kacha aam garmi ke shuru mein sab se behtar hota hai, jabke lehsan aur adrak saal bhar milte hain.",
+        {
+          "h2": "2. Traditional Recipe Aur Tajurba"
+        },
+        "Purane, established brands jo dahaion se achar bana rahe hain, unke paas wo tajurba hota hai jo naye, jaldi shuru hone wale sellers ke paas nahi hota. Masalon ka sahi tanasub (ratio) — kitna namak, kitni mirch, kitni haldi — sirf tajurbe se aata hai, aur ye har achar ke swaad mein saaf zahir hota hai.",
+        {
+          "h2": "3. Hygiene Aur Packaging"
+        },
+        "Achar khaane ki cheez hai, is liye jahan se bhi khareedein wahan hygiene ka khayal rakha jana chahiye. Saaf, sealed jars, mazboot packaging jo delivery ke douran na tootay, aur clear labeling (ajza, weight, expiry-related info) — ye sab dekh kar seller ki professionalism ka andaza lagaya ja sakta hai.",
+        {
+          "h2": "4. Delivery Aur Cash on Delivery (COD)"
+        },
+        "Pakistan mein online order karte waqt COD ki sahoolat hona bohat zaroori hai, khaas taur par jab aap kisi naye seller se pehli baar order kar rahe hon. Reliable brands nationwide delivery aur COD dono offer karte hain, taake customer ko payment se pehle product dekhne ka bharosa ho.",
+        {
+          "h2": "5. Reviews Aur Reputation"
+        },
+        "Kisi bhi naye achar brand se order karne se pehle unke purane customers ke reviews zaroor dekhein. Ek asal, established brand ke paas hamesha genuine customer feedback hoga — na ke sirf paid ya fake reviews.",
+        {
+          "h2": "ShikarpuriAchar.pk Kyun Behtareen Intekhaab Hai"
+        },
+        "ShikarpuriAchar.pk 1985 se Shikarpur ka asal, traditional achar bana raha hai — sarson ke tael mein, purani recipe ke mutabiq, bina kisi shortcut ke. Hamari <a href=\"/products.html\">72 se zyada products ki range</a> mein Achar, Chutney, Murabba aur Super Foods shamil hain, sab WhatsApp par order kiye ja sakte hain, Cash on Delivery ki sahoolat ke sath poore Pakistan mein.",
+        "Agar aap sach mein best achar in Pakistan dhund rahe hain, to ye tamam factors dekh kar faisla karein — sirf naam ya advertisement par bharosa na karein. Poori range <a href=\"/price-list.html\">price list</a> mein dekh sakte hain."
+      ]
+    },
+    {
+      "id": "B034",
+      "slug": "original-shikarpuri-achar",
+      "title": "اصل شکارپوری اچار کی پہچان (Original Shikarpuri Achar)",
+      "category": "Buying Guides",
+      "excerpt": "Original Shikarpuri Achar ki pehchan kaise karein aur ye doosre acharon se kyun mukhtalif hai — mukammal guide.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "mix-achar",
+        "aam-ka-achar",
+        "lasooray-ka-achar"
+      ],
+      "seoTitle": "اصل شکارپوری اچار کی پہچان | Original Shikarpuri Achar | ShikarpuriAchar.pk",
+      "seoDescription": "Original Shikarpuri Achar ki khususiyat aur asal pehchan jaanein — Sindh ke Shikarpur shehar ki mash-hoor achar-saazi ki roayat.",
+      "metaKeywords": [
+        "original shikarpuri achar",
+        "shikarpuri achar",
+        "shikarpur achar",
+        "shikarpuri achaar",
+        "traditional sindhi achar",
+        "شکارپوری اچار"
+      ],
+      "body": [
+        "Shikarpur, Sindh ka ek chota lekin tareekhi shehar, sadiyon se achar-saazi ke liye mash-hoor raha hai. \"Shikarpuri Achar\" sirf ek naam nahi — ye ek poori roayat hai jo naslon se chali aa rahi hai, aur is naam ki wajah se aaj Pakistan bhar mein log Shikarpuri Achar dhundte hain.",
+        {
+          "h2": "Shikarpur Achar-Saazi Ke Liye Kyun Mash-hoor Hai"
+        },
+        "Shikarpur ek zamane mein tijarat (trade) ka bada markaz tha, jahan se log Central Asia tak safar karte the. Lambay safaron mein khaana mehfooz rakhne ke liye achar sab se behtareen tareeqa tha — isi zarurat ne Shikarpur ki achar-saazi ko itna mahir bana diya ke ye ilaqai pehchan ban gayi.",
+        {
+          "h2": "Asal Shikarpuri Achar Ki Khususiyat"
+        },
+        {
+          "ul": [
+            "Khaalis sarson ka tael istemal hota hai, kabhi sasta refined tael nahi",
+            "Masalon ka khaas tanasub — na zyada teekha, na phika, balke ek gehra, balanced swaad",
+            "Sabziyan aur phal dhoop mein maturing ke liye rakhe jate hain, jaldi-baazi nahi ki jati",
+            "Har achar ka apna alag masala mix hota hai — Mix Achar, Aam Ka Achar aur Lehsan Ka Achar sab ka zaiqa mukhtalif hota hai"
+          ]
+        },
+        {
+          "h2": "Nakli Ya Kam-Quality Achar Se Kaise Bachein"
+        },
+        "Bazaar mein kai log \"Shikarpuri Achar\" ka naam istemal karte hain lekin asal recipe follow nahi karte. Kuch cheezein jo aap check kar sakte hain: tael ka rang aur khushbu (khaalis sarson ka tael halka teekha aur khaas khushbu deta hai), masalon ki mojoodgi (dekhne mein sabit masala nazar aana chahiye, na ke sirf rangeen tael), aur seller ka background (kitne saal se ye kaam kar rahe hain).",
+        {
+          "h2": "ShikarpuriAchar.pk — Naam Mein Hi Asliyat"
+        },
+        "Hamara brand khud Shikarpur ki isi purani roayat se juda hai. 1985 se hum wahi traditional recipe follow kar rahe hain jo naslon se chali aa rahi hai — bina kisi shortcut, bina kisi artificial ingredient ke. Hamari <a href=\"/about.html\">poori kahani About page</a> par padhi ja sakti hai.",
+        "Agar aap asal, genuine Shikarpuri swaad chahte hain, to hamari <a href=\"/products.html\">poori range dekhein</a> aur seedha WhatsApp par order karein — Cash on Delivery ke sath poore Pakistan mein."
+      ]
+    },
+    {
+      "id": "B035",
+      "slug": "buy-achar-online-pakistan",
+      "title": "پاکستان میں آن لائن اچار کیسے خریدیں (Buy Achar Online Pakistan)",
+      "category": "Buying Guides",
+      "excerpt": "Achar online order karne ka aasan tareeqa — WhatsApp se le kar delivery tak, mukammal guide.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "mix-achar",
+        "green-chutney",
+        "gulqand"
+      ],
+      "seoTitle": "پاکستان میں آن لائن اچار کیسے خریدیں | Buy Achar Online Pakistan | ShikarpuriAchar.pk",
+      "seoDescription": "Achar online order karne ka mukammal tareeqa jaanein — WhatsApp ordering, Cash on Delivery, aur poore Pakistan mein delivery ki maloomat.",
+      "metaKeywords": [
+        "buy achar online pakistan",
+        "order achar online",
+        "achar online pakistan",
+        "آن لائن اچار",
+        "whatsapp order achar"
+      ],
+      "body": [
+        "Aajkal Pakistan mein online shopping bohat aam ho chuki hai, aur achar bhi is se bahar nahi — ab ghar baithe, seedha WhatsApp se apni pasand ka achar order kiya ja sakta hai. Lekin kuch cheezein hain jo online achar order karte waqt dhyan mein rakhni chahiyen.",
+        {
+          "h2": "Online Achar Order Karne Ka Tareeqa"
+        },
+        {
+          "ol": [
+            "Website par jaa kar apni pasand ka product dekhein — nam, weight (400g/800g), aur price zaroor check karein.",
+            "Product page par \"Order Now\" ya WhatsApp button par click karein — ye direct WhatsApp chat khol deta hai.",
+            "Message mein product ka naam, weight aur quantity pehle se likha hota hai — aap sirf confirm karein ya apni requirement add karein.",
+            "Seller se delivery address aur payment method (advance ya COD) confirm karein.",
+            "Order ready hone ke baad courier ke zariye ghar tak delivery ho jati hai."
+          ]
+        },
+        {
+          "h2": "Cash on Delivery (COD) Ka Faida"
+        },
+        "Pakistan mein online shopping ka sab se bada masla trust ka hota hai — isi liye COD itni mash-hoor hai. Aap product receive karne ke baad hi payment karte hain, is liye kisi bhi tarah ka risk nahi hota. ShikarpuriAchar.pk minimum order (Rs. 1700) par COD ki sahoolat deta hai.",
+        {
+          "h2": "Advance Payment Discount"
+        },
+        "Agar aap advance payment karte hain to kai sellers discount bhi dete hain — ShikarpuriAchar.pk advance payment par 10% discount offer karta hai, jo un logon ke liye faidamand hai jo regular order karte hain.",
+        {
+          "h2": "Delivery Charges Aur Waqt"
+        },
+        "Delivery charges aksar fixed hote hain (ShikarpuriAchar.pk par Rs. 300), aur order poore Pakistan mein — Karachi, Lahore, Islamabad, Hyderabad, Sukkur, Shikarpur, Multan, Faisalabad aur doosre shehron mein — bheja jata hai.",
+        {
+          "h2": "Online Order Karte Waqt Kin Baaton Ka Khayal Rakhein"
+        },
+        {
+          "ul": [
+            "Seller ka WhatsApp number verify karein — official website par diya gaya number hi istemal karein",
+            "Order confirm karne se pehle product ka weight aur price dobara check karein",
+            "Delivery address sahi aur mukammal likhein taake koi taakheer na ho"
+          ]
+        },
+        "Poori 72 products ki range <a href=\"/products.html\">yahan dekhein</a> aur seedha <a href=\"https://wa.me/923128461211\">WhatsApp par order karein</a> — asal Shikarpuri achar, ghar tak."
+      ]
+    },
+    {
+      "id": "B036",
+      "slug": "achar-price-in-pakistan",
+      "title": "پاکستان میں اچار کی قیمت (Achar Price in Pakistan)",
+      "category": "Buying Guides",
+      "excerpt": "Achar ki price kis cheez par depend karti hai — ajza, tael aur banane ke tareeqe ke lihaz se mukammal guide.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "mix-achar",
+        "lehsan-ka-achar",
+        "chicken-achar"
+      ],
+      "seoTitle": "پاکستان میں اچار کی قیمت | Achar Price in Pakistan 2026 | ShikarpuriAchar.pk",
+      "seoDescription": "Achar ki price Pakistan mein kis cheez par depend karti hai jaanein — 400g aur 800g rates, sasta vs mehnga achar ka farq.",
+      "metaKeywords": [
+        "achar price in pakistan",
+        "achar rate",
+        "achar ki qeemat",
+        "اچار کی قیمت",
+        "shikarpuri achar price"
+      ],
+      "body": [
+        "Achar ki price Pakistan mein bohat wide range mein milti hai — kuch dukaanein Rs. 300-400 mein 400g bech deti hain, jabke kuch brands Rs. 700-1000 tak charge karte hain. Ye farq kyun hota hai aur customer ko kya dekhna chahiye, aaiye samjhte hain.",
+        {
+          "h2": "Price Ko Kya Cheezein Prabhavit Karti Hain"
+        },
+        {
+          "h3": "1. Ajza Ki Quality Aur Miqdar"
+        },
+        "Jo achar mein zyada dry fruit, khaalis sarson ka tael, ya mehnga phal (jaise Aloo Bukhara ya Bael Giri) istemal hota hai, uski cost fauran zyada hoti hai. Sasta achar aksar kam-quality ya mila hua tael istemal karta hai.",
+        {
+          "h3": "2. Banane Ka Tareeqa"
+        },
+        "Traditional, dhoop mein maturing wala achar time aur mehnat leta hai — is process ki lagat bhi price mein shamil hoti hai. Jaldi banaya hua, mass-produced achar aksar sasta hota hai lekin swaad mein bhi wo gehraai nahi hoti.",
+        {
+          "h3": "3. Packaging Aur Delivery"
+        },
+        "Mazboot, saaf packaging aur reliable delivery service bhi cost ka hissa hain. Sasti packaging paisay bacha sakti hai lekin product ke kharab hone ka risk badha deti hai.",
+        {
+          "h2": "Shikarpuri Achar Ki Rates Kaisi Hain"
+        },
+        "ShikarpuriAchar.pk par zyada tar oil-based achar Rs. 460-700 (400g) ke darmiyan hain, jabke khaas items jaise Chicken Achar ya Lehsan Ka Achar thora zyada (Rs. 700-800) hain kyunke inke ajza mehnge hain. Mukammal, up-to-date rates <a href=\"/price-list.html\">price list page</a> par mojood hain — sab kuch ek hi jagah, koi hidden charges nahi.",
+        {
+          "h2": "Sasta Vs Mehnga Achar — Kya Farq Hai"
+        },
+        "Bohat sasta achar aksar kam khaalis tael, kam masala, ya jaldi-baazi mein banaya jata hai — swaad mein wo gehraai nahi hoti jo asal, traditional achar mein hoti hai. Dusri taraf, hamesha mehnga achar ka matlab behtar bhi nahi — brand ki reputation aur reviews dekhna zyada zaroori hai.",
+        {
+          "h2": "Behtareen Value Kaise Dhundein"
+        },
+        {
+          "ul": [
+            "Price list ko poori tarah dekhein — 400g aur 800g dono compare karein",
+            "Reviews aur customer feedback zaroor padhein",
+            "Advance payment discount jaisi offers ka faida uthayein"
+          ]
+        },
+        "ShikarpuriAchar.pk 10% advance discount aur Rs. 1700 ke order par Cash on Delivery deta hai. Poori pricing <a href=\"/price-list.html\">yahan dekhein</a> aur seedha WhatsApp par order karein."
+      ]
+    },
+    {
+      "id": "B037",
+      "slug": "homemade-achar-pakistan",
+      "title": "پاکستان میں گھریلو اچار کی روایت (Homemade Achar Pakistan)",
+      "category": "Buying Guides",
+      "excerpt": "Homemade achar ki roayat Pakistan mein kyun khaas hai, aur ghar jaisa asal swaad kahan milega.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "mix-achar",
+        "aam-ka-achar",
+        "gajar-ka-achar"
+      ],
+      "seoTitle": "پاکستان میں گھریلو اچار کی روایت | Homemade Achar Pakistan | ShikarpuriAchar.pk",
+      "seoDescription": "Homemade achar Pakistan mein kyun itna khaas hai jaanein — ghar jaisa asal swaad aur roayti tareeqa, ab online bhi mumkin.",
+      "metaKeywords": [
+        "homemade achar pakistan",
+        "ghar ka achar",
+        "gharelu achar",
+        "گھریلو اچار",
+        "homemade pickle pakistan"
+      ],
+      "body": [
+        "Pakistan ke har ghar mein kabhi na kabhi \"Ammi ka banaya hua achar\" ya \"Dadi ka achar\" ka zikar hota hai. Homemade achar ki ye roayat sirf khaane ki cheez nahi — ye family ki yaadon, mausamon aur naslon se chali aane wali recipes ka hissa hai.",
+        {
+          "h2": "Homemade Achar Itna Khaas Kyun Hai"
+        },
+        "Ghar mein banaya hua achar hamesha uss ghar ke zaiqe ke mutabiq hota hai — kam ya zyada teekha, kam ya zyada khatta, jaisa family pasand karti hai. Ye personal touch bazaar ke mass-produced achar mein kam hi milta hai.",
+        {
+          "h2": "Aaj Kal Homemade Achar Banana Mushkil Kyun Hai"
+        },
+        {
+          "ul": [
+            "Waqt ki kami — dhoop mein maturing process hafton leta hai",
+            "Sahi jagah ka na hona — apartments mein dhoop mein achar rakhna mushkil hota hai",
+            "Taaza, sahi mausam ke ajza dhundna",
+            "Sabar aur tajurba — pehli koshish mein sahi tanasub nahi banta"
+          ]
+        },
+        {
+          "h2": "Ghar Jaisa Swaad, Bina Mehnat Ke"
+        },
+        "Yehi wajah hai ke kai log ab aise brands dhundte hain jo homemade jaisa asal swaad dete hain, lekin bina ghar mein banane ki mehnat ke. ShikarpuriAchar.pk isi khaali jagah ko poora karta hai — hum bilkul wahi traditional, dhoop-matured tareeqa istemal karte hain jo ghar mein istemal hota hai, sirf bade paimane par.",
+        {
+          "h2": "Asal Homemade Style Achar Ki Pehchan"
+        },
+        {
+          "ul": [
+            "Sabziyan aur phal haath se kaate gaye hon, machine se nahi",
+            "Dhoop mein maturing ka process follow kiya gaya ho",
+            "Masalon ka tanasub roayti recipe ke mutabiq ho, na ke standardized \"factory\" mix"
+          ]
+        },
+        "Agar aap ghar jaisa, asal swaad chahte hain lekin khud banane ka waqt nahi, to <a href=\"/products.html\">ShikarpuriAchar.pk ki poori range</a> dekhein — 1985 se wahi traditional Sindhi tareeqa, seedha aap ke ghar tak."
+      ]
+    },
+    {
+      "id": "B038",
+      "slug": "traditional-sindhi-achar",
+      "title": "روایتی سندھی اچار کی خصوصیات (Traditional Sindhi Achar)",
+      "category": "Buying Guides",
+      "excerpt": "Traditional Sindhi Achar doosre achar se kyun mukhtalif hai — masale, tael aur tareeqa jaanein.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "mix-achar",
+        "lasooray-ka-achar",
+        "chana-vinegar-achar"
+      ],
+      "seoTitle": "روایتی سندھی اچار کی خصوصیات | Traditional Sindhi Achar | ShikarpuriAchar.pk",
+      "seoDescription": "Traditional Sindhi Achar ki khususiyat aur asal Sindh ki achar-saazi ki roayat jaanein — masale, tael aur banane ka tareeqa.",
+      "metaKeywords": [
+        "traditional sindhi achar",
+        "sindhi achar",
+        "sindh achar recipe",
+        "سندھی اچار",
+        "sindhi pickle"
+      ],
+      "body": [
+        "Pakistan ke har suba ka apna achar-saazi ka andaz hai, lekin Sindh — khaas taur par Shikarpur — is fun mein khaas maqam rakhta hai. Traditional Sindhi Achar ki pehchan uske masalon ke tanasub, tael ki quality, aur banane ke sabar-talab tareeqe mein hai.",
+        {
+          "h2": "Sindhi Achar Ki Khaas Baatein"
+        },
+        {
+          "h3": "Sarson Ka Tael"
+        },
+        "Sindh mein achar hamesha khaalis sarson ke tael mein banaya jata hai — ye tael na sirf khushbu deta hai balke qudrati taur par achar ko mehfooz bhi rakhta hai.",
+        {
+          "h3": "Masalon Ka Tanasub"
+        },
+        "Sindhi achar mein rai (mustard seeds), methi dana, saunf, haldi aur laal mirch ka ek khaas tanasub istemal hota hai jo naslon se chala aa raha hai — har ghar ka apna thora mukhtalif version hai, lekin buniyaad wahi rehti hai.",
+        {
+          "h3": "Lasoora Jaisa Nayaab Phal"
+        },
+        "Sindh mein Lasoora (Gunda) jaisa phal istemal hota hai jo doosre ilaqon mein kam mash-hoor hai. Ye Sindhi achar-saazi ki khaas pehchan hai jo har jagah nahi milti.",
+        {
+          "h2": "Sindhi Achar Ki Kuch Mash-hoor Qismein"
+        },
+        {
+          "ul": [
+            "Mix Achar — aam, gajar, lehsan aur hari mirch ka mel",
+            "Lasooray Ka Achar — Sindh ka khaas, nayaab achar",
+            "Chana Achar — sirka aur tael dono mein banaya jane wala",
+            "Lehsan Ka Achar — tez, savoury aur biryani ke sath behtareen"
+          ]
+        },
+        {
+          "h2": "Traditional Sindhi Achar Kahan Se Khareedein"
+        },
+        "Asal Sindhi achar dhundte waqt ye dekhein ke seller ka taalluq waqai Sindh se ho aur wo purani recipe follow karta ho. ShikarpuriAchar.pk khud Shikarpur se taalluq rakhta hai aur 1985 se yehi asal Sindhi tareeqa istemal kar raha hai.",
+        "Sindh ki poori achar-saazi ki roayat ek hi jagah — <a href=\"/products.html\">ShikarpuriAchar.pk ki range yahan dekhein</a> aur seedha WhatsApp par order karein."
+      ]
+    },
+    {
+      "id": "B039",
+      "slug": "oil-pickle-vs-vinegar-pickle",
+      "title": "تیل والا اچار یا سرکہ والا اچار — کیا فرق ہے؟ (Oil Pickle vs Vinegar Pickle)",
+      "category": "Comparisons",
+      "excerpt": "Oil-based aur Vinegar-based achar mein farq, zaiqa aur kis ke sath kya behtar chalta hai — mukammal comparison.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "mix-achar",
+        "mix-vinegar-achar",
+        "garlic-vinegar-achar"
+      ],
+      "seoTitle": "تیل والا اچار یا سرکہ والا اچار | Oil Pickle vs Vinegar Pickle | ShikarpuriAchar.pk",
+      "seoDescription": "Oil pickle aur vinegar pickle mein farq jaanein — zaiqa, texture, shelf life aur kis khaane ke sath kya behtar hai.",
+      "metaKeywords": [
+        "oil pickle vs vinegar pickle",
+        "tael wala achar",
+        "sirka wala achar",
+        "تیل والا اچار",
+        "سرکہ والا اچار"
+      ],
+      "body": [
+        "ShikarpuriAchar.pk ki range mein aap dono qismein dekhenge — \"Oil Pickles\" aur \"Vinegar Pickles\". Kai customers poochte hain ke inme farq kya hai aur kaunsa behtar hai. Sach ye hai ke dono apni jagah khaas hain — asal farq zaiqe aur istemal mein hai, na ke quality mein.",
+        {
+          "h2": "Oil-Based Achar — Khaas Baatein"
+        },
+        "Sarson ke tael mein banaya jane wala achar Sindh ki sab se purani roayat hai. Tael achar ko gehra, savoury zaiqa deta hai aur khud ek qudrati preservative ka kaam bhi karta hai. Ye achar aksar zyada waqt tak dhoop mein matured kiya jata hai, jis se iska swaad gehra aur bharpoor hota hai.",
+        "Oil achar ka texture aksar naram hota hai kyunke tael sabziyon aur phalon mein andar tak jazb ho jata hai. Mix Achar, Aam Ka Achar aur Lehsan Ka Achar isi category mein aate hain.",
+        {
+          "h2": "Vinegar-Based Achar — Khaas Baatein"
+        },
+        "Sirka (vinegar) mein banaya jane wala achar zyada tez aur khatta hota hai. Sirka jaldi kaam karta hai, is liye ye achar aksar oil achar ke muqablay jaldi taiyar ho jata hai. Iska texture bhi thora karara (crunchy) rehta hai kyunke sirka sabziyon ko utni gehrai tak naram nahi karta jitna tael karta hai.",
+        "Chana Achar, Garlic Vinegar Achar aur Mix Vinegar Achar is category ki achi misaalein hain.",
+        {
+          "h2": "Zaiqa Ka Farq"
+        },
+        {
+          "ul": [
+            "Oil achar — gehra, savoury, thora bhaari swaad",
+            "Vinegar achar — tez, khatta, halka aur karara"
+          ]
+        },
+        {
+          "h2": "Kis Khaane Ke Sath Kya Behtar Chalta Hai"
+        },
+        "Oil achar bhaari khaanon — daal chawal, paratha, biryani — ke sath behtareen lagta hai kyunke iska gehra swaad in khaanon ko complement karta hai. Vinegar achar halke khaanon, salad ya sandwich ke sath zyada munasib hai kyunke iska tez, karara pan taazgi ka ehsaas deta hai.",
+        {
+          "h2": "Shelf Life Ka Farq"
+        },
+        "Dono qismein sahi tareeqe se store karne par lambay arsay tak chalti hain, lekin sirka apne aap mein ek tez preservative hai, is liye vinegar achar thora zyada waqt tak apni taazgi barqarar rakhta hai agar sahi tarah stored ho.",
+        {
+          "h2": "Kaunsa Chunein"
+        },
+        "Asal mein ye personal pasand ka mamla hai. Agar aap ko gehra, traditional swaad pasand hai to Oil Pickles behtar hain. Agar aap tez, karara aur thora jaldi taiyar achar chahte hain to Vinegar Pickles try karein. Dono <a href=\"/products.html\">ShikarpuriAchar.pk ki range</a> mein mojood hain — dono chakh kar khud faisla karein."
+      ]
+    },
+    {
+      "id": "B040",
+      "slug": "homemade-vs-market-achar",
+      "title": "گھر کا اچار یا بازاری اچار — کیا بہتر ہے؟ (Homemade vs Market Achar)",
+      "category": "Comparisons",
+      "excerpt": "Homemade achar aur market se khareeda achar mein farq — waqt, mehnat aur asal swaad ke lihaz se comparison.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "mix-achar",
+        "aam-ka-achar",
+        "lehsan-ka-achar"
+      ],
+      "seoTitle": "گھر کا اچار یا بازاری اچار | Homemade vs Market Achar | ShikarpuriAchar.pk",
+      "seoDescription": "Homemade achar aur bazaari achar mein farq jaanein — waqt, mehnat, quality aur asal swaad ka mukammal comparison.",
+      "metaKeywords": [
+        "homemade vs market achar",
+        "ghar ka achar vs bazaar ka achar",
+        "گھر کا اچار",
+        "بازاری اچار"
+      ],
+      "body": [
+        "Ye sawaal har Pakistani ghar mein kabhi na kabhi uthta hai — achar ghar par banayein ya bazaar se khareedein? Dono ke apne faide aur nuqsanaat hain, aur asal jawab is baat par depend karta hai ke aap ke paas kya priority hai.",
+        {
+          "h2": "Homemade Achar Ke Faide"
+        },
+        {
+          "ul": [
+            "Zaiqa poori tarah aap ki family ki pasand ke mutabiq control kar sakte hain",
+            "Ajza ka poora ilm hota hai — kya daala gaya, kitna daala gaya",
+            "Family ki purani recipe zinda rakhne ka moqa milta hai"
+          ]
+        },
+        {
+          "h2": "Homemade Achar Ke Challenges"
+        },
+        {
+          "ul": [
+            "Waqt lagta hai — dhoop mein maturing hafton ka process hai",
+            "Sahi jagah chahiye — dhoop aur khula area, jo shehron mein aksar mushkil hota hai",
+            "Pehli koshish mein sahi tanasub banana mushkil ho sakta hai",
+            "Bade batches banana mehnat-talab hai"
+          ]
+        },
+        {
+          "h2": "Market Achar Ke Faide"
+        },
+        {
+          "ul": [
+            "Fauran taiyar milta hai, koi intezaar nahi",
+            "Established brands consistent quality dete hain",
+            "Mukhtalif qismein ek hi jagah mil jati hain",
+            "Waqt bachta hai — khaas taur par working logon ke liye"
+          ]
+        },
+        {
+          "h2": "Market Achar Kharidte Waqt Kya Dekhein"
+        },
+        "Sab market achar ek jaisa nahi hota. Asal, traditional tareeqe se banaya hua achar aur mass-produced, sasta achar mein bohat farq hota hai. Behtareen market achar wahi hai jo ghar jaisa process follow kare — khaalis tael, dhoop mein maturing, aur sahi masalon ka tanasub.",
+        {
+          "h2": "Behtareen Hal — Dono Ka Fayda"
+        },
+        "Aajkal kuch brands, jaise ShikarpuriAchar.pk, bilkul homemade jaisa process istemal karte hain lekin bade paimane par — is se customer ko homemade jaisa asal swaad milta hai bina khud banane ki mehnat ke. Ye un logon ke liye behtareen hal hai jo asal swaad chahte hain lekin waqt nahi rakhte.",
+        "Agar aap homemade jaisa, asal Shikarpuri swaad chahte hain, to <a href=\"/products.html\">poori range yahan dekhein</a> — traditional recipe, 1985 se wahi tareeqa."
+      ]
+    },
+    {
+      "id": "B041",
+      "slug": "murabba-vs-jam",
+      "title": "مربہ یا جیم — کیا فرق ہے؟ (Murabba vs Jam)",
+      "category": "Comparisons",
+      "excerpt": "Murabba aur Jam mein farq jaanein — banane ka tareeqa, texture aur roayti maqam ka comparison.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "mango-murabba",
+        "amla-murabba",
+        "apple-murabba"
+      ],
+      "seoTitle": "مربہ یا جیم — کیا فرق ہے؟ | Murabba vs Jam | ShikarpuriAchar.pk",
+      "seoDescription": "Murabba aur Jam mein farq jaanein — banane ka tareeqa, texture, aur South Asia ki roayat mein murabbe ka khaas maqam.",
+      "metaKeywords": [
+        "murabba vs jam",
+        "murabba aur jam mein farq",
+        "مربہ",
+        "jam vs murabba pakistan"
+      ],
+      "body": [
+        "Bahar se dekhne mein Murabba aur Jam dono meethay, phalon se banaye jane wale preserves lagte hain — lekin ye dono asal mein kaafi mukhtalif hain, chahe banane ke tareeqe mein ho ya texture aur istemal mein.",
+        {
+          "h2": "Banane Ka Tareeqa"
+        },
+        "Murabba mein phal ya sabzi ko poora ya bade tukron mein rakh kar cheeni ke shiray mein dheeray dheeray pakaya jata hai, taake phal apni shakal aur texture barqarar rakhe. Jam mein phal ko mash kar ke ya barik kaat kar cheeni ke sath pakaya jata hai jab tak ek gaadha, mixture na ban jaye — ismein phal ki asal shakal nazar nahi aati.",
+        {
+          "h2": "Texture Ka Farq"
+        },
+        {
+          "ul": [
+            "Murabba — phal ya uske bade tukray sabit rehte hain, shiray mein doobay huay",
+            "Jam — mukammal mash-shuda, spread karne wali consistency"
+          ]
+        },
+        {
+          "h2": "Istemal Ka Farq"
+        },
+        "Jam zyada tar bread ya toast par spread karne ke liye istemal hota hai — ye Western breakfast culture se aya hai. Murabba South Asia ki roayat hai aur ise chamach se ya haath se, chota tukra utha kar khaya jata hai, aksar khaane ke baad ya naashte ke sath.",
+        {
+          "h2": "Roayti Maqam"
+        },
+        "Murabba Baras-ke-upmahad mein sadiyon purani roayat hai — Amla Murabba, Gajar Murabba, aur nayaab Bael Giri Murabba jaisi qismein sirf yahan milti hain. Jam ek modern, imported concept hai jo baad mein mash-hoor hua.",
+        {
+          "h2": "Kaunsa Chunein"
+        },
+        "Agar aap traditional, South Asian zaiqa aur khaas texture chahte hain to Murabba behtareen intekhaab hai. Agar aap bread ya toast ke sath kuch spread karna chahte hain to jam zyada munasib hai. Dono apni jagah khaas hain, lekin agar aap asal, purani Sindhi roayat chakhna chahte hain, to <a href=\"/products.html?category=murabba\">ShikarpuriAchar.pk ki Murabba range</a> zaroor try karein."
+      ]
+    },
+    {
+      "id": "B042",
+      "slug": "green-chutney-vs-imli-chutney",
+      "title": "ہری چٹنی یا املی چٹنی — کیا فرق ہے؟ (Green Chutney vs Imli Chutney)",
+      "category": "Comparisons",
+      "excerpt": "Hari Chutney aur Imli Chutney mein farq — zaiqa, ajza aur kis khaane ke sath kya behtar chalta hai.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "green-chutney",
+        "imli-chutney",
+        "dates-chutney"
+      ],
+      "seoTitle": "ہری چٹنی یا املی چٹنی | Green Chutney vs Imli Chutney | ShikarpuriAchar.pk",
+      "seoDescription": "Hari Chutney aur Imli Chutney mein farq jaanein — zaiqa, ajza, aur kis khaane ke sath kaunsi chutney behtar chalti hai.",
+      "metaKeywords": [
+        "green chutney vs imli chutney",
+        "hari chutney aur imli chutney mein farq",
+        "ہری چٹنی",
+        "املی چٹنی"
+      ],
+      "body": [
+        "Pakistan ke chaat-stalls aur samosay ki dukaanon par ye dono chutney sath sath rakhi milti hain — Hari Chutney aur Imli Chutney. Dono khaas hain, lekin inka zaiqa bilkul mukhtalif hai, aur dono ke apne khaas istemal hain.",
+        {
+          "h2": "Zaiqe Ka Farq"
+        },
+        {
+          "ul": [
+            "Hari Chutney — tez, teekhi, taaza dhaniya aur hari mirch ka zaiqa",
+            "Imli Chutney — khatti-mithi, gehri, imli aur gur/cheeni ka mel"
+          ]
+        },
+        {
+          "h2": "Ajza Ka Farq"
+        },
+        "Hari Chutney taaza dhaniya, hari mirch, lehsan aur nimbu ke ras se banti hai — ismein koi pakane ki zarurat nahi, sab kuch fauran grind kar ke taiyar ho jata hai. Imli Chutney imli, gur ya cheeni, aur masalon ko pakaya jata hai jab tak gaadhi consistency na aa jaye — is mein waqt lagta hai.",
+        {
+          "h2": "Shelf Life"
+        },
+        "Imli Chutney apni pakayi hui nature ki wajah se Hari Chutney ke muqablay zyada arsay tak (kai hafte) fridge mein mehfooz rehti hai. Hari Chutney taaza hone ki wajah se jaldi istemal karni chahiye, aam taur par ek hafte ke andar.",
+        {
+          "h2": "Kis Khaane Ke Sath Kya Behtar Hai"
+        },
+        {
+          "ul": [
+            "Hari Chutney — barbecue, tikka, samosay, sandwich",
+            "Imli Chutney — chaat, dahi bhalle, pakoray, gol gappay"
+          ]
+        },
+        {
+          "h2": "Dono Ka Combination"
+        },
+        "Bohat se log dono chutney ek sath istemal karte hain — Hari Chutney ki tezi aur Imli Chutney ki mithaas mil kar ek behtareen balance banati hain, khaas taur par chaat aur samosay ke sath.",
+        "Dono asal, ghar jaisi taiyar chutney <a href=\"/products.html?category=chutney\">ShikarpuriAchar.pk ki Chutney range</a> mein mil jati hain — seedha WhatsApp par order karein."
+      ]
+    },
+    {
+      "id": "B043",
+      "slug": "achar-store-karne-ka-tareeqa",
+      "title": "اچار سٹور کیسے کریں (Achar Store Kaise Karein)",
+      "category": "Pickle Storage",
+      "excerpt": "Achar ko sahi tareeqe se store karne ke tips — taake ye mahino tak taaza aur mehfooz rahe.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "mix-achar",
+        "aam-ka-achar",
+        "lehsan-ka-achar"
+      ],
+      "seoTitle": "اچار سٹور کیسے کریں | Achar Store Kaise Karein | ShikarpuriAchar.pk",
+      "seoDescription": "Achar ko sahi tareeqe se store karne ke asal tips jaanein — jar, tael ki miqdar aur khushk chamach ka istemal.",
+      "metaKeywords": [
+        "achar store kaise karein",
+        "achar ko mehfooz kaise rakhein",
+        "اچار سٹور کرنا",
+        "pickle storage tips pakistan"
+      ],
+      "body": [
+        "Asal, achi tarah banaya hua achar bhi agar sahi tareeqe se store na kiya jaye to jaldi kharab ho sakta hai. Kuch aasan lekin zaroori usool follow kar ke aap apne achar ko mahino tak taaza aur mehfooz rakh sakte hain.",
+        {
+          "h2": "1. Hamesha Khushk, Saaf Chamach Istemal Karein"
+        },
+        "Ye sab se zaroori usool hai. Geela ya jhoota chamach martaban mein daalne se bacteria aur namee (moisture) achar mein chali jati hai, jo usay fauran kharab kar sakti hai. Har baar achar nikalte waqt ek saaf, poori tarah khushk chamach istemal karein.",
+        {
+          "h2": "2. Achar Ko Hamesha Tael Mein Doobay Rakhein"
+        },
+        "Oil-based achar mein sabziyan ya phal hamesha tael ki satah ke neechay doobay rehne chahiyen. Agar tael kam ho jaye to aur garam kiya hua, thanda sarson ka tael dal dein — hawa ke saath aane wala hissa hi sab se pehle kharab hota hai.",
+        {
+          "h2": "3. Sahi Container Chunein"
+        },
+        "Shishe (glass) ke martaban achar ke liye sab se behtareen hain — ye na tael se koi reaction karte hain aur na hi koi smell chorte hain. Plastic containers waqt ke sath tael ki khushbu jazb kar sakte hain aur kuch cases mein achar ke swaad ko bhi asar-andaz kar sakte hain.",
+        {
+          "h2": "4. Dhoop Aur Hawa Ka Khayal Rakhein"
+        },
+        "Maturing ke douran achar ko dhoop dikhana zaroori hai, lekin ek baar taiyar ho jaye to isay seedhi dhoop se bacha kar, thandi aur khushk jagah par rakhein. Zyada garmi ya namee wali jagah achar ki shelf life kam kar deti hai.",
+        {
+          "h2": "5. Dhakkan Achi Tarah Band Rakhein"
+        },
+        "Achar nikalne ke baad martaban ka dhakkan foran aur achi tarah band karein taake bahar ki hawa aur namee andar na jaye.",
+        {
+          "h2": "Zaroori Tips — Ek Nazar Mein"
+        },
+        {
+          "ul": [
+            "Khushk chamach — har baar",
+            "Tael mein poori tarah doobay rehna chahiye",
+            "Shishe ka container behtareen hai",
+            "Thandi, khushk jagah par rakhein",
+            "Dhakkan hamesha achi tarah band karein"
+          ]
+        },
+        "Agar in usoolon ko follow kiya jaye to aap ka achar mahino tak apna asal swaad barqarar rakhega. Achar kitne din chalta hai iske baare mein <a href=\"/blog/achar-kitne-din-tak-chalta-hai.html\">hamara alag guide</a> bhi zaroor padhein. Asal, khaalis tael wala achar <a href=\"/products.html\">yahan dekhein</a>."
+      ]
+    },
+    {
+      "id": "B044",
+      "slug": "murabba-store-karne-ka-tareeqa",
+      "title": "مربہ سٹور کیسے کریں (Murabba Store Kaise Karein)",
+      "category": "Pickle Storage",
+      "excerpt": "Murabba ko sahi tareeqe se store karne ke tips — shiray ka khayal, container aur mehfooz rakhne ka tareeqa.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "amla-murabba",
+        "gulqand",
+        "ashrafi-murabba"
+      ],
+      "seoTitle": "مربہ سٹور کیسے کریں | Murabba Store Kaise Karein | ShikarpuriAchar.pk",
+      "seoDescription": "Murabba ko sahi tareeqe se store karne ke tips jaanein — shiray ki miqdar, container aur mehfooz rakhne ka asal tareeqa.",
+      "metaKeywords": [
+        "murabba store kaise karein",
+        "murabba ko mehfooz kaise rakhein",
+        "مربہ سٹور کرنا",
+        "murabba storage tips"
+      ],
+      "body": [
+        "Murabba achar se mukhtalif hota hai — ismein tael ki jagah cheeni ka shira (sugar syrup) preservative ka kaam karta hai. Isay sahi tareeqe se store karne ke liye kuch alag baaton ka khayal rakhna zaroori hai.",
+        {
+          "h2": "1. Phal Hamesha Shiray Mein Doobay Rahein"
+        },
+        "Jaise achar mein tael, waise hi murabbe mein shira phal ko mehfooz rakhta hai. Agar shira kam ho jaye to phal hawa ke saamne aa kar jaldi kharab ho sakta hai — is liye hamesha itna shira rakhein ke phal poori tarah doobay rahein.",
+        {
+          "h2": "2. Khushk Chamach Ka Istemal"
+        },
+        "Achar ki tarah, murabbe ke sath bhi hamesha khushk aur saaf chamach istemal karein. Geela chamach shiray mein fungus ya kharabi ki wajah ban sakta hai.",
+        {
+          "h2": "3. Fridge Mein Rakhna Behtar Hai"
+        },
+        "Murabba khaas taur par garmi ke mausam mein fridge mein rakhna behtar hota hai, taake shira fermented na ho. Sardiyon mein thandi, khushk jagah par bhi theek rehta hai, lekin fridge hamesha zyada mehfooz option hai.",
+        {
+          "h2": "4. Shishe Ka Container Istemal Karein"
+        },
+        "Shishe ke jars murabbe ke liye behtareen hain kyunke ye shiray ke sath koi reaction nahi karte aur asani se saaf bhi ho jate hain.",
+        {
+          "h2": "Zaroori Tips — Ek Nazar Mein"
+        },
+        {
+          "ul": [
+            "Phal shiray mein poori tarah doobay rahein",
+            "Khushk chamach hamesha istemal karein",
+            "Garmi mein fridge mein rakhein",
+            "Shishe ka container behtar hai"
+          ]
+        },
+        "In tareeqon se murabba mahino tak apna asal zaiqa aur texture barqarar rakhta hai. Asal, roayti Sindhi Murabba <a href=\"/products.html?category=murabba\">yahan dekhein</a> aur seedha order karein."
+      ]
+    },
+    {
+      "id": "B045",
+      "slug": "achar-kitne-din-tak-chalta-hai",
+      "title": "اچار کتنے دن تک چلتا ہے؟ (Achar Kitne Din Tak Chalta Hai)",
+      "category": "Pickle Storage",
+      "excerpt": "Achar ki shelf life kitni hoti hai aur ye kis cheez par depend karti hai — mukammal maloomat.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "mix-achar",
+        "chana-vinegar-achar",
+        "lehsan-ka-achar"
+      ],
+      "seoTitle": "اچار کتنے دن تک چلتا ہے؟ | Achar Kitne Din Tak Chalta Hai | ShikarpuriAchar.pk",
+      "seoDescription": "Achar ki shelf life kitni hoti hai jaanein — oil achar, vinegar achar aur unki storage ke mutabiq waqt ka mukammal guide.",
+      "metaKeywords": [
+        "achar kitne din tak chalta hai",
+        "achar shelf life",
+        "اچار کتنے دن چلتا ہے",
+        "pickle shelf life pakistan"
+      ],
+      "body": [
+        "Ye sab se zyada poocha jane wala sawaal hai — \"achar kitne din tak theek rehta hai?\" Jawab is baat par depend karta hai ke achar kis tarah ka hai aur kaise store kiya gaya hai.",
+        {
+          "h2": "Oil-Based Achar Ki Shelf Life"
+        },
+        "Sarson ke tael mein banaya hua achar, agar sahi tareeqe se store kiya jaye (khushk chamach, tael mein doobay rehna, thandi jagah), to ye 6 mahine se 1 saal tak bhi theek reh sakta hai. Tael khud ek qudrati preservative hai, isi liye ye achar itna arsa chalta hai.",
+        {
+          "h2": "Vinegar-Based Achar Ki Shelf Life"
+        },
+        "Sirka wala achar bhi lambay arsay tak chalta hai — aam taur par 4-6 mahine, agar sahi tareeqe se store kiya jaye. Sirka bhi ek preservative hai jo bacteria ko badhne se rokta hai.",
+        {
+          "h2": "Chicken Ya Meat Achar Ki Shelf Life"
+        },
+        "Gosht wala achar (jaise Chicken Achar) doosre acharon ke muqablay kam waqt tak chalta hai aur isay hamesha fridge mein rakhna chahiye. Ye aam taur par 2-3 mahine tak theek rehta hai agar tael mein poori tarah doobay rakha jaye aur fridge mein store kiya jaye.",
+        {
+          "h2": "Shelf Life Ko Kya Cheezein Kam Karti Hain"
+        },
+        {
+          "ul": [
+            "Geela ya jhoota chamach istemal karna",
+            "Achar ka tael mein poora na doobana",
+            "Garam ya namee wali jagah par rakhna",
+            "Dhakkan achi tarah band na karna"
+          ]
+        },
+        {
+          "h2": "Kaise Pata Chale Achar Kharab Ho Gaya Hai"
+        },
+        "Agar achar mein ajeeb boo aaye, ooper fungus (safed ya sabz tehlai) nazar aaye, ya swaad mein na-mamool farq mehsoos ho, to samajh jayein ke achar kharab ho chuka hai aur isay istemal nahi karna chahiye. Iski wajahat <a href=\"/blog/achar-kharab-kyun-hota-hai.html\">hamara alag article</a> mein mukammal batayi gayi hain.",
+        "Asal, khaalis sarson ke tael mein banaya hua, lambay arsay tak chalne wala achar <a href=\"/products.html\">ShikarpuriAchar.pk se order karein</a>."
+      ]
+    },
+    {
+      "id": "B046",
+      "slug": "achar-kharab-kyun-hota-hai",
+      "title": "اچار خراب کیوں ہوتا ہے؟ (Achar Kharab Kyun Hota Hai)",
+      "category": "Pickle Storage",
+      "excerpt": "Achar kharab hone ki asal wajahaat jaanein aur inse kaise bacha ja sakta hai.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "mix-achar",
+        "aam-ka-achar",
+        "chana-vinegar-achar"
+      ],
+      "seoTitle": "اچار خراب کیوں ہوتا ہے؟ | Achar Kharab Kyun Hota Hai | ShikarpuriAchar.pk",
+      "seoDescription": "Achar kharab hone ki asal wajahaat aur bachao ke tareeqe jaanein — geeli chamach se le kar galat storage tak.",
+      "metaKeywords": [
+        "achar kharab kyun hota hai",
+        "achar spoilage reasons",
+        "اچار خراب ہونا",
+        "pickle spoilage pakistan"
+      ],
+      "body": [
+        "Kai baar mehnat se banaya ya khareeda hua achar kuch hafton mein hi kharab ho jata hai. Iski chand wajahaat hain jo aksar dhyan nahi di jatin, aur ye jaan lena zaroori hai taake apne achar ko mehfooz rakha ja sake.",
+        {
+          "h2": "1. Namee (Moisture) Sab Se Badi Wajah Hai"
+        },
+        "Achar ki sab se badi dushman namee hai. Geela chamach, adhoora khushk sabziyan/phal, ya nam mahol — ye sab bacteria aur fungus ke liye behtareen jaga banate hain jo achar ko kharab kar dete hain.",
+        {
+          "h2": "2. Tael Ya Shiray Ki Kami"
+        },
+        "Agar achar mein sabziyan ya phal tael/shiray se bahar nikal aayein, to wo hissa hawa ke seedhay contact mein aa jata hai aur jaldi kharab hone lagta hai. Hamesha itna tael/shira rakhein ke sab kuch poori tarah doobay rahe.",
+        {
+          "h2": "3. Ghalat Container"
+        },
+        "Plastic ya dhaatu (metal) ke containers kabhi kabhi tael ya sirke ke sath reaction kar sakte hain, jo achar ke swaad aur mehfoozi dono ko asar-andaz karta hai. Shishe ke containers hamesha sab se mehfooz intekhaab hain.",
+        {
+          "h2": "4. Zyada Garmi Ya Seedhi Dhoop"
+        },
+        "Maturing ke ilawa, achar ko lambay arsay tak seedhi, tez dhoop mein rakhna tael ko jaldi kharab kar sakta hai. Taiyar achar ko thandi, khushk jagah par rakhna chahiye.",
+        {
+          "h2": "5. Kam Quality Ya Kam Ajza"
+        },
+        "Agar achar mein kam namak ya kam tael istemal kiya gaya ho (jo preservatives ka kaam karte hain), to achar ki shelf life khud hi kam ho jati hai. Ye aksar sasta, jaldi-baazi mein bana achar ka masla hota hai.",
+        {
+          "h2": "Bachao Ke Tareeqe — Ek Nazar Mein"
+        },
+        {
+          "ul": [
+            "Hamesha khushk chamach istemal karein",
+            "Sabziyan/phal ko poori tarah tael/shiray mein doobay rakhein",
+            "Shishe ka container istemal karein",
+            "Thandi, khushk jagah par store karein",
+            "Achi quality, khaalis ajza wala achar chunein"
+          ]
+        },
+        "Mukammal storage tips ke liye <a href=\"/blog/achar-store-karne-ka-tareeqa.html\">Achar Store Kaise Karein</a> guide zaroor padhein. Asal, khaalis tael wala achar jo lambay arsay tak chalta hai — <a href=\"/products.html\">ShikarpuriAchar.pk se order karein</a>."
+      ]
+    },
+    {
+      "id": "B047",
+      "slug": "best-achar-for-ramzan",
+      "title": "رمضان کے لیے بہترین اچار (Best Achar For Ramzan)",
+      "category": "Seasonal Guides",
+      "excerpt": "Ramzan mein iftar aur sehri ke liye kaunsa achar behtareen hai — mukammal guide.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "mix-achar",
+        "green-chutney",
+        "imli-chutney"
+      ],
+      "seoTitle": "رمضان کے لیے بہترین اچار | Best Achar For Ramzan | ShikarpuriAchar.pk",
+      "seoDescription": "Ramzan mein iftar aur sehri ke liye behtareen achar aur chutney jaanein — traditional Shikarpuri swaad ke sath.",
+      "metaKeywords": [
+        "best achar for ramzan",
+        "ramzan achar",
+        "رمضان کا اچار",
+        "iftar achar chutney"
+      ],
+      "body": [
+        "Ramzan mein iftar aur sehri dono ka dastarkhwan khaas hota hai, aur achar-chutney iska lazmi hissa hain. Sahi achar khaanay ka zaiqa aur balance dono behtar banata hai — khaas taur par jab roza kholne ke baad bhook zyada hoti hai.",
+        {
+          "h2": "Iftar Ke Liye Behtareen Options"
+        },
+        "Iftar mein pakoray, samosay aur chaat ke sath Hari Chutney aur Imli Chutney ka jor bemisaal hota hai. Hari Chutney ki tezi aur Imli Chutney ki mithaas mil kar tale huay khaanon ko halka aur mazedaar bana deti hain.",
+        {
+          "h2": "Bara Khaana (Dinner) Ke Liye"
+        },
+        "Iftar ke baad ka bara khaana — pulao, biryani ya salan-roti — Mix Achar ya Lehsan Ka Achar ke sath behtareen lagta hai. Inka gehra, savoury zaiqa bhaari khaane ko complement karta hai.",
+        {
+          "h2": "Sehri Ke Liye"
+        },
+        "Sehri mein halka khaana behtar hota hai, is liye Lemon Ka Achar ya Gajar Ka Achar jaisa halka, taaza achar munasib rehta hai — ye khaane ko bharipan diye baghair zaiqa deta hai.",
+        {
+          "h2": "Ramzan Ke Liye Shopping List"
+        },
+        {
+          "ul": [
+            "Hari Chutney aur Imli Chutney — iftar snacks ke liye",
+            "Mix Achar — roz ke bare khaane ke liye",
+            "Lehsan Ka Achar — biryani aur pulao ke sath",
+            "Lemon Ka Achar — sehri ke halke khaane ke liye"
+          ]
+        },
+        "Ramzan se pehle apni pantry stock karna na bhoolein — <a href=\"/products.html\">ShikarpuriAchar.pk ki poori range</a> se ek hi order mein sab kuch mangwayein, WhatsApp par order karna bhi bohat aasan hai."
+      ]
+    },
+    {
+      "id": "B048",
+      "slug": "best-achar-for-eid",
+      "title": "عید کے لیے بہترین اچار (Best Achar For Eid)",
+      "category": "Seasonal Guides",
+      "excerpt": "Eid ki dawaton aur mehmano ke liye behtareen achar aur murabba — mukammal guide.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "chicken-achar",
+        "gulqand",
+        "ashrafi-murabba"
+      ],
+      "seoTitle": "عید کے لیے بہترین اچار | Best Achar For Eid | ShikarpuriAchar.pk",
+      "seoDescription": "Eid ki dawaton ke liye behtareen achar aur murabba jaanein — mehmano ke liye khaas Shikarpuri swaad.",
+      "metaKeywords": [
+        "best achar for eid",
+        "eid achar",
+        "عید کا اچار",
+        "eid dawat achar murabba"
+      ],
+      "body": [
+        "Eid par ghar mein mehmano ka aana-jana lagatar rehta hai, aur khaas dastarkhwan bhi sajta hai. Is khaas mauqe par sirf khaana hi nahi, dastarkhwan ki har cheez khaas honi chahiye — isi liye Eid ke liye sahi achar aur murabba chunna zaroori hai.",
+        {
+          "h2": "Eid-ul-Fitr Ke Liye"
+        },
+        "Eid-ul-Fitr par sheer khurma aur mithaiyon ke sath sath Gulqand aur Ashrafi Murabba jaisi khaas mithaiyan bhi dastarkhwan par shamil ki ja sakti hain — ye mehmano ko ek roayti, khaas tajurba dete hain.",
+        {
+          "h2": "Eid-ul-Adha Ke Liye"
+        },
+        "Eid-ul-Adha par gosht ke pakwaan zyada hote hain, is liye Chicken Achar, Lehsan Ka Achar aur Mix Achar jaise gehray, savoury achar behtareen sath dete hain — inka tez zaiqa bhaari gosht wale khaanon ko balance karta hai.",
+        {
+          "h2": "Mehmano Ke Liye Khaas Tohfa"
+        },
+        "Achar aur murabba ek khoobsurat, roayti tohfa bhi ban sakte hain — khaas taur par jab wo asal, traditional Shikarpuri recipe se bane hon. Ek jar mehmano ke ghar bhejna ek pyaari roayat hai jo aaj bhi kai gharon mein zinda hai.",
+        {
+          "h2": "Eid Ki Shopping List"
+        },
+        {
+          "ul": [
+            "Chicken Achar — Eid-ul-Adha ke gosht wale khaanon ke sath",
+            "Lehsan Ka Achar — biryani aur pulao ke sath",
+            "Gulqand — mithaiyon ke sath ya alag se",
+            "Ashrafi Murabba — mehmano ke liye khaas pesh-kash"
+          ]
+        },
+        "Eid se pehle apni shopping mukammal karein — <a href=\"/products.html\">ShikarpuriAchar.pk ki poori range yahan dekhein</a> aur waqt se pehle order karein taake Eid tak sab kuch ghar pahunch jaye."
+      ]
+    },
+    {
+      "id": "B049",
+      "slug": "winter-murabba-guide",
+      "title": "سردیوں کے مربے — مکمل گائیڈ (Winter Murabba Guide)",
+      "category": "Seasonal Guides",
+      "excerpt": "Sardiyon mein kaunsa murabba behtareen hai — taaza phal aur roayti tareeqe ka mukammal guide.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "gajar-ka-achar",
+        "ginger-murabba",
+        "carrot-murabba"
+      ],
+      "seoTitle": "سردیوں کے مربے — مکمل گائیڈ | Winter Murabba Guide | ShikarpuriAchar.pk",
+      "seoDescription": "Sardiyon ke mausam ke behtareen murabbay jaanein — Gajar, Adrak aur doosre khaas sardi ke murabbay.",
+      "metaKeywords": [
+        "winter murabba guide",
+        "sardiyon ka murabba",
+        "سردیوں کا مربہ",
+        "murabba pakistan winter"
+      ],
+      "body": [
+        "Sardiyon ka mausam murabba banane aur khaane, dono ke liye behtareen waqt hai. Is mausam mein gajar jaisi taaza sabziyan aasani se milti hain, aur garam murabbay jism ko garmi bhi dete hain.",
+        {
+          "h2": "Gajar Murabba — Sardi Ki Pehchan"
+        },
+        "Sardiyon mein taaza, sood gajar aasani se milti hai, aur Gajar Murabba isi mausam ki khaas dain hai. Iska qudrati rang aur mithaas garam paratha ke sath khaas lagta hai.",
+        {
+          "h2": "Ginger Murabba — Garmi Ka Ehsaas"
+        },
+        "Adrak ka teekha, garam zaiqa sardiyon mein khaas pasand kiya jata hai. Ginger Murabba chai ke sath ya khaane ke baad ek garam, khushbudaar tajurba deta hai.",
+        {
+          "h2": "Doosre Sardi Ke Khaas Murabbay"
+        },
+        "Amla bhi sardiyon mein behtareen milta hai, is liye Amla Murabba bhi is mausam mein banaya jata hai. Pumpkin (Kaddu) Murabba bhi sardiyon ke naashte mein aam taur par shamil hota hai.",
+        {
+          "h2": "Sardiyon Mein Murabba Kaise Enjoy Karein"
+        },
+        {
+          "ul": [
+            "Garam paratha ya roti ke sath naashte mein",
+            "Chai ke sath dopaher mein",
+            "Khaane ke baad garmi bhare ehsaas ke liye"
+          ]
+        },
+        "Sardiyon ke khaas murabbay <a href=\"/products.html?category=murabba\">yahan dekhein</a> aur is mausam ka poora fayda uthayein — asal, traditional recipe ke mutabiq taiyar kiye gaye."
+      ]
+    },
+    {
+      "id": "B050",
+      "slug": "summer-pickle-guide",
+      "title": "گرمیوں کا اچار — مکمل گائیڈ (Summer Pickle Guide)",
+      "category": "Seasonal Guides",
+      "excerpt": "Garmi ke mausam ke behtareen achar jaanein — Aam Ka Achar se le kar taaza chutney tak.",
+      "publishedDate": "2026-07-12",
+      "relatedProductSlugs": [
+        "aam-ka-achar",
+        "lemon-ka-achar",
+        "green-chutney"
+      ],
+      "seoTitle": "گرمیوں کا اچار — مکمل گائیڈ | Summer Pickle Guide | ShikarpuriAchar.pk",
+      "seoDescription": "Garmi ke mausam ke behtareen achar aur chutney jaanein — Aam Ka Achar, Lemon Achar aur taazgi bhari options.",
+      "metaKeywords": [
+        "summer pickle guide",
+        "garmi ka achar",
+        "گرمیوں کا اچار",
+        "summer achar pakistan"
+      ],
+      "body": [
+        "Garmi ka mausam achar-saazi ka asal season hai — yehi wo waqt hai jab kacha aam, nimbu aur doosre garmi ke phal apni behtareen shakal mein milte hain. Ye guide aap ko batayegi ke is mausam mein kaunsa achar sab se behtar hai.",
+        {
+          "h2": "Aam Ka Achar — Garmi Ki Sab Se Bari Pehchan"
+        },
+        "Kacha aam garmi ke shuru mein sab se behtareen hota hai, aur yehi waqt hai jab asal Aam Ka Achar banaya jata hai. Is mausam mein taaza banaya gaya achar saal bhar ke liye rakha ja sakta hai.",
+        {
+          "h2": "Lemon Ka Achar — Taazgi Ka Ehsaas"
+        },
+        "Garmi mein khatti cheezein khaane ka mann zyada karta hai. Lemon Ka Achar apni tezi aur taazgi ki wajah se garmi ke khaanon ke sath khaas lagta hai.",
+        {
+          "h2": "Taaza Chutney — Fauran Taazgi"
+        },
+        "Garmi mein Hari Chutney jaisi taaza chutney khaas pasand ki jati hai — ye barbecue aur halke khaanon ke sath khaana thanda aur taaza mehsoos karati hai.",
+        {
+          "h2": "Garmi Mein Achar Store Karne Ka Khayal"
+        },
+        "Garmi ke mausam mein achar ko thandi jagah par rakhna aur bhi zaroori ho jata hai, kyunke zyada garmi tael ko jaldi kharab kar sakti hai. Fridge ya thandi almari behtareen jagah hai.",
+        {
+          "h2": "Garmi Ke Mausam Ki Shopping List"
+        },
+        {
+          "ul": [
+            "Aam Ka Achar — is mausam ki khaas taiyari",
+            "Lemon Ka Achar — taazgi bhara zaiqa",
+            "Hari Chutney — barbecue aur halke khaanon ke sath",
+            "Mix Vegetable Achar — halka, kam-oily option"
+          ]
+        },
+        "Garmi ke mausam ke behtareen achar <a href=\"/products.html\">yahan dekhein</a> aur is season ka poora fayda uthayein."
       ]
     }
   ]

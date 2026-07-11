@@ -878,6 +878,20 @@
     render();
   }
 
+  /* Blog article body blocks: a plain string renders as <p>; an object
+     selects a block type ({h2}/{h3} headings, {ul}/{ol} lists) so recipe
+     and guide articles can have real structure, not just flat paragraphs.
+     Existing articles (plain string arrays) keep rendering exactly as
+     before — this is purely additive. */
+  function renderBlogBlock(block) {
+    if (typeof block === "string") return `<p style="margin-block:0 1.1em">${block}</p>`;
+    if (block.h2) return `<h2 style="font-size:clamp(1.25rem,2.6vw,1.6rem);margin-block:1.6em .6em">${block.h2}</h2>`;
+    if (block.h3) return `<h3 style="font-size:clamp(1.1rem,2.2vw,1.3rem);margin-block:1.3em .5em">${block.h3}</h3>`;
+    if (block.ul) return `<ul style="margin-block:0 1.1em;padding-inline-start:1.4em">${block.ul.map((li) => `<li style="margin-block:.3em">${li}</li>`).join("")}</ul>`;
+    if (block.ol) return `<ol style="margin-block:0 1.1em;padding-inline-start:1.4em">${block.ol.map((li) => `<li style="margin-block:.3em">${li}</li>`).join("")}</ol>`;
+    return "";
+  }
+
   function initBlogDetail(articles, products) {
     const root = document.querySelector("[data-blog-slug]");
     if (!root) return;
@@ -901,7 +915,7 @@
     if (titleEl) titleEl.textContent = article.title;
 
     if (container) {
-      const body = (article.body || []).map((para) => `<p style="margin-block:0 1.1em">${para}</p>`).join("");
+      const body = (article.body || []).map(renderBlogBlock).join("");
       container.innerHTML = `
         <p class="chip" style="margin-bottom:1rem">${article.category}</p>
         ${body}`;
