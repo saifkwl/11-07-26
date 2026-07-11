@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "note": "Genuine customer reviews. City is intentionally left blank where not provided by the customer — do not invent a city; main.js hides the city line gracefully when empty.",
+    "howToEdit": "Each entry needs: name, city (optional — leave \"\" if unknown), rating (1-5), text, product (optional — matches a product slug from products.json to show 'Verified order: <product name>')."
+  },
+  "reviews": [
+    { "name": "Mrs. U.", "city": "", "rating": 5, "text": "I first tried this achar around 14 years ago, and I'm happy to say it still has the same authentic taste today. Absolutely loved it. Thank you, seller!" },
+    { "name": "Zainab S.", "city": "", "rating": 5, "text": "Behtareen! MashaAllah, the taste and quality are excellent. Highly recommended." },
+    { "name": "Shahzaib K.", "city": "", "rating": 5, "text": "I love trying achar from different sellers across Pakistan, and I had heard a lot about Shikarpuri Achar. Finally decided to order, and it truly lived up to its reputation. The taste is authentic, the service is polite, and the delivery was on time." },
+    { "name": "Nadia A.", "city": "", "rating": 5, "text": "Maza aa gaya! Bilkul wahi traditional taste jo bachpan mein khaya karte the. Definitely ordering again." },
+    { "name": "Customer", "city": "", "rating": 5, "text": "Nice, fresh, and very tasty. Really enjoyed the authentic homemade flavour." }
+  ]
+}

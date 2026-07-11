@@ -1,0 +1,14 @@
+{
+  "name": "ShikarpuriAchar.pk — Original Shikarpuri Achar Since 1985",
+  "short_name": "Shikarpuri Achar",
+  "description": "Traditional Sindhi pickles made with premium ingredients since 1985. Order on WhatsApp with Cash on Delivery across Pakistan.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#FBF3E4",
+  "theme_color": "#1F4D3A",
+  "lang": "en-PK",
+  "icons": [
+    { "src": "/assets/icons/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

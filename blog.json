@@ -1,0 +1,156 @@
+{
+  "meta": {
+    "note": "SINGLE SOURCE OF TRUTH for every blog article. Same pattern as products.json — edit here only, then run python tools/generate-blog-pages.py to regenerate the static SEO shells and sitemap.xml.",
+    "howToAdd": "Add an object to \"articles\": id, slug, title, category, excerpt, body (array of paragraph strings — rendered as <p> tags, keep it plain text/simple HTML like <strong> or <a>, no markdown), publishedDate (YYYY-MM-DD), relatedProductSlugs (array of real slugs from products.json), seoTitle, seoDescription, metaKeywords.",
+    "categories": ["Recipes", "Health Benefits", "Buying Guides", "Traditional Foods", "Murabba Benefits", "Pickle Storage", "Regional Foods"]
+  },
+  "articles": [
+    {
+      "id": "B001",
+      "slug": "how-to-use-achar-beyond-daal-chawal",
+      "title": "How To Use Achar Beyond Daal Chawal: 5 Traditional Pairings",
+      "category": "Recipes",
+      "excerpt": "Achar isn't just a side for daal chawal. Here are five traditional ways Sindhi households actually use their pickle jars.",
+      "publishedDate": "2026-07-11",
+      "relatedProductSlugs": ["mix-achar", "lehsan-ka-achar", "green-chutney"],
+      "seoTitle": "How To Use Achar Beyond Daal Chawal | ShikarpuriAchar.pk",
+      "seoDescription": "Five traditional ways to use Shikarpuri achar and chutney beyond the usual daal chawal pairing — parathas, biryani, raita, sandwiches and barbecue.",
+      "metaKeywords": ["how to eat achar", "achar recipes", "shikarpuri achar uses", "اچار کھانے کا طریقہ"],
+      "body": [
+        "Ask most people outside Sindh what achar is for, and they'll say the same thing: a small spoonful next to daal chawal. That's accurate, but it undersells how much a good jar of achar actually does in a Sindhi kitchen. Here are five other ways it regularly ends up on the table.",
+        "<strong>Inside parathas.</strong> A thin layer of Mix Achar or Lehsan Ka Achar folded into the dough before rolling, or simply spread on one half after cooking, turns a plain paratha into something with real depth. The mustard oil the achar is pickled in actually helps the paratha stay soft rather than drying out.",
+        "<strong>Alongside biryani and pulao.</strong> Rice dishes are rich and layered, and a sharp, tangy achar cuts through that richness the same way a squeeze of lemon does. Lehsan Ka Achar in particular pairs well here — its savoury depth doesn't compete with biryani's own spice, it rounds it out.",
+        "<strong>Stirred into raita.</strong> A finely chopped spoonful of any oil-based achar mixed into plain yogurt raita adds a tang that plain raita doesn't have on its own. This works especially well with Mix Achar, since the different vegetables inside give raita a more complex flavour than a single-ingredient pickle would.",
+        "<strong>As a sandwich or wrap spread.</strong> Green Chutney in particular works well here — spread thin, it adds sharp, fresh heat to a sandwich or wrap without the sogginess a wetter sauce might cause. It's a faster way to get achar-style flavour into a quick meal.",
+        "<strong>With barbecue and grilled meat.</strong> This is where garlic achar earns its reputation — a few cloves of Lehsan Ka Achar alongside grilled meat cuts through the richness of the char and oil, the same role a chutney or raita would normally play.",
+        "None of this is complicated. The point is that achar in a Sindhi household isn't treated as a single-purpose condiment reserved for one specific meal — it's a flexible ingredient that shows up wherever a dish needs a sharp, tangy, or savoury lift. If you've only ever eaten it with daal chawal, that's a good place to start, but it's worth branching out.",
+        "Browse our full <a href=\"/products.html\">product range</a> or check the <a href=\"/price-list.html\">price list</a> if you want to try a few jars at once."
+      ]
+    },
+    {
+      "id": "B002",
+      "slug": "traditional-value-of-homemade-achar-and-murabba",
+      "title": "The Traditional Value of Homemade Achar and Murabba",
+      "category": "Health Benefits",
+      "excerpt": "Achar and murabba have long been valued in Sindhi households for more than just flavour. Here's what that traditional reputation is actually based on.",
+      "publishedDate": "2026-07-11",
+      "relatedProductSlugs": ["adrak-ka-achar", "amla-murabba", "moringa-achar"],
+      "seoTitle": "Traditional Value of Achar & Murabba | ShikarpuriAchar.pk",
+      "seoDescription": "Why achar and murabba have traditionally been valued in Sindhi households beyond taste — fermentation, preservation, and traditional everyday uses.",
+      "metaKeywords": ["achar benefits", "murabba benefits", "traditional pickle uses", "اچار کے فوائد"],
+      "body": [
+        "Achar and murabba are, first and foremost, food — made for flavour, not as medicine. But it's worth understanding why they've held a steady place in Sindhi households for generations beyond just tasting good, because the reasons are genuinely practical, not mystical.",
+        "<strong>Preservation without refrigeration.</strong> Long before refrigerators were common in rural Sindh, pickling in mustard oil, vinegar or sugar syrup was simply how households kept fruit and vegetables edible for months after harvest season ended. Achar and murabba exist because of a real, practical problem — seasonal produce needed to last through the rest of the year — and the techniques developed to solve it happen to also produce distinctive, complex flavours.",
+        "<strong>Ginger and digestion.</strong> Adrak Ka Achar in particular has a long-standing role as something eaten alongside heavier meals, traditionally believed to help with digestion after rich or oily food. Whether or not you subscribe to that specific belief, it's a real pattern in how the achar is actually used at the table — a small amount alongside a heavy meal, not as a snack on its own.",
+        "<strong>Amla's traditional reputation.</strong> Amla (Indian gooseberry) has a long history in South Asian food and wellness traditions, and Amla Murabba is one of the most common ways it's actually eaten, since the raw fruit is intensely sour on its own. The murabba format — slow-cooked in sugar syrup — makes a fruit that's otherwise difficult to eat plain into something people actually want to have regularly.",
+        "<strong>Moringa's growing reputation.</strong> Moringa has become more prominent in recent years for its nutritional profile, and it's a good example of how an older ingredient (moringa has traditional uses in South Asian cooking) gets a second life as awareness grows. We offer it both in achar form and as a plain powder for people who want it as a daily addition rather than a pickle.",
+        "The honest way to think about all of this: achar and murabba are traditional foods with traditional reputations, prepared the way they've always been prepared. We don't make medical claims about them, and you shouldn't expect a jar of pickle to replace actual healthcare advice. What we can say is that the reasons these foods exist and have stayed popular for generations are real, practical, and worth understanding.",
+        "See the full range of <a href=\"/products.html\">achar, chutney and murabba</a> we currently make, or read about <a href=\"/blog/what-is-murabba-a-guide.html\">what murabba actually is</a> if you're new to the category."
+      ]
+    },
+    {
+      "id": "B003",
+      "slug": "how-to-choose-the-right-achar",
+      "title": "How To Choose The Right Achar: Oil vs Vinegar vs Water-Brined",
+      "category": "Buying Guides",
+      "excerpt": "Same vegetable, three different pickling methods, three different results. Here's how to pick the right one for your taste.",
+      "publishedDate": "2026-07-11",
+      "relatedProductSlugs": ["aam-ka-achar", "mango-vinegar-achar", "mix-vegetable-achar"],
+      "seoTitle": "How To Choose The Right Achar (Oil vs Vinegar vs Water) | ShikarpuriAchar.pk",
+      "seoDescription": "Confused between oil, vinegar and water-brined achar? Here's what actually differs in taste, texture and shelf life so you can pick the right jar.",
+      "metaKeywords": ["oil pickle vs vinegar pickle", "how to choose achar", "achar price in pakistan", "اچار کیسے خریدیں"],
+      "body": [
+        "We sell several versions of the same vegetable — mango, for instance, comes as an oil achar, a vinegar achar, and a sweet-and-sour achar. That's not us padding out the catalogue; each method genuinely produces a different pickle, and picking the right one comes down to what you actually want from it.",
+        "<strong>Oil-based achar</strong> is the traditional Shikarpuri method — vegetables or fruit matured slowly in cold-pressed mustard oil with whole and ground spices. This is the slowest method, but it produces the deepest, roundest flavour, since the oil mellows sharp edges over weeks or months rather than days. Aam Ka Achar is our clearest example — the mango's sourness is still there, but mustard oil rounds it into something richer than a quick pickle would achieve. Oil achar also tends to have the longest shelf life at room temperature, since oil itself acts as a preservative.",
+        "<strong>Vinegar-based achar</strong> is faster and sharper. Vinegar's acidity works quickly, producing a brighter, more immediately tangy result than oil does. Mango Achar (Vinegar) uses the exact same fruit as Aam Ka Achar, but the flavour is noticeably more acidic and less rounded — good if you specifically want a sharp, palate-cleansing pickle rather than a deep, matured one. Vinegar achar is also generally lighter and less oily, which some people prefer.",
+        "<strong>Water-brined achar</strong> is the simplest and oldest method — just salt and time, no oil or vinegar. Mix Vegetable Achar (Water) is a good example: lighter than either of the other two methods, with the vegetables' own flavours coming through more directly rather than being carried by oil or vinegar. This is the achar to choose if you want something less rich and less acidic than the other two options.",
+        "There's no objectively \"best\" method — it depends entirely on what you're looking for. If you want the classic, deeply developed Shikarpuri flavour, go oil-based. If you want something sharper and lighter, go vinegar. If you want the simplest, most direct vegetable flavour, go water-brined.",
+        "One more practical note on buying: check our <a href=\"/price-list.html\">price list</a> for the full breakdown of 400g and 800g pricing across every product, and if you're ever unsure which method suits your taste, message us on WhatsApp — we're happy to help you pick."
+      ]
+    },
+    {
+      "id": "B004",
+      "slug": "what-makes-shikarpuri-achar-different",
+      "title": "What Makes Shikarpuri Achar Different From Other Pakistani Pickles",
+      "category": "Traditional Foods",
+      "excerpt": "Achar is made all over Pakistan, but Shikarpur has its own distinct style. Here's what actually sets it apart.",
+      "publishedDate": "2026-07-11",
+      "relatedProductSlugs": ["aam-ka-achar", "lasooray-ka-achar", "larkana-bhei-achar"],
+      "seoTitle": "What Makes Shikarpuri Achar Different | ShikarpuriAchar.pk",
+      "seoDescription": "Shikarpuri achar has a distinct regional style compared to Punjabi or other Pakistani pickles. Here's what sets it apart — ingredients, technique and tradition.",
+      "metaKeywords": ["shikarpuri achar", "shikarpur achar", "shikarpuri pickle", "best achar in pakistan", "شکارپوری اچار"],
+      "body": [
+        "\"Achar\" is not one single thing across Pakistan — the word covers a huge range of regional styles, and Shikarpur's version has its own identity within that. Shikarpur, a city in upper Sindh with a long trading history, developed a pickling tradition shaped by what grew locally and how households actually preserved food before refrigeration was common.",
+        "<strong>Fenugreek and mustard seed lead the spice profile.</strong> Where some regional styles lean sweeter or use a heavier, more complex masala, Shikarpuri achar — especially our Aam Ka Achar — tends to be sharper and more sour-forward, built around fenugreek and mustard seed rather than sugar or a large spice blend. This gives it a more direct, tangy character rather than a rounded, sweet-savoury one.",
+        "<strong>Ingredients specific to the region.</strong> Lasora (gunda), used in our Lasooray Ka Achar, isn't something every Pakistani household pickles — it grows across rural Sindh and is a genuinely regional ingredient. The same goes for lotus root, prepared the Larkana style in our Larkana Bhei Achar — a specialty tied to the wetlands near Larkana, a city close to Shikarpur, rather than something found in every province's pickling tradition.",
+        "<strong>Mustard oil as the primary preserving medium.</strong> Cold-pressed mustard oil is the backbone of most Shikarpuri achar, valued both for its own flavour and its natural preserving qualities. This isn't unique to Shikarpur, but the emphasis on slow maturation in oil — often for months — rather than a quicker vinegar-based method is a strong regional preference here.",
+        "<strong>A trading city's food history.</strong> Shikarpur was historically an important trading centre, and that history shaped its food culture — achar-making became both a household necessity and, over time, a recognised local specialty that travellers and traders would specifically seek out. That reputation is part of why \"Shikarpuri achar\" is a recognisable term across Pakistan today, distinct from a generic regional pickle.",
+        "None of this means other regional styles are lesser — Punjabi, Sindhi and other pickling traditions each have their own logic and strengths. But if you're specifically looking for Shikarpuri achar, the sour, fenugreek-forward, mustard-oil-matured style with regionally specific ingredients like lasora is what actually defines it, not just the city name on the label.",
+        "Explore our full <a href=\"/products.html\">product range</a> to see the regional specialties mentioned here, including Larkana Bhei Achar and Lasooray Ka Achar."
+      ]
+    },
+    {
+      "id": "B005",
+      "slug": "what-is-murabba-a-guide",
+      "title": "What Is Murabba? A Guide To Pakistan's Traditional Sweet Preserves",
+      "category": "Murabba Benefits",
+      "excerpt": "Murabba isn't achar's sweet cousin by accident — it's a completely different preserving tradition. Here's what it actually is.",
+      "publishedDate": "2026-07-11",
+      "relatedProductSlugs": ["mango-murabba", "amla-murabba", "gulqand"],
+      "seoTitle": "What Is Murabba? Traditional Sweet Preserve Guide | ShikarpuriAchar.pk",
+      "seoDescription": "Murabba explained — what it is, how it differs from achar, and how to eat it. A guide to Pakistan's traditional sugar-syrup fruit preserves.",
+      "metaKeywords": ["what is murabba", "murabba benefits", "murabba pakistan", "مربہ"],
+      "body": [
+        "If achar is Shikarpur's savoury pickle tradition, murabba is its sweet counterpart — and the two are made completely differently, even though they often use the same raw fruit.",
+        "<strong>The basic method.</strong> Murabba is fruit (or occasionally vegetables) slow-cooked in sugar syrup until it softens completely and takes on a glossy, preserved texture — closer to a fruit preserve or candied fruit than a pickle. There's no oil, no vinegar, no chili masala. Sugar and slow cooking do all the work, which is why murabba tastes and feels completely different from achar even when it starts from the exact same fruit, as with our Mango Murabba versus Aam Ka Achar.",
+        "<strong>Why the same fruit ends up so different.</strong> Raw mango pickled in mustard oil (achar) stays firm, sour and spiced. The same raw mango slow-cooked in sugar syrup (murabba) softens completely and becomes sweet, with only a hint of the original tartness remaining underneath. It's the same starting ingredient taken in two entirely different directions — one savoury and sharp, one sweet and mellow.",
+        "<strong>Not every murabba starts sour.</strong> Some of our murabba use naturally tart fruit like amla or karonda, where the sugar syrup is doing real work to balance out an otherwise difficult-to-eat raw ingredient. Others, like Carrot Murabba or Apple Murabba, use naturally milder, sweeter produce, so the result is gentler from the start. Gulqand is a different case entirely — made from rose petals rather than fruit at all, valued specifically for its fragrance rather than a fruit's natural sweetness or tartness.",
+        "<strong>How murabba is traditionally eaten.</strong> Unlike achar, which is a side condiment eaten in small spoonfuls alongside a meal, murabba is closer to a standalone sweet — eaten on its own, often alongside paratha at breakfast, or served to guests as a traditional treat. It isn't meant to season a dish the way achar does; it's a preserve meant to be enjoyed on its own terms.",
+        "If you've only ever had achar and are curious to try murabba, mango or apple are the gentlest starting points — amla or karonda if you want something with more tang underneath the sweetness.",
+        "Browse our <a href=\"/products.html?category=murabba\">full murabba range</a> or check current pricing on the <a href=\"/price-list.html\">price list</a>."
+      ]
+    },
+    {
+      "id": "B006",
+      "slug": "how-to-store-achar-and-murabba",
+      "title": "How To Store Achar And Murabba So They Last Longer",
+      "category": "Pickle Storage",
+      "excerpt": "A few simple habits make the difference between a jar that lasts months and one that spoils in weeks. Here's how to store achar and murabba properly.",
+      "publishedDate": "2026-07-11",
+      "relatedProductSlugs": ["mix-achar", "green-chutney", "mango-murabba"],
+      "seoTitle": "How To Store Achar & Murabba Properly | ShikarpuriAchar.pk",
+      "seoDescription": "Simple, practical storage tips for oil achar, vinegar achar, chutney and murabba — how to keep every jar fresh for as long as possible.",
+      "metaKeywords": ["how to store achar", "achar storage tips", "pickle storage pakistan", "اچار کیسے محفوظ رکھیں"],
+      "body": [
+        "Achar and murabba are traditionally preserved foods, built to last — but how you store the jar after it's opened still makes a real difference to how long it stays good.",
+        "<strong>Oil-based achar.</strong> This is the easiest to store: no refrigeration needed. Keep the jar tightly closed in a cool, dry place away from direct sunlight, and — this is the part people skip — make sure the pieces stay submerged under the oil. Oil exposed to air does its preserving job; pieces poking above the oil line are the first thing to spoil. Always use a dry spoon; any moisture introduced into the jar shortens its life significantly.",
+        "<strong>Vinegar-based achar.</strong> Similar rules apply — cool, dry storage away from sunlight — but vinegar achar benefits from refrigeration once opened, more so than oil achar. The acidity helps preserve it, but it isn't quite as stable at room temperature over the long term as an oil-matured jar.",
+        "<strong>Chutney.</strong> Chutneys like our Green Chutney are the most perishable item in our range, since they're ground fresh rather than slow-matured in oil. Keep the jar tightly closed and refrigerated after opening, and use a clean, dry spoon every time. Expect a shorter usable window than achar — a few months refrigerated, not the many months an oil pickle can manage.",
+        "<strong>Murabba.</strong> Sugar syrup is a strong preservative on its own, so murabba like our Mango Murabba stores well in a cool, dry place even without refrigeration. That said, refrigeration helps in hot weather and doesn't hurt the texture, so it's worth doing during summer months. As always, a clean, dry spoon matters here too — sugar preserves are just as vulnerable to introduced moisture as oil pickles are.",
+        "<strong>The one rule that applies to everything:</strong> always use a dry utensil. Water or saliva introduced into any jar — achar, chutney or murabba — is the single most common reason a pickle spoils early, regardless of how it was originally preserved. If you remember nothing else from this guide, remember that.",
+        "Full storage guidance for each specific product is also listed on its own <a href=\"/products.html\">product page</a> under the Storage section."
+      ]
+    },
+    {
+      "id": "B007",
+      "slug": "shikarpurs-pickling-legacy",
+      "title": "Shikarpur's Pickling Legacy: Why This City Became Pakistan's Achar Capital",
+      "category": "Regional Foods",
+      "excerpt": "Shikarpur's reputation for achar isn't a marketing invention — it's rooted in the city's history as a trading centre. Here's the background.",
+      "publishedDate": "2026-07-11",
+      "relatedProductSlugs": ["aam-ka-achar", "lasooray-ka-achar", "chicken-achar"],
+      "seoTitle": "Shikarpur's Pickling Legacy | Original Shikarpuri Achar Since 1985",
+      "seoDescription": "Why Shikarpur became known as Pakistan's achar capital — the city's trading history, regional ingredients and pickling traditions explained.",
+      "metaKeywords": ["shikarpur achar history", "shikarpuri achar", "original shikarpuri achar", "شکارپور اچار کی تاریخ"],
+      "body": [
+        "Shikarpur, a city in upper Sindh, has a reputation for achar that extends well beyond its own borders — \"Shikarpuri achar\" is a recognised term across Pakistan, the way certain cities become associated with a specific food. That reputation didn't happen by accident.",
+        "<strong>A historical trading centre.</strong> Shikarpur was, for centuries, an important trading hub connecting Sindh to Central Asia and beyond. Trading cities develop food cultures shaped by preservation — goods and people travelled long distances, and preserved food that could survive the journey and last through lean seasons became a practical necessity, not just a culinary preference. Achar-making grew out of that same practical logic.",
+        "<strong>Access to regional ingredients.</strong> Shikarpur and the surrounding upper Sindh region have access to specific produce — mangoes, lasora, and other locally grown fruit and vegetables — that shaped what got pickled and how. Lasora in particular, used in our Lasooray Ka Achar, isn't a fruit found in every region's pickling tradition; its prominence in Shikarpuri achar reflects what actually grows locally.",
+        "<strong>A household skill passed down generations.</strong> Before achar was commercially sold, it was a skill every household maintained — knowing how long to mature a jar, how much fenugreek to use, when the mustard oil had properly absorbed the spice. Commercial Shikarpuri achar brands, including ours since 1985, grew out of formalising and scaling up recipes and techniques that were originally home kitchen knowledge, not inventing something new.",
+        "<strong>Beyond fruit and vegetables.</strong> Shikarpur's achar tradition isn't limited to produce — meat-based achar like our Chicken Achar reflects the same preserving logic applied to protein, historically useful before refrigeration made fresh meat storage simple, and still valued today for its rich, ready-to-eat flavour.",
+        "The short version: Shikarpur's status as Pakistan's achar capital is rooted in real history — a trading city's practical need to preserve food, combined with specific regional ingredients and generations of household knowledge. It's not just a label; it describes an actual, traceable food tradition.",
+        "See our full range of <a href=\"/products.html\">traditional Shikarpuri achar, chutney and murabba</a>, or read more about <a href=\"/blog/what-makes-shikarpuri-achar-different.html\">what makes the Shikarpuri style distinct</a> from other regional pickles."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+/home  /  301
+/index /  301
+
+# NOTE: Cloudflare Pages already redirects /page.html -> /page automatically
+# for any static asset (this is a fixed platform behavior, not configurable
+# here). Do NOT add extensionless -> .html rules below — they fight that
+# built-in redirect and create an infinite redirect loop
+# (/about.html -> /about -> /about.html -> ... ERR_TOO_MANY_REDIRECTS).
+# All internal links on the site already use the real .html filenames, so
+# no fallback rules are needed for normal navigation.
