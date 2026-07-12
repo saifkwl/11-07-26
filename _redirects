@@ -22,9 +22,16 @@
 /products/gulkand-shahi-meetha-with-natural-rose-flavor                /products/gulqand               301
 
 # check: neeche wali 3 entries mujhe exact match confirm nahi thi, please verify
-/products/lemon-achar-surka-special         /products/lemon-vinegar-achar   301  # check: ya lemon-water-achar ho sakta hai
-/products/chane-ka-achar-oil-chickpea-pickle /products/chana-oil-vinegar-achar 301  # check: ya chana-vinegar-achar ho sakta hai
-/products/emlee-alu-bukhara-achar-املی-آلو-بخارا-اچار /products/aloo-bukhara-chutney 301  # check: ya imli-chutney / aloo-bukhara-dry-fruit-chutney
+# (comments ab alag line pe hain, kyunke Cloudflare same-line trailing comment allow nahi karta - isi wajah se pehle ye 3 rules kaam nahi kar rahe the)
+
+# check: ya lemon-water-achar ho sakta hai
+/products/lemon-achar-surka-special         /products/lemon-vinegar-achar   301
+
+# check: ya chana-vinegar-achar ho sakta hai
+/products/chane-ka-achar-oil-chickpea-pickle /products/chana-oil-vinegar-achar 301
+
+# check: ya imli-chutney / aloo-bukhara-dry-fruit-chutney
+/products/emlee-alu-bukhara-achar-املی-آلو-بخارا-اچار /products/aloo-bukhara-chutney 301
 
 # Old Shopify collection pages -> nearest new equivalent
 /collections/shop-all       /products      301
