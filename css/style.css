@@ -626,8 +626,8 @@ body:not(.page--has-dark-hero) .site-header:not(.is-scrolled) .logo__text-sub {
   min-height: auto;
   display: flex;
   align-items: center;
-  padding-top: calc(var(--header-height) + var(--space-md));
-  padding-bottom: var(--space-lg);
+  padding-top: calc(var(--header-height) + var(--space-xl));
+  padding-bottom: var(--space-2xl);
   overflow: hidden;
   background:
     radial-gradient(1200px 600px at 85% -10%, rgba(201, 151, 43, 0.35), transparent 60%),
@@ -659,15 +659,10 @@ body:not(.page--has-dark-hero) .site-header:not(.is-scrolled) .logo__text-sub {
   margin-inline: auto;
   padding-inline: var(--space-sm);
   display: grid;
-  gap: var(--space-sm);
+  gap: 0.65rem;
   text-align: center;
 }
 @media (min-width: 768px) { .hero__inner { padding-inline: var(--space-lg); } }
-
-/* Compact, conversion-focused hero on desktop */
-@media (min-width: 768px) {
-  .hero { min-height: 64vh; }
-}
 
 .hero__badge {
   display: inline-flex;
@@ -690,12 +685,28 @@ body:not(.page--has-dark-hero) .site-header:not(.is-scrolled) .logo__text-sub {
 .hero__badge-ur { font-family: var(--font-urdu); direction: rtl; font-size: 1rem; font-weight: 700; letter-spacing: 0; text-transform: none; }
 .hero__badge-sep { opacity: 0.5; }
 
-.hero__subheading {
-  color: var(--color-cream);
-  font-size: clamp(1.05rem, 2.4vw, 1.35rem);
-  font-weight: 600;
-  margin-top: -0.4rem;
-  opacity: 0.92;
+/* Premium badges row — reuses .hero__badge's visual language (uppercase,
+   letter-spacing, subtle glass background/border) at a more compact size
+   suited to sitting four-across between the H1 and the description. */
+.hero__badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.hero__pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-pill);
+  background: rgba(251, 243, 228, 0.08);
+  border: 1px solid var(--glass-border-gold);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mustard-light);
+  backdrop-filter: blur(6px);
 }
 
 /* Giant faint Urdu wordmark sitting behind the hero headline */
@@ -716,9 +727,13 @@ body:not(.page--has-dark-hero) .site-header:not(.is-scrolled) .logo__text-sub {
 
 .hero h1 {
   color: var(--color-cream);
-  max-width: 16ch;
+  max-width: 20ch;
   margin-inline: auto;
-  font-size: clamp(2rem, 4.8vw, 3.2rem);
+  font-size: clamp(2.25rem, 7vw, 2.5rem);
+  line-height: 1.15;
+}
+@media (min-width: 768px) {
+  .hero h1 { font-size: clamp(3.625rem, 5vw, 4rem); max-width: none; white-space: nowrap; }
 }
 .hero h1 em {
   font-style: normal;
@@ -733,17 +748,33 @@ body:not(.page--has-dark-hero) .site-header:not(.is-scrolled) .logo__text-sub {
   margin-top: -0.4rem;
 }
 .hero__lede {
-  max-width: 62ch;
+  max-width: 48ch;
   margin-inline: auto;
-  font-size: clamp(1rem, 1.6vw, 1.15rem);
-  line-height: 1.55;
+  font-size: 1rem;
+  line-height: 1.45;
   color: rgba(251, 243, 228, 0.85);
+}
+@media (min-width: 768px) {
+  .hero__lede { font-size: 1.125rem; max-width: 56ch; }
 }
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--space-sm);
+  margin-top: 0.2rem;
+}
+
+/* Decorative-only elements (aria-hidden) — shrink/hide below 768px so they
+   never push the compact mobile hero taller than its content needs. */
+@media (max-width: 767px) {
+  .hero { padding-top: calc(var(--header-height) + 0.2rem); padding-bottom: 0.5rem; }
+  .hero__inner { gap: 0.45rem; }
+  .hero__actions { gap: 0.4rem; margin-top: 0; }
+  .hero .spice-motif { display: none; }
+  .hero .hero__ring--1 { width: 280px; height: 280px; top: -120px; right: -110px; }
+  .hero .hero__ring--2 { width: 200px; height: 200px; bottom: -80px; left: -70px; }
+  .hero .hero__urdu-mark { font-size: clamp(4rem, 26vw, 7rem); top: 4%; }
 }
 
 /* -------------------------------------------------------------------------
