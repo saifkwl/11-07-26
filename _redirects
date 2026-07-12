@@ -2,43 +2,46 @@
 /index /  301
 
 # --- Old Shopify URLs -> New site URLs (301 redirects) ---
-# Ye purane Shopify links hain jo Search Console me abhi "Indexed" dikha rahe hain.
-# Inko redirect karna zaroori hai warna ye 404 ban jayenge aur SEO value zaya ho jayegi.
+# Targets extensionless hain (bina .html) kyunke Cloudflare Pages khud
+# .html -> extensionless redirect karta hai. Agar target me .html rakha
+# jaye toh us built-in redirect se loop ban jata hai (ERR_TOO_MANY_REDIRECTS).
 
-/products/gajar-ka-achar-oil                                          /products/gajar-ka-achar.html      301
-/products/lasooray-ka-achar-lasora-pickle-oil-spicy-lasoora-achaar    /products/lasooray-ka-achar.html   301
-/products/mix-achar                                                    /products/mix-achar.html            301
-/products/pyaz-ka-achar-oil                                            /products/pyaz-ka-achar.html        301
-/products/green-chutney                                                /products/green-chutney.html        301
-/products/garlic-pickle-lehsan-achaar-400-grams                       /products/lehsan-ka-achar.html      301
-/products/amla-murabba-meetha-zaika-sehat-bhara                        /products/amla-murabba.html         301
-/products/aam-ka-achar-oil-super                                       /products/aam-ka-achar.html          301
-/products/adrak-ka-achar-oil                                           /products/adrak-ka-achar.html       301
-/products/lemon-achar-oil                                               /products/lemon-ka-achar.html        301
-/products/aam-ka-khata-meetha-achar                                     /products/mango-sweet-sour-achar.html 301
-/products/gulkand-shahi-meetha-with-natural-rose-flavor                /products/gulqand.html               301
+/products/gajar-ka-achar-oil                                          /products/gajar-ka-achar      301
+/products/lasooray-ka-achar-lasora-pickle-oil-spicy-lasoora-achaar    /products/lasooray-ka-achar   301
+# NOTE: /products/mix-achar aur /products/green-chutney purani Shopify URLs
+# nayi site ke extensionless path ke bilkul same hain, isliye inke liye
+# koi redirect rule ki zaroorat nahi (already match karta hai, rule likhna
+# khud apne aap pe redirect ban jayega = loop).
+/products/pyaz-ka-achar-oil                                            /products/pyaz-ka-achar        301
+/products/garlic-pickle-lehsan-achaar-400-grams                       /products/lehsan-ka-achar      301
+/products/amla-murabba-meetha-zaika-sehat-bhara                        /products/amla-murabba         301
+/products/aam-ka-achar-oil-super                                       /products/aam-ka-achar          301
+/products/adrak-ka-achar-oil                                           /products/adrak-ka-achar       301
+/products/lemon-achar-oil                                               /products/lemon-ka-achar        301
+/products/aam-ka-khata-meetha-achar                                     /products/mango-sweet-sour-achar 301
+/products/gulkand-shahi-meetha-with-natural-rose-flavor                /products/gulqand               301
 
-# check: neeche wali 2 entries mujhe exact match confirm nahi thi, please verify
-/products/lemon-achar-surka-special         /products/lemon-vinegar-achar.html   301  # check: ya lemon-water-achar.html ho sakta hai
-/products/chane-ka-achar-oil-chickpea-pickle /products/chana-oil-vinegar-achar.html 301  # check: ya chana-vinegar-achar.html ho sakta hai
-/products/emlee-alu-bukhara-achar-املی-آلو-بخارا-اچار /products/aloo-bukhara-chutney.html 301  # check: ya imli-chutney.html / aloo-bukhara-dry-fruit-chutney.html
+# check: neeche wali 3 entries mujhe exact match confirm nahi thi, please verify
+/products/lemon-achar-surka-special         /products/lemon-vinegar-achar   301  # check: ya lemon-water-achar ho sakta hai
+/products/chane-ka-achar-oil-chickpea-pickle /products/chana-oil-vinegar-achar 301  # check: ya chana-vinegar-achar ho sakta hai
+/products/emlee-alu-bukhara-achar-املی-آلو-بخارا-اچار /products/aloo-bukhara-chutney 301  # check: ya imli-chutney / aloo-bukhara-dry-fruit-chutney
 
 # Old Shopify collection pages -> nearest new equivalent
-/collections/shop-all       /products.html      301
-/collections/all            /products.html      301
-/collections/frontpage      /                    301
-/collections                /products.html      301
-/collections/green-chutney  /products/green-chutney.html 301
-/collections/gajar-ka-achar /products/gajar-ka-achar.html 301
-/collections/mix-achar      /products/mix-achar.html      301
+/collections/shop-all       /products      301
+/collections/all            /products      301
+/collections/frontpage      /               301
+/collections                /products      301
+/collections/green-chutney  /products/green-chutney 301
+/collections/gajar-ka-achar /products/gajar-ka-achar 301
+/collections/mix-achar      /products/mix-achar      301
 
 # Old Shopify pages
-/pages/contact               /contact.html        301
+/pages/contact               /contact        301
 
 # NOTE: Cloudflare Pages already redirects /page.html -> /page automatically
 # for any static asset (this is a fixed platform behavior, not configurable
-# here). Do NOT add extensionless -> .html rules below — they fight that
-# built-in redirect and create an infinite redirect loop
+# here). Do NOT add extensionless -> .html rules here — that fights the
+# built-in redirect and creates an infinite redirect loop
 # (/about.html -> /about -> /about.html -> ... ERR_TOO_MANY_REDIRECTS).
 # All internal links on the site already use the real .html filenames, so
 # no fallback rules are needed for normal navigation.
