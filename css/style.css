@@ -1255,7 +1255,13 @@ body:not(.page--has-dark-hero) .site-header:not(.is-scrolled) .logo__text-sub {
 .price-table td.price-table__ur { font-family: var(--font-urdu); direction: rtl; font-size: 1.2rem; font-weight: 700; color: var(--color-dark-red); }
 .price-table td.price-table__price { font-weight: 700; color: var(--color-deep-green-dark); white-space: nowrap; font-size: 1.02rem; }
 .price-table td.price-table__price[data-empty="true"] { color: var(--color-text-muted); font-weight: 500; font-style: italic; font-size: 0.88rem; }
-.price-table__cta { text-align: center; }
+.price-table__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
 
 /* Mobile: collapse the price table into premium cards instead of horizontal scroll */
 @media (max-width: 700px) {
@@ -1276,7 +1282,7 @@ body:not(.page--has-dark-hero) .site-header:not(.is-scrolled) .logo__text-sub {
   .price-table td:first-child { grid-column: 1 / -1; padding-bottom: 0.6rem; border-bottom: 1px dashed var(--color-border); margin-bottom: 0.4rem; }
   .price-table td:nth-child(2)::before { content: "400g: "; font-weight: 600; color: var(--color-text-muted); }
   .price-table td:nth-child(3)::before { content: "800g: "; font-weight: 600; color: var(--color-text-muted); }
-  .price-table td.price-table__cta { grid-column: 1 / -1; text-align: left; margin-top: 0.5rem; }
+  .price-table td.price-table__cta { grid-column: 1 / -1; justify-content: flex-start; margin-top: 0.5rem; }
 }
 
 .price-note {

@@ -206,7 +206,6 @@
       ? `<span class="chip" style="background:var(--color-dark-red);color:#fff;border-color:transparent">${p.status.replace(/-/g, " ")}</span>`
       : "";
     const ribbon = p.featured ? `<span class="product-card__ribbon">Bestseller</span>` : "";
-    const initialMsg = api.buildProductOrderMessage(p, "400g", { unitPrice: p.price400 });
     const hasVideo = !!api.extractYouTubeId(p.youtubeUrl || "");
     const actionsRow = hasVideo
       ? `<div class="product-card__actions product-card__actions--split">
@@ -235,15 +234,11 @@
           </div>
           ${statusBadge ? `<div class="product-card__variants">${statusBadge}</div>` : ""}
           ${actionsRow}
-          <div class="product-card__actions product-card__actions--split">
-            <button type="button" class="btn btn--outline-dark btn--sm" data-card-add-cart aria-label="Add ${p.nameEn} to cart">
+          <div class="product-card__actions">
+            <button type="button" class="btn btn--gold btn--sm btn--block" data-card-add-cart aria-label="Add ${p.nameEn} to cart">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="17.5" cy="20" r="1.4"/><path d="M2.5 3h2l2.2 11.2a2 2 0 002 1.6h8a2 2 0 002-1.7L20.5 7H6"/></svg>
               Add to Cart
             </button>
-            <a class="btn btn--whatsapp btn--sm" data-card-order href="${api.buildWhatsAppLink(initialMsg)}" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.1.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.1.2-.3.3-.4.1-.2 0-.3 0-.5s-.6-1.5-.9-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.2 1 1-3.2-.2-.3C3.5 15 3 13.5 3 12c0-5 4-9 9-9s9 4 9 9-4 9-9 9z"/></svg>
-              ${comingSoon ? "Notify Me" : "Order Now"}
-            </a>
           </div>
         </div>
       </article>`;
@@ -290,6 +285,13 @@
         const weight = activeWeightBtn ? activeWeightBtn.dataset.cardWeight : "400g";
         window.CartAPI.add(card.dataset.slug, weight, 1);
         flashButton(addCartBtn, "Added ✓");
+        openCart();
+        return;
+      }
+      const priceAddCartBtn = e.target.closest("[data-price-add-cart]");
+      if (priceAddCartBtn) {
+        window.CartAPI.add(priceAddCartBtn.dataset.priceAddCart, "400g", 1);
+        flashButton(priceAddCartBtn, "Added ✓");
         openCart();
         return;
       }
@@ -645,7 +647,6 @@
      Price table renderer — with live search
   --------------------------------------------------------------- */
   function priceRowHTML(p) {
-    const msg = api.buildProductOrderMessage(p, "");
     const p400 = api.formatPrice(p.price400);
     const p800 = api.formatPrice(p.price800);
     return `
@@ -657,7 +658,8 @@
         <td class="price-table__price" data-empty="${!p400}">${p400 || "Contact for Price"}</td>
         <td class="price-table__price" data-empty="${!p800}">${p800 || "Contact for Price"}</td>
         <td class="price-table__cta">
-          <a class="btn btn--whatsapp btn--sm" href="${api.buildWhatsAppLink(msg)}" target="_blank" rel="noopener">Order</a>
+          <a class="btn btn--outline-dark btn--sm" href="/products/${p.slug}.html">View</a>
+          <button type="button" class="btn btn--gold btn--sm" data-price-add-cart="${p.slug}" aria-label="Add ${p.nameEn} to cart">Add to Cart</button>
         </td>
       </tr>`;
   }
