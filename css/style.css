@@ -623,11 +623,11 @@ body:not(.page--has-dark-hero) .site-header:not(.is-scrolled) .logo__text-sub {
    ------------------------------------------------------------------------- */
 .hero {
   position: relative;
-  min-height: 100svh;
+  min-height: auto;
   display: flex;
   align-items: center;
-  padding-top: calc(var(--header-height) + var(--space-sm));
-  padding-bottom: var(--space-md);
+  padding-top: calc(var(--header-height) + var(--space-md));
+  padding-bottom: var(--space-lg);
   overflow: hidden;
   background:
     radial-gradient(1200px 600px at 85% -10%, rgba(201, 151, 43, 0.35), transparent 60%),
@@ -1724,7 +1724,7 @@ body:not(.page--has-dark-hero) .site-header:not(.is-scrolled) .logo__text-sub {
   border-color: transparent;
   box-shadow: var(--shadow-gold);
 }
-.related-heading { margin-top: var(--space-2xl); }
+.related-heading { margin-top: var(--space-2xl); margin-bottom: var(--space-lg); }
 
 .back-to-top {
   position: fixed;

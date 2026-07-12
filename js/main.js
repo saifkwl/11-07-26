@@ -930,6 +930,7 @@
       relatedGrid.innerHTML = related.length ? related.map(productCardHTML).join("") : "";
       initVideoFacades(relatedGrid);
       initWhatsAppLinks();
+      initReveal(relatedGrid);
     }
   }
 
