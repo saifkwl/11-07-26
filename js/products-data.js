@@ -36,8 +36,8 @@ const SITE_CONFIG = {
   advanceDiscountPercent: 10,
   codAvailable: true,
   deliveryCharge: 300,
-  minProductOrder: 1500,
-  minCodOrder: 1500, // = minProductOrder: COD is available on any order that meets the minimum
+  minProductOrder: 1700,
+  minCodOrder: 1700, // = minProductOrder: COD is available on any order that meets the minimum
   currency: "PKR",
 };
 
