@@ -72,6 +72,50 @@ def build_jsonld(p):
     return json.dumps(data, ensure_ascii=False)
 
 
+def extract_youtube_id(url):
+    """Mirror of extractYouTubeId() in js/products-data.js — keep both in sync."""
+    if not url:
+        return None
+    patterns = [
+        r"youtube\.com/shorts/([a-zA-Z0-9_-]{6,})",
+        r"youtube\.com/watch\?v=([a-zA-Z0-9_-]{6,})",
+        r"youtube(?:-nocookie)?\.com/embed/([a-zA-Z0-9_-]{6,})",
+        r"youtu\.be/([a-zA-Z0-9_-]{6,})",
+    ]
+    for pat in patterns:
+        m = re.search(pat, url)
+        if m:
+            return m.group(1)
+    return None
+
+
+def build_video_jsonld(p):
+    """VideoObject schema for the product's YouTube Short, baked server-side so
+    Google can discover it without running JS. Returns '' if no video."""
+    yt_id = extract_youtube_id(p.get("youtubeUrl") or "")
+    if not yt_id:
+        return ""
+    data = {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "name": f"{p['nameEn']} — ShikarpuriAchar.pk",
+        "description": p.get("shortDescription") or p.get("seoDescription", ""),
+        "thumbnailUrl": [
+            f"https://i.ytimg.com/vi/{yt_id}/maxresdefault.jpg",
+            f"https://i.ytimg.com/vi/{yt_id}/hqdefault.jpg",
+        ],
+        "uploadDate": p.get("videoUploadDate") or "2026-01-01",
+        "embedUrl": f"https://www.youtube-nocookie.com/embed/{yt_id}",
+        "contentUrl": f"https://www.youtube.com/watch?v={yt_id}",
+        "publisher": {
+            "@type": "Organization",
+            "name": "ShikarpuriAchar.pk",
+            "logo": {"@type": "ImageObject", "url": f"{BASE_URL}/assets/icons/favicon.svg"},
+        },
+    }
+    return json.dumps(data, ensure_ascii=False)
+
+
 def load_site_config():
     """Extract the numeric config values from js/products-data.js's SITE_CONFIG
     so the FAQ answers baked into static HTML never drift from the live JS
@@ -207,7 +251,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 <script type="application/ld+json" data-product-schema>__JSONLD__</script>
 <script type="application/ld+json" data-breadcrumb-schema>__BREADCRUMB__</script>
 <script type="application/ld+json" data-faq-schema>__FAQJSONLD__</script>
-</head>
+__VIDEOJSONLD_TAG__</head>
 <body data-product-slug="__SLUG__">
 <a class="skip-link" href="#main">Skip to content</a>
 
@@ -409,6 +453,12 @@ def main():
     os.makedirs(out_dir, exist_ok=True)
 
     for p in products:
+        video_jsonld = build_video_jsonld(p)
+        video_tag = (
+            f'<script type="application/ld+json" data-video-schema>{video_jsonld}</script>'
+            if video_jsonld
+            else ""
+        )
         html = (
             PAGE_TEMPLATE.replace("__SEO_TITLE__", esc(p.get("seoTitle") or f"{p['nameEn']} | ShikarpuriAchar.pk"))
             .replace("__SEO_DESC__", esc(p.get("seoDescription") or p.get("shortDescription", "")))
@@ -418,6 +468,7 @@ def main():
             .replace("__JSONLD__", build_jsonld(p))
             .replace("__BREADCRUMB__", build_breadcrumb(p))
             .replace("__FAQJSONLD__", build_faq_jsonld(p, site_cfg))
+            .replace("__VIDEOJSONLD_TAG__", video_tag)
             .replace("__NAME_EN__", esc(p["nameEn"]))
             .replace("__NAME_UR__", esc(p["nameUr"]))
             .replace("__SLUG__", p["slug"])
@@ -437,16 +488,31 @@ def main():
 
     today = date.today().isoformat()
     lines = ['<?xml version="1.0" encoding="UTF-8"?>']
-    lines.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+    lines.append(
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+        'xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">'
+    )
     for path, freq, prio in SITEMAP_CORE:
         lines.append(
             f"  <url><loc>{BASE_URL}{path}</loc><lastmod>{today}</lastmod>"
             f"<changefreq>{freq}</changefreq><priority>{prio}</priority></url>"
         )
     for p in products:
+        yt_id = extract_youtube_id(p.get("youtubeUrl") or "")
+        if yt_id:
+            video_block = (
+                "<video:video>"
+                f"<video:thumbnail_loc>https://i.ytimg.com/vi/{yt_id}/hqdefault.jpg</video:thumbnail_loc>"
+                f"<video:title>{esc(p['nameEn'])} — ShikarpuriAchar.pk</video:title>"
+                f"<video:description>{esc(p.get('shortDescription') or p.get('seoDescription', ''))}</video:description>"
+                f"<video:player_loc allow_embed=\"yes\">https://www.youtube-nocookie.com/embed/{yt_id}</video:player_loc>"
+                "</video:video>"
+            )
+        else:
+            video_block = ""
         lines.append(
             f"  <url><loc>{BASE_URL}/products/{p['slug']}.html</loc><lastmod>{today}</lastmod>"
-            f"<changefreq>weekly</changefreq><priority>0.8</priority></url>"
+            f"<changefreq>weekly</changefreq><priority>0.8</priority>{video_block}</url>"
         )
     for a in articles:
         lines.append(
