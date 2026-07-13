@@ -285,14 +285,16 @@
         const weight = activeWeightBtn ? activeWeightBtn.dataset.cardWeight : "400g";
         window.CartAPI.add(card.dataset.slug, weight, 1);
         flashButton(addCartBtn, "Added ✓");
-        openCart();
+        const cardTitle = card.querySelector(".product-card__name-en");
+        showCartToast(cardTitle ? cardTitle.textContent.trim() : "Item");
         return;
       }
       const priceAddCartBtn = e.target.closest("[data-price-add-cart]");
       if (priceAddCartBtn) {
         window.CartAPI.add(priceAddCartBtn.dataset.priceAddCart, "400g", 1);
         flashButton(priceAddCartBtn, "Added ✓");
-        openCart();
+        const rowTitle = priceAddCartBtn.closest("tr")?.querySelector("td:first-child strong");
+        showCartToast(rowTitle ? rowTitle.textContent.trim() : "Item");
         return;
       }
     });
@@ -336,6 +338,37 @@
     const count = window.CartAPI.getCount();
     badge.textContent = count > 99 ? "99+" : String(count);
     badge.hidden = count === 0;
+  }
+
+  let cartToastTimer = null;
+  function showCartToast(productName) {
+    let toast = document.querySelector("[data-cart-toast]");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.className = "cart-toast";
+      toast.setAttribute("data-cart-toast", "");
+      toast.innerHTML = `
+        <svg class="cart-toast__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+        <span class="cart-toast__text" data-cart-toast-text></span>
+        <div class="cart-toast__actions">
+          <button type="button" class="cart-toast__btn" data-cart-toast-dismiss>Continue</button>
+          <button type="button" class="cart-toast__btn cart-toast__btn--solid" data-cart-toast-view>View Cart</button>
+        </div>`;
+      document.body.appendChild(toast);
+      toast.addEventListener("click", (e) => {
+        if (e.target.closest("[data-cart-toast-view]")) { hideCartToast(); openCart(); return; }
+        if (e.target.closest("[data-cart-toast-dismiss]")) { hideCartToast(); return; }
+      });
+    }
+    toast.querySelector("[data-cart-toast-text]").textContent = `${productName} added to cart!`;
+    clearTimeout(cartToastTimer);
+    requestAnimationFrame(() => toast.classList.add("is-visible"));
+    cartToastTimer = setTimeout(hideCartToast, 3500);
+  }
+  function hideCartToast() {
+    const toast = document.querySelector("[data-cart-toast]");
+    if (toast) toast.classList.remove("is-visible");
+    clearTimeout(cartToastTimer);
   }
 
   function openCart() {
@@ -1214,7 +1247,7 @@
       addCartBtn.addEventListener("click", () => {
         window.CartAPI.add(product.slug, selectedWeight(), qty);
         flashButton(addCartBtn, "Added to Cart ✓");
-        openCart();
+        showCartToast(product.nameEn);
       });
     }
     updateOrder();
