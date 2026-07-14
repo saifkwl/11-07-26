@@ -285,17 +285,28 @@
         const weight = activeWeightBtn ? activeWeightBtn.dataset.cardWeight : "400g";
         window.CartAPI.add(card.dataset.slug, weight, 1);
         flashButton(addCartBtn, "Added ✓");
-        openCart();
+        pulseCartBadge();
         return;
       }
       const priceAddCartBtn = e.target.closest("[data-price-add-cart]");
       if (priceAddCartBtn) {
         window.CartAPI.add(priceAddCartBtn.dataset.priceAddCart, "400g", 1);
         flashButton(priceAddCartBtn, "Added ✓");
-        openCart();
+        pulseCartBadge();
         return;
       }
     });
+  }
+
+  /* Adding to cart deliberately does NOT open the cart drawer — on mobile it
+     covered the whole page after every single add. Feedback is the button's
+     "Added ✓" flash plus this badge pop on the header cart icon. */
+  function pulseCartBadge() {
+    const badge = document.querySelector("[data-cart-badge]");
+    if (!badge) return;
+    badge.classList.remove("cart-badge--pop");
+    void badge.offsetWidth; /* restart the animation */
+    badge.classList.add("cart-badge--pop");
   }
 
   function emptyStateHTML(message) {
@@ -401,20 +412,37 @@
       : "";
   }
 
+  /* Payment method the customer picked in the cart ("cod" | "advance").
+     COD is the default; if the order is below the COD minimum the COD
+     option is disabled and the selection falls back to advance payment. */
+  let cartPaymentMethod = "cod";
+
   function renderCartSummary(products) {
     const el = document.querySelector("[data-cart-summary]");
     if (!el || !window.CartAPI) return;
     const s = window.CartAPI.getSummary(products);
-    const codMsg = s.codEligible
-      ? `<p class="cart-cod cart-cod--eligible">&#10003; Cash on Delivery available for this order.</p>`
-      : `<p class="cart-cod cart-cod--ineligible">COD is not available. Add ${money(s.codAmountNeeded)} more to qualify for Cash on Delivery.</p>`;
+    if (!s.codEligible && cartPaymentMethod === "cod") cartPaymentMethod = "advance";
+    const isCod = cartPaymentMethod === "cod";
+    const codNote = s.codEligible
+      ? ""
+      : `<p class="cart-cod cart-cod--ineligible">Minimum order for Cash on Delivery is ${money(cfg.minCodOrder)} — add ${money(s.codAmountNeeded)} more, or continue with Advance Payment (${s.discountPct}% off).</p>`;
     el.innerHTML = `
       <div class="cart-summary__row"><span>Subtotal</span><strong>${money(s.subtotal)}</strong></div>
       <div class="cart-summary__row"><span>Shipping</span><strong>${money(s.shipping)}</strong></div>
-      <div class="cart-summary__row cart-summary__row--discount"><span>Advance Discount (${s.discountPct}%)</span><strong>&minus;${money(s.discountAmount)}</strong></div>
-      <div class="cart-summary__row cart-summary__row--total"><span>Grand Total (COD)</span><strong>${money(s.grandTotalCod)}</strong></div>
-      <div class="cart-summary__row cart-summary__row--total-alt"><span>Grand Total (Pay in Advance)</span><strong>${money(s.grandTotalAdvance)}</strong></div>
-      ${codMsg}
+      <div class="cart-pay" role="radiogroup" aria-label="Payment method">
+        <span class="cart-pay__label">Payment Method</span>
+        <label class="cart-pay__option${s.codEligible ? "" : " is-disabled"}">
+          <input type="radio" name="cart-pay" value="cod" ${isCod ? "checked" : ""} ${s.codEligible ? "" : "disabled"}>
+          <span>Cash on Delivery</span>
+        </label>
+        <label class="cart-pay__option">
+          <input type="radio" name="cart-pay" value="advance" ${isCod ? "" : "checked"}>
+          <span>Advance Payment <em>(${s.discountPct}% discount)</em></span>
+        </label>
+      </div>
+      ${isCod ? "" : `<div class="cart-summary__row cart-summary__row--discount"><span>Advance Discount (${s.discountPct}%)</span><strong>&minus;${money(s.discountAmount)}</strong></div>`}
+      <div class="cart-summary__row cart-summary__row--total"><span>Grand Total</span><strong>${money(isCod ? s.grandTotalCod : s.grandTotalAdvance)}</strong></div>
+      ${codNote}
       ${s.hasUnpriced ? `<p class="cart-summary__note">Some items are priced on request — final total confirmed on WhatsApp.</p>` : ""}
     `;
   }
@@ -432,7 +460,7 @@
     renderCartSuggestions(products, lines);
     const checkoutBtn = document.querySelector("[data-cart-checkout]");
     if (checkoutBtn) {
-      const msg = window.CartAPI.buildCartWhatsAppMessage(products);
+      const msg = window.CartAPI.buildCartWhatsAppMessage(products, cartPaymentMethod);
       checkoutBtn.href = msg ? api.buildWhatsAppLink(msg) : "#";
       checkoutBtn.setAttribute("aria-disabled", lines.length ? "false" : "true");
     }
@@ -499,6 +527,12 @@
   }
 
   function initCartEvents() {
+    document.addEventListener("change", (e) => {
+      if (e.target.matches('input[name="cart-pay"]')) {
+        cartPaymentMethod = e.target.value;
+        renderCart(productsCache);
+      }
+    });
     document.addEventListener("click", (e) => {
       if (e.target.closest("[data-cart-toggle]")) { openCart(); return; }
       if (e.target.closest("[data-cart-close]")) { closeCart(); return; }
@@ -1214,7 +1248,7 @@
       addCartBtn.addEventListener("click", () => {
         window.CartAPI.add(product.slug, selectedWeight(), qty);
         flashButton(addCartBtn, "Added to Cart ✓");
-        openCart();
+        pulseCartBadge();
       });
     }
     updateOrder();

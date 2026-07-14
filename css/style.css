@@ -444,11 +444,9 @@ p { color: var(--color-text-muted); }
 .site-header:not(.is-scrolled) .logo__text-sub {
   color: var(--color-white);
 }
-body:not(.page--has-dark-hero) .site-header:not(.is-scrolled) .site-header__link,
-body:not(.page--has-dark-hero) .site-header:not(.is-scrolled) .logo__text-main,
-body:not(.page--has-dark-hero) .site-header:not(.is-scrolled) .logo__text-sub {
-  color: var(--color-deep-green-dark);
-}
+/* Every page's hero (.hero and .page-hero) is dark green, so the unscrolled
+   transparent header always sits on a dark background — links stay cream/white
+   until .is-scrolled gives the header its own light glass background. */
 
 .header-inner {
   width: 100%;
@@ -682,7 +680,7 @@ body:not(.page--has-dark-hero) .site-header:not(.is-scrolled) .logo__text-sub {
   box-shadow: 0 4px 20px rgba(0,0,0,0.15);
 }
 .hero__badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-mustard-light); animation: wa-pulse 2s infinite; }
-.hero__badge-ur { font-family: var(--font-urdu); direction: rtl; font-size: 1rem; font-weight: 700; letter-spacing: 0; text-transform: none; }
+.hero__badge-ur { font-family: var(--font-urdu); direction: rtl; font-size: 1rem; font-weight: 700; letter-spacing: 0; word-spacing: -0.08em; text-transform: none; }
 .hero__badge-sep { opacity: 0.5; }
 
 /* Premium badges row — reuses .hero__badge's visual language (uppercase,
@@ -877,8 +875,8 @@ body:not(.page--has-dark-hero) .site-header:not(.is-scrolled) .logo__text-sub {
   display: flex; align-items: center; justify-content: center;
 }
 .info-card__icon svg { width: 17px; height: 17px; }
-.info-card strong { display: block; font-family: var(--font-heading); font-size: 0.95rem; color: var(--color-deep-green-dark); line-height: 1.2; }
-.info-card span { font-size: 0.72rem; color: var(--color-text-muted); }
+.info-card strong { display: block; font-family: var(--font-heading); font-size: 1.15rem; color: var(--color-deep-green-dark); line-height: 1.2; }
+.info-card span { font-size: 0.78rem; color: var(--color-text-muted); }
 
 /* -------------------------------------------------------------------------
    9. PRODUCT CARD
@@ -1908,6 +1906,8 @@ body:not(.page--has-dark-hero) .site-header:not(.is-scrolled) .logo__text-sub {
 .qty-stepper--sm span { min-width: 1.6rem; font-size: 0.88rem; }
 
 .cart-empty-state { text-align: center; padding: var(--space-xl) var(--space-sm); display: flex; flex-direction: column; gap: 0.9rem; align-items: center; }
+/* display:flex above would otherwise defeat the hidden attribute */
+.cart-empty-state[hidden] { display: none; }
 
 .cart-suggested { margin-top: var(--space-md); }
 .cart-suggested__title { font-family: var(--font-heading); font-size: 0.95rem; color: var(--color-brown); margin-bottom: 0.6rem; }
@@ -1949,3 +1949,41 @@ body:not(.page--has-dark-hero) .site-header:not(.is-scrolled) .logo__text-sub {
 .cart-cod--eligible { background: rgba(31, 77, 58, 0.1); color: var(--color-deep-green-dark); }
 .cart-cod--ineligible { background: rgba(122, 31, 38, 0.08); color: var(--color-dark-red); }
 .cart-summary__note { font-size: 0.76rem; font-style: italic; margin-top: 0.5rem; color: var(--color-text-muted); }
+
+/* Payment method selector inside the cart summary */
+.cart-pay {
+  display: grid;
+  gap: 0.35rem;
+  margin-block: 0.6rem;
+  padding: 0.65rem 0.75rem;
+  background: var(--color-cream-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+.cart-pay__label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.cart-pay__option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+.cart-pay__option input { accent-color: var(--color-deep-green); width: 16px; height: 16px; }
+.cart-pay__option em { font-style: normal; font-weight: 700; color: var(--color-mustard-dark); }
+.cart-pay__option.is-disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* Header cart badge "pop" when an item is added (cart no longer auto-opens) */
+.cart-badge--pop { animation: cart-badge-pop 0.45s var(--ease); }
+@keyframes cart-badge-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.55); }
+  100% { transform: scale(1); }
+}

@@ -36,8 +36,8 @@ const SITE_CONFIG = {
   advanceDiscountPercent: 10,
   codAvailable: true,
   deliveryCharge: 300,
-  minProductOrder: 1700,
-  minCodOrder: 1700, // = minProductOrder: COD is available on any order that meets the minimum
+  minProductOrder: 1500,
+  minCodOrder: 1500, // = minProductOrder: COD is available on any order that meets the minimum
   currency: "PKR",
 };
 
@@ -381,11 +381,14 @@ const CartAPI = (function () {
     return `Rs. ${Number(n).toLocaleString("en-PK")}`;
   }
 
-  /** Builds the single consolidated WhatsApp order message for the whole cart. */
-  function buildCartWhatsAppMessage(products) {
+  /** Builds the single consolidated WhatsApp order message for the whole cart.
+      paymentMethod: "cod" | "advance" — the option the customer selected in
+      the cart before checkout (defaults to COD). */
+  function buildCartWhatsAppMessage(products, paymentMethod) {
     const lines = getLines(products);
     if (!lines.length) return "";
     const s = getSummary(products);
+    const isAdvance = paymentMethod === "advance" || !s.codEligible;
     const parts = [];
     parts.push("Assalam-o-Alaikum! I want to place the following order from ShikarpuriAchar.pk:");
     parts.push("");
@@ -397,16 +400,17 @@ const CartAPI = (function () {
     parts.push("");
     parts.push(`Subtotal: ${money(s.subtotal)}`);
     parts.push(`Shipping: ${money(s.shipping)}`);
-    parts.push(`Advance Discount available (${s.discountPct}%): -${money(s.discountAmount)}`);
-    parts.push(`Grand Total (Cash on Delivery): ${money(s.grandTotalCod)}`);
-    parts.push(`Grand Total (Pay in Advance): ${money(s.grandTotalAdvance)}`);
+    if (isAdvance) {
+      parts.push(`Advance Discount (${s.discountPct}%): -${money(s.discountAmount)}`);
+      parts.push(`Grand Total: ${money(s.grandTotalAdvance)}`);
+      parts.push("");
+      parts.push(`Payment Method: Advance Payment (${s.discountPct}% discount applied)`);
+    } else {
+      parts.push(`Grand Total: ${money(s.grandTotalCod)}`);
+      parts.push("");
+      parts.push("Payment Method: Cash on Delivery");
+    }
     if (s.hasUnpriced) parts.push("(Some items are priced on request — final total to be confirmed.)");
-    parts.push("");
-    parts.push(
-      s.codEligible
-        ? "Cash on Delivery is available for this order."
-        : `This order is below the Rs. ${SITE_CONFIG.minCodOrder} Cash on Delivery minimum — please advise.`
-    );
     parts.push("");
     parts.push("Name: ___");
     parts.push("City: ___");
