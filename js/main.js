@@ -439,37 +439,58 @@
      option is disabled and the selection falls back to advance payment. */
   let cartPaymentMethod = "cod";
 
+  /* Grand Total + checkout live in the pinned footer so they're never
+     scrolled out of view; everything else (line breakdown, payment choice,
+     notes) stays in the scrollable body above it. */
   function renderCartSummary(products) {
     const el = document.querySelector("[data-cart-summary]");
-    if (!el || !window.CartAPI) return;
+    const totalEl = document.querySelector("[data-cart-grandtotal]");
+    if (!window.CartAPI) return;
     const s = window.CartAPI.getSummary(products);
-    /* Summary now lives inside the scrollable body — clear it when the cart
-       is empty so no Rs. 0 rows show above the empty-state message. */
-    if (s.subtotal <= 0) { el.innerHTML = ""; return; }
+    if (s.subtotal <= 0) {
+      if (el) el.innerHTML = "";
+      if (totalEl) totalEl.innerHTML = "";
+      return;
+    }
     if (!s.codEligible && cartPaymentMethod === "cod") cartPaymentMethod = "advance";
     const isCod = cartPaymentMethod === "cod";
     const codNote = s.codEligible
       ? ""
       : `<p class="cart-cod cart-cod--ineligible">Minimum order for Cash on Delivery is ${money(cfg.minCodOrder)} — add ${money(s.codAmountNeeded)} more, or continue with Advance Payment (${s.discountPct}% off).</p>`;
-    el.innerHTML = `
-      <div class="cart-summary__row"><span>Subtotal</span><strong>${money(s.subtotal)}</strong></div>
-      <div class="cart-summary__row"><span>Shipping</span><strong>${money(s.shipping)}</strong></div>
-      <div class="cart-pay" role="radiogroup" aria-label="Payment method">
-        <span class="cart-pay__label">Payment Method</span>
-        <label class="cart-pay__option${s.codEligible ? "" : " is-disabled"}">
-          <input type="radio" name="cart-pay" value="cod" ${isCod ? "checked" : ""} ${s.codEligible ? "" : "disabled"}>
-          <span>Cash on Delivery</span>
-        </label>
-        <label class="cart-pay__option">
-          <input type="radio" name="cart-pay" value="advance" ${isCod ? "" : "checked"}>
-          <span>Advance Payment <em>(${s.discountPct}% discount)</em></span>
-        </label>
-      </div>
-      ${isCod ? "" : `<div class="cart-summary__row cart-summary__row--discount"><span>Advance Discount (${s.discountPct}%)</span><strong>&minus;${money(s.discountAmount)}</strong></div>`}
-      <div class="cart-summary__row cart-summary__row--total"><span>Grand Total</span><strong>${money(isCod ? s.grandTotalCod : s.grandTotalAdvance)}</strong></div>
-      ${codNote}
-      ${s.hasUnpriced ? `<p class="cart-summary__note">Some items are priced on request — final total confirmed on WhatsApp.</p>` : ""}
-    `;
+    if (el) {
+      el.innerHTML = `
+        <div class="cart-summary__row"><span>Subtotal</span><strong>${money(s.subtotal)}</strong></div>
+        <div class="cart-summary__row"><span>Shipping</span><strong>${money(s.shipping)}</strong></div>
+        <div class="cart-pay" role="radiogroup" aria-label="Payment method">
+          <span class="cart-pay__label">Payment Method</span>
+          <label class="cart-pay__option${s.codEligible ? "" : " is-disabled"}">
+            <input type="radio" name="cart-pay" value="cod" ${isCod ? "checked" : ""} ${s.codEligible ? "" : "disabled"}>
+            <span>Cash on Delivery</span>
+          </label>
+          <label class="cart-pay__option">
+            <input type="radio" name="cart-pay" value="advance" ${isCod ? "" : "checked"}>
+            <span>Advance Payment <em>(${s.discountPct}% discount)</em></span>
+          </label>
+        </div>
+        ${isCod ? "" : `<div class="cart-summary__row cart-summary__row--discount"><span>Advance Discount (${s.discountPct}%)</span><strong>&minus;${money(s.discountAmount)}</strong></div>`}
+        ${codNote}
+        ${s.hasUnpriced ? `<p class="cart-summary__note">Some items are priced on request — final total confirmed on WhatsApp.</p>` : ""}
+      `;
+    }
+    if (totalEl) {
+      totalEl.innerHTML = `<div class="cart-summary__row cart-summary__row--total"><span>Grand Total</span><strong>${money(isCod ? s.grandTotalCod : s.grandTotalAdvance)}</strong></div>`;
+    }
+  }
+
+  /* Shows a "scroll for more" chevron over the bottom of the cart body
+     whenever there's content hidden below the visible area, so the payment
+     options/notes above the pinned Grand Total are never silently missed. */
+  function updateCartScrollHint() {
+    const body = document.querySelector("[data-cart-scroll]");
+    const hint = document.querySelector("[data-cart-scroll-hint]");
+    if (!body || !hint) return;
+    const hasMore = body.scrollHeight - body.scrollTop - body.clientHeight > 12;
+    hint.hidden = !hasMore;
   }
 
   function renderCart(products) {
@@ -490,6 +511,7 @@
       checkoutBtn.setAttribute("aria-disabled", lines.length ? "false" : "true");
     }
     updateCartBadge();
+    requestAnimationFrame(updateCartScrollHint);
   }
 
   function injectCartUI() {
@@ -521,7 +543,7 @@
             <h2>Your Cart</h2>
             <button type="button" class="cart-panel__close" data-cart-close aria-label="Close cart">&times;</button>
           </div>
-          <div class="cart-panel__body">
+          <div class="cart-panel__body" data-cart-scroll>
             <div data-cart-lines class="cart-lines"></div>
             <div data-cart-empty-state class="cart-empty-state" hidden>
               <p>Your cart is empty.</p>
@@ -529,8 +551,12 @@
             </div>
             <div data-cart-summary class="cart-summary"></div>
             <div data-cart-suggested class="cart-suggested"></div>
+            <button type="button" class="cart-scroll-hint" data-cart-scroll-hint hidden aria-label="Scroll down for more">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
           </div>
           <div class="cart-panel__foot" data-cart-foot hidden>
+            <div data-cart-grandtotal class="cart-grandtotal"></div>
             <div class="cart-panel__actions">
               <button type="button" class="btn btn--outline-dark btn--sm btn--block" data-cart-empty-btn>Empty Cart</button>
               <a class="btn btn--whatsapp btn--lg btn--block" data-cart-checkout href="#" target="_blank" rel="noopener">
@@ -573,6 +599,9 @@
   }
 
   function initCartEvents() {
+    document.addEventListener("scroll", (e) => {
+      if (e.target.matches && e.target.matches("[data-cart-scroll]")) updateCartScrollHint();
+    }, true);
     document.addEventListener("change", (e) => {
       if (e.target.matches('input[name="cart-pay"]')) {
         cartPaymentMethod = e.target.value;
