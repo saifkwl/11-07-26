@@ -470,6 +470,22 @@
       ${codNote}
       ${s.hasUnpriced ? `<p class="cart-summary__note">Some items are priced on request — final total confirmed on WhatsApp.</p>` : ""}
     `;
+    const footTotalEl = document.querySelector("[data-cart-foot-total]");
+    if (footTotalEl) {
+      footTotalEl.innerHTML = `<span>Grand Total</span><strong>${money(isCod ? s.grandTotalCod : s.grandTotalAdvance)}</strong>`;
+    }
+  }
+
+  /* Shows a fading chevron above the sticky footer whenever the scrollable
+     cart body has content below the fold, so mobile users know to scroll
+     instead of assuming the panel only holds what's on screen. */
+  function updateCartScrollCue() {
+    const body = document.querySelector("[data-cart-body]");
+    const cue = document.querySelector("[data-cart-scroll-cue]");
+    if (!body || !cue) return;
+    const hasOverflow = body.scrollHeight > body.clientHeight + 4;
+    const atBottom = body.scrollTop + body.clientHeight >= body.scrollHeight - 4;
+    cue.hidden = !hasOverflow || atBottom;
   }
 
   function renderCart(products) {
@@ -490,6 +506,7 @@
       checkoutBtn.setAttribute("aria-disabled", lines.length ? "false" : "true");
     }
     updateCartBadge();
+    requestAnimationFrame(updateCartScrollCue);
   }
 
   function injectCartUI() {
@@ -521,7 +538,7 @@
             <h2>Your Cart</h2>
             <button type="button" class="cart-panel__close" data-cart-close aria-label="Close cart">&times;</button>
           </div>
-          <div class="cart-panel__body">
+          <div class="cart-panel__body" data-cart-body>
             <div data-cart-lines class="cart-lines"></div>
             <div data-cart-empty-state class="cart-empty-state" hidden>
               <p>Your cart is empty.</p>
@@ -530,7 +547,11 @@
             <div data-cart-summary class="cart-summary"></div>
             <div data-cart-suggested class="cart-suggested"></div>
           </div>
+          <div class="cart-panel__scroll-cue" data-cart-scroll-cue hidden aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
           <div class="cart-panel__foot" data-cart-foot hidden>
+            <div class="cart-panel__foot-total" data-cart-foot-total></div>
             <div class="cart-panel__actions">
               <button type="button" class="btn btn--outline-dark btn--sm btn--block" data-cart-empty-btn>Empty Cart</button>
               <a class="btn btn--whatsapp btn--lg btn--block" data-cart-checkout href="#" target="_blank" rel="noopener">
@@ -617,6 +638,20 @@
       if (e.key !== "Escape") return;
       const overlay = document.querySelector("[data-cart-overlay]");
       if (overlay && overlay.classList.contains("is-open")) closeCart();
+    });
+
+    const cartBody = document.querySelector("[data-cart-body]");
+    if (cartBody) {
+      let ticking = false;
+      cartBody.addEventListener("scroll", () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => { updateCartScrollCue(); ticking = false; });
+      });
+    }
+    window.addEventListener("resize", () => {
+      const overlay = document.querySelector("[data-cart-overlay]");
+      if (overlay && overlay.classList.contains("is-open")) updateCartScrollCue();
     });
   }
 
