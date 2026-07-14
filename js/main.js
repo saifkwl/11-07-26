@@ -285,28 +285,50 @@
         const weight = activeWeightBtn ? activeWeightBtn.dataset.cardWeight : "400g";
         window.CartAPI.add(card.dataset.slug, weight, 1);
         flashButton(addCartBtn, "Added ✓");
-        pulseCartBadge();
+        notifyAddedToCart(card.dataset.slug);
         return;
       }
       const priceAddCartBtn = e.target.closest("[data-price-add-cart]");
       if (priceAddCartBtn) {
         window.CartAPI.add(priceAddCartBtn.dataset.priceAddCart, "400g", 1);
         flashButton(priceAddCartBtn, "Added ✓");
-        pulseCartBadge();
+        notifyAddedToCart(priceAddCartBtn.dataset.priceAddCart);
         return;
       }
     });
   }
 
-  /* Adding to cart deliberately does NOT open the cart drawer — on mobile it
-     covered the whole page after every single add. Feedback is the button's
-     "Added ✓" flash plus this badge pop on the header cart icon. */
+  /* Adding to cart deliberately does NOT open the full cart drawer — on mobile
+     it covered the whole page after every single add. Feedback is instead the
+     header badge pop plus a small bottom toast with Continue / View Cart. */
   function pulseCartBadge() {
     const badge = document.querySelector("[data-cart-badge]");
     if (!badge) return;
     badge.classList.remove("cart-badge--pop");
     void badge.offsetWidth; /* restart the animation */
     badge.classList.add("cart-badge--pop");
+  }
+
+  let cartToastTimer = null;
+  function notifyAddedToCart(slug) {
+    pulseCartBadge();
+    const toast = document.querySelector("[data-cart-toast]");
+    if (!toast) return;
+    const product = api.getBySlug(productsCache, slug);
+    const textEl = toast.querySelector("[data-cart-toast-text]");
+    if (textEl) textEl.textContent = product ? `${product.nameEn} added to cart` : "Added to cart";
+    toast.hidden = false;
+    void toast.offsetWidth; /* restart the slide-in */
+    toast.classList.add("is-visible");
+    clearTimeout(cartToastTimer);
+    cartToastTimer = setTimeout(hideCartToast, 4000);
+  }
+  function hideCartToast() {
+    const toast = document.querySelector("[data-cart-toast]");
+    if (!toast) return;
+    toast.classList.remove("is-visible");
+    clearTimeout(cartToastTimer);
+    setTimeout(() => { if (!toast.classList.contains("is-visible")) toast.hidden = true; }, 300);
   }
 
   function emptyStateHTML(message) {
@@ -421,6 +443,9 @@
     const el = document.querySelector("[data-cart-summary]");
     if (!el || !window.CartAPI) return;
     const s = window.CartAPI.getSummary(products);
+    /* Summary now lives inside the scrollable body — clear it when the cart
+       is empty so no Rs. 0 rows show above the empty-state message. */
+    if (s.subtotal <= 0) { el.innerHTML = ""; return; }
     if (!s.codEligible && cartPaymentMethod === "cod") cartPaymentMethod = "advance";
     const isCod = cartPaymentMethod === "cod";
     const codNote = s.codEligible
@@ -502,10 +527,10 @@
               <p>Your cart is empty.</p>
               <a href="/products.html" class="btn btn--outline-dark btn--sm">Browse Products</a>
             </div>
+            <div data-cart-summary class="cart-summary"></div>
             <div data-cart-suggested class="cart-suggested"></div>
           </div>
           <div class="cart-panel__foot" data-cart-foot hidden>
-            <div data-cart-summary class="cart-summary"></div>
             <div class="cart-panel__actions">
               <button type="button" class="btn btn--outline-dark btn--sm btn--block" data-cart-empty-btn>Empty Cart</button>
               <a class="btn btn--whatsapp btn--lg btn--block" data-cart-checkout href="#" target="_blank" rel="noopener">
@@ -516,6 +541,27 @@
           </div>
         </div>`;
       document.body.appendChild(overlay);
+    }
+
+    if (!document.querySelector("[data-cart-toast]")) {
+      const toast = document.createElement("div");
+      toast.className = "cart-toast";
+      toast.setAttribute("data-cart-toast", "");
+      toast.setAttribute("role", "status");
+      toast.setAttribute("aria-live", "polite");
+      toast.hidden = true;
+      toast.innerHTML = `
+        <div class="cart-toast__msg">
+          <span class="cart-toast__check" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
+          </span>
+          <span data-cart-toast-text>Added to cart</span>
+        </div>
+        <div class="cart-toast__actions">
+          <button type="button" class="cart-toast__btn cart-toast__btn--ghost" data-cart-toast-continue>Continue</button>
+          <button type="button" class="cart-toast__btn cart-toast__btn--solid" data-cart-toast-view>View Cart</button>
+        </div>`;
+      document.body.appendChild(toast);
     }
 
     updateCartBadge();
@@ -536,6 +582,8 @@
     document.addEventListener("click", (e) => {
       if (e.target.closest("[data-cart-toggle]")) { openCart(); return; }
       if (e.target.closest("[data-cart-close]")) { closeCart(); return; }
+      if (e.target.closest("[data-cart-toast-continue]")) { hideCartToast(); return; }
+      if (e.target.closest("[data-cart-toast-view]")) { hideCartToast(); openCart(); return; }
       if (e.target.closest("[data-cart-empty-btn]")) { window.CartAPI.empty(); return; }
 
       const minusBtn = e.target.closest("[data-cart-qty-minus]");
@@ -1248,7 +1296,7 @@
       addCartBtn.addEventListener("click", () => {
         window.CartAPI.add(product.slug, selectedWeight(), qty);
         flashButton(addCartBtn, "Added to Cart ✓");
-        pulseCartBadge();
+        notifyAddedToCart(product.slug);
       });
     }
     updateOrder();

@@ -680,7 +680,7 @@ p { color: var(--color-text-muted); }
   box-shadow: 0 4px 20px rgba(0,0,0,0.15);
 }
 .hero__badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-mustard-light); animation: wa-pulse 2s infinite; }
-.hero__badge-ur { font-family: var(--font-urdu); direction: rtl; font-size: 1rem; font-weight: 700; letter-spacing: 0; word-spacing: -0.08em; text-transform: none; }
+.hero__badge-ur { font-family: var(--font-urdu); direction: rtl; font-size: 1.05rem; font-weight: 700; letter-spacing: 0; word-spacing: -0.14em; text-transform: none; }
 .hero__badge-sep { opacity: 0.5; }
 
 /* Premium badges row — reuses .hero__badge's visual language (uppercase,
@@ -1909,6 +1909,9 @@ p { color: var(--color-text-muted); }
 /* display:flex above would otherwise defeat the hidden attribute */
 .cart-empty-state[hidden] { display: none; }
 
+/* Summary now sits in the scrollable body — separate it from the line items */
+.cart-summary { margin-top: var(--space-sm); padding-top: var(--space-sm); border-top: 1px solid var(--color-border); }
+.cart-summary:empty { margin: 0; padding: 0; border: 0; }
 .cart-suggested { margin-top: var(--space-md); }
 .cart-suggested__title { font-family: var(--font-heading); font-size: 0.95rem; color: var(--color-brown); margin-bottom: 0.6rem; }
 .cart-suggest-item {
@@ -1986,4 +1989,57 @@ p { color: var(--color-text-muted); }
   0% { transform: scale(1); }
   40% { transform: scale(1.55); }
   100% { transform: scale(1); }
+}
+
+/* -------------------------------------------------------------------------
+   Add-to-cart confirmation toast (small popup, does not cover the page)
+   ------------------------------------------------------------------------- */
+.cart-toast {
+  position: fixed;
+  z-index: 1140; /* below the full cart overlay (1150), above page content */
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 5.25rem); /* clears the WhatsApp float */
+  transform: translate(-50%, 160%);
+  width: min(94vw, 420px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: 0.7rem 0.85rem;
+  background: var(--color-deep-green-dark);
+  color: var(--color-cream);
+  border: 1px solid var(--glass-border-gold);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  transition: transform 0.32s var(--ease), opacity 0.32s var(--ease);
+}
+.cart-toast.is-visible { transform: translate(-50%, 0); opacity: 1; }
+.cart-toast__msg { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 0.9rem; min-width: 0; }
+.cart-toast__msg span[data-cart-toast-text] { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cart-toast__check {
+  flex-shrink: 0;
+  width: 24px; height: 24px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: var(--color-deep-green-light);
+  color: var(--color-cream);
+}
+.cart-toast__check svg { width: 15px; height: 15px; }
+.cart-toast__actions { display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0; }
+.cart-toast__btn {
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.cart-toast__btn--ghost { background: transparent; color: rgba(251, 243, 228, 0.85); border: 1px solid rgba(251, 243, 228, 0.3); }
+.cart-toast__btn--ghost:hover { background: rgba(251, 243, 228, 0.12); }
+.cart-toast__btn--solid { background: var(--color-mustard); color: var(--color-deep-green-dark); }
+.cart-toast__btn--solid:hover { background: var(--color-mustard-light); }
+@media (prefers-reduced-motion: reduce) {
+  .cart-toast { transition: opacity 0.2s linear; }
 }
