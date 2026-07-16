@@ -38,7 +38,22 @@ const SITE_CONFIG = {
   deliveryCharge: 300,
   minProductOrder: 1500,
   minCodOrder: 1500, // = minProductOrder: COD is available on any order that meets the minimum
+  freeDeliveryThreshold: 1800, // advance orders at/above this get FREE delivery (see advanceTiers)
+  advanceDeliveryCharge: 200,  // advance orders below the threshold (still < COD's 300)
   currency: "PKR",
+
+  /* Locked microcopy — owner-approved exact strings. Reference these
+     constants everywhere (buy-box, cart, WhatsApp, FAQ, price-list) so the
+     Roman-Urdu + English tone stays identical. Do not paraphrase. */
+  COPY: {
+    advanceFreeDelivery: "Advance payment par delivery FREE 🎁",
+    codMinWarning: "Minimum Order amount is PKR 1500, add more.",
+    advanceTier1: "Advance payment par delivery FREE + Rs. 100 off 🎁",
+    advanceTier2: "FREE delivery + FREE 400g achar 🎁",
+    giftPickerTitle: "🎁 Apna FREE 400g achar chunein",
+    advanceReassurance: "Payment screenshot WhatsApp par bhejein, order foran confirm ✓",
+    advanceMethod: "Advance payment JazzCash/EasyPaisa se — account details WhatsApp par milen ge.",
+  },
 };
 
 function resolveJsonUrl(filename) {
@@ -137,6 +152,59 @@ const ProductsAPI = (function () {
     return `Rs. ${Number(value).toLocaleString("en-PK")}`;
   }
 
+  /* ---- Variant helpers ----------------------------------------------
+     `variants` is the canonical price structure on every product:
+       [{ weight:"400g", price:499 },
+        { weight:"800g", price:899, popular:true },
+        { weight:"2kg",  price:1999, label:"Family Pack" }]
+     price400 / price800 are kept only as convenience mirrors. All size /
+     savings logic reads variants so extra sizes (2kg) work everywhere. */
+  function getVariants(product) {
+    if (product && Array.isArray(product.variants) && product.variants.length) {
+      return product.variants;
+    }
+    const v = [];
+    if (product) {
+      v.push({ weight: "400g", price: product.price400 != null ? product.price400 : null });
+      v.push({ weight: "800g", price: product.price800 != null ? product.price800 : null, popular: true });
+    }
+    return v;
+  }
+  function variantByWeight(product, weight) {
+    return getVariants(product).find((v) => v.weight === weight) || null;
+  }
+  function variantPrice(product, weight) {
+    const v = variantByWeight(product, weight);
+    return v ? v.price : null;
+  }
+  function defaultVariant(product) {
+    const vs = getVariants(product);
+    return vs.find((v) => v.popular) || vs[0] || null;
+  }
+  function baseVariant(product) {
+    return variantByWeight(product, "400g") || getVariants(product)[0] || null;
+  }
+  function weightGrams(weight) {
+    const m = String(weight || "").match(/([\d.]+)\s*(kg|g)/i);
+    if (!m) return null;
+    const n = parseFloat(m[1]);
+    return /kg/i.test(m[2]) ? n * 1000 : n;
+  }
+  /** Rs saved vs buying the same grams in 400g jars, and % cheaper per gram. */
+  function variantSavings(product, weight) {
+    const base = baseVariant(product);
+    const v = variantByWeight(product, weight);
+    if (!base || !v || base.price == null || v.price == null) return null;
+    const g = weightGrams(weight);
+    const bg = weightGrams(base.weight);
+    if (!g || !bg || g <= bg) return null;
+    const perGramBase = base.price / bg;
+    const equiv = Math.round(perGramBase * g);
+    const saveRs = equiv - v.price;
+    const pct = Math.round((1 - (v.price / g) / perGramBase) * 100);
+    return { saveRs, pct, equiv };
+  }
+
   function buildWhatsAppLink(message) {
     const base = `https://wa.me/${SITE_CONFIG.whatsappNumber}`;
     return message ? `${base}?text=${encodeURIComponent(message)}` : base;
@@ -165,6 +233,8 @@ const ProductsAPI = (function () {
     ready: load(),
     getBySlug, getFeatured, getByCategory, getCategories, getRelated,
     search, slugify, extractYouTubeId, formatPrice,
+    getVariants, variantByWeight, variantPrice, defaultVariant, baseVariant,
+    weightGrams, variantSavings,
     buildWhatsAppLink, buildProductOrderMessage,
   };
 })();
@@ -329,7 +399,7 @@ const CartAPI = (function () {
       .map((item) => {
         const product = products.find((p) => p.slug === item.slug);
         if (!product) return null;
-        const unitPrice = item.weight === "800g" ? product.price800 : product.price400;
+        const unitPrice = ProductsAPI.variantPrice(product, item.weight);
         const hasPrice = unitPrice !== null && unitPrice !== undefined;
         return {
           slug: item.slug,

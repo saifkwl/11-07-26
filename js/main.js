@@ -200,12 +200,26 @@
       : `<span style="font-size:.78rem;font-weight:600;font-style:italic">Price on WhatsApp</span>`;
   }
 
+  /* "Save Rs. X · Y% sasta" for a bigger size vs the 400g per-gram rate;
+     empty string when there's no saving (e.g. the 400g base itself). */
+  function savingsText(p, weight) {
+    const s = api.variantSavings(p, weight);
+    if (!s || s.saveRs <= 0) return "";
+    return `Save Rs. ${s.saveRs.toLocaleString("en-PK")} · ${s.pct}% sasta`;
+  }
+
   function productCardHTML(p) {
     const comingSoon = p.status && p.status !== "active";
     const statusBadge = comingSoon
       ? `<span class="chip" style="background:var(--color-dark-red);color:#fff;border-color:transparent">${p.status.replace(/-/g, " ")}</span>`
       : "";
     const ribbon = p.featured ? `<span class="product-card__ribbon">Bestseller</span>` : "";
+    const variants = api.getVariants(p);
+    const def = api.defaultVariant(p) || variants[0] || { weight: "400g", price: p.price400 };
+    const defW = def.weight;
+    const weightBtns = variants.map((v) =>
+      `<button type="button" class="card-weight${v.weight === defW ? " is-active" : ""}${v.popular ? " is-popular" : ""}" data-card-weight="${v.weight}">${v.weight}</button>`
+    ).join("");
     const hasVideo = !!api.extractYouTubeId(p.youtubeUrl || "");
     const actionsRow = hasVideo
       ? `<div class="product-card__actions product-card__actions--split">
@@ -226,12 +240,12 @@
           <h3 class="product-card__name-en">${p.nameEn}</h3>
           <p class="product-card__name-ur">${p.nameUr}</p>
           <div class="product-card__buy">
-            <div class="card-weights" role="group" aria-label="Select weight">
-              <button type="button" class="card-weight is-active" data-card-weight="400g">400g</button>
-              <button type="button" class="card-weight" data-card-weight="800g">800g</button>
+            <div class="card-weights" role="group" aria-label="Select size">
+              ${weightBtns}
             </div>
-            <span class="product-card__price" data-card-price>${cardPriceHTML(p.price400)}</span>
+            <span class="product-card__price" data-card-price>${cardPriceHTML(def.price)}</span>
           </div>
+          <p class="product-card__save" data-card-save>${savingsText(p, defW)}</p>
           ${statusBadge ? `<div class="product-card__variants">${statusBadge}</div>` : ""}
           ${actionsRow}
           <div class="product-card__actions">
@@ -256,12 +270,12 @@
         const product = api.getBySlug(productsCache, card ? card.dataset.slug : "");
         if (!card || !product) return;
         const weight = weightBtn.dataset.cardWeight;
-        const price = weight === "800g" ? product.price800 : product.price400;
+        const price = api.variantPrice(product, weight);
         card.querySelectorAll("[data-card-weight]").forEach((b) => b.classList.toggle("is-active", b === weightBtn));
         const priceEl = card.querySelector("[data-card-price]");
         if (priceEl) priceEl.innerHTML = cardPriceHTML(price);
-        const orderEl = card.querySelector("[data-card-order]");
-        if (orderEl) orderEl.href = api.buildWhatsAppLink(api.buildProductOrderMessage(product, weight, { unitPrice: price }));
+        const saveEl = card.querySelector("[data-card-save]");
+        if (saveEl) saveEl.textContent = savingsText(product, weight);
         return;
       }
       const watchBtn = e.target.closest("[data-card-watch]");
@@ -1127,15 +1141,17 @@
   }
 
   function productFaqs(p) {
-    const priceText = p.price400
-      ? `The 400g jar is Rs. ${Number(p.price400).toLocaleString("en-PK")} and the 800g jar is Rs. ${Number(p.price800).toLocaleString("en-PK")}.`
+    const priced = api.getVariants(p).filter((v) => v.price != null);
+    const priceText = priced.length
+      ? priced.map((v) => `${v.weight}${v.label ? ` (${v.label})` : ""} Rs. ${Number(v.price).toLocaleString("en-PK")}`).join(", ") + "."
       : "Message us on WhatsApp for the current price.";
+    const sizeList = api.getVariants(p).map((v) => v.weight).join(" / ");
     return [
       { q: `How spicy is ${p.nameEn}?`, a: spiceLevelInfo(p) },
       { q: `How long does ${p.nameEn} last?`, a: shelfLifeInfo(p) },
       { q: "Does it need refrigeration?", a: storageInfo(p) },
-      { q: "Is delivery available across Pakistan?", a: `Yes — we deliver ${p.nameEn} nationwide. Delivery charges are Rs. ${cfg.deliveryCharge}, minimum product order Rs. ${cfg.minProductOrder}, and Cash on Delivery is available on orders of Rs. ${cfg.minCodOrder} or more.` },
-      { q: "How do I order on WhatsApp?", a: `Choose your jar size (400g or 800g) and quantity above, then tap "Order on WhatsApp" — your message is pre-filled with the product, weight and price. ${priceText} Advance payment gets ${cfg.advanceDiscountPercent}% off.` },
+      { q: "Is delivery available across Pakistan?", a: `Yes — we deliver ${p.nameEn} nationwide. On advance payment (JazzCash/EasyPaisa) delivery is FREE on orders of Rs. ${Number(cfg.freeDeliveryThreshold || 1800).toLocaleString("en-PK")} or more. For Cash on Delivery, delivery is Rs. ${cfg.deliveryCharge} and the minimum order is Rs. ${cfg.minCodOrder}.` },
+      { q: "How do I order on WhatsApp?", a: `Choose your jar size (${sizeList}) and quantity above, then tap "Order on WhatsApp" — your message is pre-filled with the product, weight and price. ${priceText} Advance payment (JazzCash/EasyPaisa) par delivery FREE + extra bachat.` },
     ];
   }
 
@@ -1200,9 +1216,26 @@
     if (heroUr) heroUr.textContent = product.nameUr;
 
     const comingSoon = product.status && product.status !== "active";
-    const p400 = api.formatPrice(product.price400);
-    const p800 = api.formatPrice(product.price800);
     const taste = tasteProfile(product);
+    const variants = api.getVariants(product);
+    const defWeight = (api.defaultVariant(product) || variants[0] || { weight: "400g" }).weight;
+    const variantsHTML = variants.map((v) => {
+      const checked = v.weight === defWeight;
+      const sav = api.variantSavings(product, v.weight);
+      const tag = v.label
+        ? `<span class="variant-option__tag">${v.label}</span>`
+        : (v.popular ? `<span class="variant-option__tag">Most Popular</span>` : "");
+      const save = (sav && sav.saveRs > 0)
+        ? `<span class="variant-option__save">Save Rs. ${sav.saveRs.toLocaleString("en-PK")}</span>`
+        : "";
+      return `<label class="variant-option${checked ? " is-selected" : ""}">
+                <input type="radio" name="variant" value="${v.weight}"${checked ? " checked" : ""}>
+                ${tag}
+                <strong>${v.weight}</strong>
+                <span>${api.formatPrice(v.price) || "Price on WhatsApp"}</span>
+                ${save}
+              </label>`;
+    }).join("");
 
     if (container) {
       container.innerHTML = `
@@ -1219,17 +1252,9 @@
 
           <div class="buy-box">
             <div class="variant-select" role="radiogroup" aria-label="Select size" style="margin-bottom:0">
-              <label class="variant-option is-selected">
-                <input type="radio" name="variant" value="400g" checked>
-                <strong>400g</strong>
-                <span>${p400 || "Price on WhatsApp"}</span>
-              </label>
-              <label class="variant-option">
-                <input type="radio" name="variant" value="800g">
-                <strong>800g</strong>
-                <span>${p800 || "Price on WhatsApp"}</span>
-              </label>
+              ${variantsHTML}
             </div>
+            <p class="buy-box__advance-free">${(cfg.COPY && cfg.COPY.advanceFreeDelivery) || ""}</p>
             <div class="qty-row">
               <span class="qty-row__label">Quantity</span>
               <div class="qty-stepper" role="group" aria-label="Quantity">
@@ -1303,7 +1328,7 @@
     }
     function updateOrder() {
       const weight = selectedWeight();
-      const unitPrice = weight === "800g" ? product.price800 : product.price400;
+      const unitPrice = api.variantPrice(product, weight);
       if (qtyValue) qtyValue.textContent = qty;
       if (priceDisplay) {
         priceDisplay.textContent = unitPrice
@@ -1378,9 +1403,10 @@
       "sku": product.id,
       "brand": { "@type": "Brand", "name": "ShikarpuriAchar.pk" },
     };
-    const offers = [];
-    if (product.price400) offers.push({ "@type": "Offer", "name": "400g", "price": product.price400, "priceCurrency": "PKR", "availability": product.status === "active" ? "https://schema.org/InStock" : "https://schema.org/PreOrder" });
-    if (product.price800) offers.push({ "@type": "Offer", "name": "800g", "price": product.price800, "priceCurrency": "PKR", "availability": product.status === "active" ? "https://schema.org/InStock" : "https://schema.org/PreOrder" });
+    const availability = product.status === "active" ? "https://schema.org/InStock" : "https://schema.org/PreOrder";
+    const offers = api.getVariants(product)
+      .filter((v) => v.price != null)
+      .map((v) => ({ "@type": "Offer", "name": v.weight, "price": v.price, "priceCurrency": "PKR", "availability": availability }));
     if (offers.length) data.offers = offers;
     script.textContent = JSON.stringify(data);
     document.head.appendChild(script);

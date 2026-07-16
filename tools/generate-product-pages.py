@@ -56,13 +56,13 @@ def build_jsonld(p):
         if p.get("status") == "active"
         else "https://schema.org/PreOrder"
     )
-    for size, key in (("400g", "price400"), ("800g", "price800")):
-        if p.get(key):
+    for v in get_variants(p):
+        if v.get("price") is not None:
             offers.append(
                 {
                     "@type": "Offer",
-                    "name": size,
-                    "price": p[key],
+                    "name": v["weight"],
+                    "price": v["price"],
                     "priceCurrency": "PKR",
                     "availability": availability,
                 }
@@ -70,6 +70,17 @@ def build_jsonld(p):
     if offers:
         data["offers"] = offers
     return json.dumps(data, ensure_ascii=False)
+
+
+def get_variants(p):
+    """Mirror of getVariants() in js/products-data.js — canonical price sizes.
+    Falls back to price400/price800 mirrors for any product without variants[]."""
+    if isinstance(p.get("variants"), list) and p["variants"]:
+        return p["variants"]
+    return [
+        {"weight": "400g", "price": p.get("price400")},
+        {"weight": "800g", "price": p.get("price800"), "popular": True},
+    ]
 
 
 def extract_youtube_id(url):
@@ -123,7 +134,8 @@ def load_site_config():
     with io.open(os.path.join(ROOT, "js", "products-data.js"), encoding="utf-8") as f:
         js = f.read()
     cfg = {}
-    for key in ("advanceDiscountPercent", "deliveryCharge", "minProductOrder", "minCodOrder"):
+    for key in ("advanceDiscountPercent", "deliveryCharge", "minProductOrder",
+                "minCodOrder", "freeDeliveryThreshold", "advanceDeliveryCharge"):
         m = re.search(rf"{key}\s*:\s*([\d.]+)", js)
         cfg[key] = m.group(1) if m else "0"
     return cfg
@@ -172,12 +184,18 @@ def storage_info(p):
 def build_faq_jsonld(p, cfg):
     """Mirrors productFaqs() in js/main.js exactly, so the static schema and
     the live accordion text can never drift apart."""
-    if p.get("price400"):
-        price_text = (
-            f"The 400g jar is Rs. {int(p['price400']):,} and the 800g jar is Rs. {int(p['price800']):,}."
-        )
+    variants = get_variants(p)
+    priced = [v for v in variants if v.get("price") is not None]
+    if priced:
+        parts = []
+        for v in priced:
+            label = f" ({v['label']})" if v.get("label") else ""
+            parts.append(f"{v['weight']}{label} Rs. {int(v['price']):,}")
+        price_text = ", ".join(parts) + "."
     else:
         price_text = "Message us on WhatsApp for the current price."
+    size_list = " / ".join(v["weight"] for v in variants)
+    free_deliv = f"{int(cfg['freeDeliveryThreshold']):,}"
 
     faqs = [
         {"q": f"How spicy is {p['nameEn']}?", "a": spice_level_info(p)},
@@ -185,15 +203,15 @@ def build_faq_jsonld(p, cfg):
         {"q": "Does it need refrigeration?", "a": storage_info(p)},
         {
             "q": "Is delivery available across Pakistan?",
-            "a": f"Yes — we deliver {p['nameEn']} nationwide. Delivery charges are Rs. {cfg['deliveryCharge']}, "
-                 f"minimum product order Rs. {cfg['minProductOrder']}, and Cash on Delivery is available on orders "
-                 f"of Rs. {cfg['minCodOrder']} or more.",
+            "a": f"Yes — we deliver {p['nameEn']} nationwide. On advance payment (JazzCash/EasyPaisa) "
+                 f"delivery is FREE on orders of Rs. {free_deliv} or more. For Cash on Delivery, delivery is "
+                 f"Rs. {cfg['deliveryCharge']} and the minimum order is Rs. {cfg['minCodOrder']}.",
         },
         {
             "q": "How do I order on WhatsApp?",
-            "a": f'Choose your jar size (400g or 800g) and quantity above, then tap "Order on WhatsApp" — your '
-                 f"message is pre-filled with the product, weight and price. {price_text} Advance payment gets "
-                 f"{cfg['advanceDiscountPercent']}% off.",
+            "a": f'Choose your jar size ({size_list}) and quantity above, then tap "Order on WhatsApp" — your '
+                 f"message is pre-filled with the product, weight and price. {price_text} Advance payment "
+                 f"(JazzCash/EasyPaisa) par delivery FREE + extra bachat.",
         },
     ]
     data = {
