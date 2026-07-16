@@ -134,7 +134,7 @@ def load_site_config():
     with io.open(os.path.join(ROOT, "js", "products-data.js"), encoding="utf-8") as f:
         js = f.read()
     cfg = {}
-    for key in ("advanceDiscountPercent", "deliveryCharge", "minProductOrder",
+    for key in ("deliveryCharge", "minProductOrder",
                 "minCodOrder", "freeDeliveryThreshold", "advanceDeliveryCharge"):
         m = re.search(rf"{key}\s*:\s*([\d.]+)", js)
         cfg[key] = m.group(1) if m else "0"

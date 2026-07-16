@@ -448,14 +448,32 @@
       : "";
   }
 
-  /* Payment method the customer picked in the cart ("cod" | "advance").
-     COD is the default; if the order is below the COD minimum the COD
-     option is disabled and the selection falls back to advance payment. */
-  let cartPaymentMethod = "cod";
+  /* Payment method the customer picked in the cart ("advance" | "cod").
+     Advance is the default because it is always the better deal (free
+     delivery / Rs off / free jar) and has no minimum; COD is one tap away. */
+  let cartPaymentMethod = "advance";
+  /* Chosen free 400g jar for the Rs.2,500+ advance gift tier. */
+  let cartGiftSlug = (cfg.giftPicks && cfg.giftPicks[0]) || "mix-achar";
+
+  function renderGiftPicker(products) {
+    const COPY = cfg.COPY || {};
+    const picks = (cfg.giftPicks || []).map((sl) => api.getBySlug(products, sl)).filter(Boolean);
+    if (!picks.length) return "";
+    if (!picks.some((p) => p.slug === cartGiftSlug)) cartGiftSlug = picks[0].slug;
+    return `
+      <div class="cart-gift">
+        <span class="cart-gift__title">${COPY.giftPickerTitle || ""}</span>
+        <div class="cart-gift__chips">
+          ${picks.map((p) => `<button type="button" class="cart-gift__chip${p.slug === cartGiftSlug ? " is-active" : ""}" data-cart-gift="${p.slug}">${p.nameEn}</button>`).join("")}
+        </div>
+      </div>`;
+  }
 
   /* Grand Total + checkout live in the pinned footer so they're never
-     scrolled out of view; everything else (line breakdown, payment choice,
-     notes) stays in the scrollable body above it. */
+     scrolled out of view; the line breakdown, COD/Advance choice, tier
+     benefits, gift picker and notes stay in the scrollable body above it.
+     Everything that rewards the customer (free delivery / Rs off / free
+     jar / progress) renders on the ADVANCE side only. */
   function renderCartSummary(products) {
     const el = document.querySelector("[data-cart-summary]");
     const totalEl = document.querySelector("[data-cart-grandtotal]");
@@ -466,31 +484,44 @@
       if (totalEl) totalEl.innerHTML = "";
       return;
     }
-    if (!s.codEligible && cartPaymentMethod === "cod") cartPaymentMethod = "advance";
+    const COPY = cfg.COPY || {};
     const isCod = cartPaymentMethod === "cod";
-    const codNote = s.codEligible
-      ? ""
-      : `<p class="cart-cod cart-cod--ineligible">Minimum order for Cash on Delivery is ${money(cfg.minCodOrder)} — add ${money(s.codAmountNeeded)} more, or continue with Advance Payment (${s.discountPct}% off).</p>`;
-    if (el) {
-      el.innerHTML = `
+    const nf = (n) => Number(n).toLocaleString("en-PK");
+
+    const radios = `
+      <div class="cart-pay" role="radiogroup" aria-label="Payment method">
+        <label class="cart-pay__option${isCod ? "" : " is-active"}">
+          <input type="radio" name="cart-pay" value="advance" ${isCod ? "" : "checked"}>
+          <span>Advance Payment <em>(best deal)</em></span>
+        </label>
+        <label class="cart-pay__option${isCod ? " is-active" : ""}">
+          <input type="radio" name="cart-pay" value="cod" ${isCod ? "checked" : ""}>
+          <span>Cash on Delivery</span>
+        </label>
+      </div>`;
+
+    let body;
+    if (isCod) {
+      body = `
         <div class="cart-summary__row"><span>Subtotal</span><strong>${money(s.subtotal)}</strong></div>
-        <div class="cart-summary__row"><span>Shipping</span><strong>${money(s.shipping)}</strong></div>
-        <div class="cart-pay" role="radiogroup" aria-label="Payment method">
-          <span class="cart-pay__label">Payment Method</span>
-          <label class="cart-pay__option${s.codEligible ? "" : " is-disabled"}">
-            <input type="radio" name="cart-pay" value="cod" ${isCod ? "checked" : ""} ${s.codEligible ? "" : "disabled"}>
-            <span>Cash on Delivery</span>
-          </label>
-          <label class="cart-pay__option">
-            <input type="radio" name="cart-pay" value="advance" ${isCod ? "" : "checked"}>
-            <span>Advance Payment <em>(${s.discountPct}% discount)</em></span>
-          </label>
-        </div>
-        ${isCod ? "" : `<div class="cart-summary__row cart-summary__row--discount"><span>Advance Discount (${s.discountPct}%)</span><strong>&minus;${money(s.discountAmount)}</strong></div>`}
-        ${codNote}
-        ${s.hasUnpriced ? `<p class="cart-summary__note">Some items are priced on request — final total confirmed on WhatsApp.</p>` : ""}
-      `;
+        <div class="cart-summary__row"><span>Delivery</span><strong>${money(s.codDelivery)}</strong></div>
+        ${radios}
+        ${!s.codEligible ? `<p class="cart-cod cart-cod--ineligible">${COPY.codMinWarning}</p>` : ""}
+        ${s.advanceSaving > 0 ? `<p class="cart-compare">Advance par sirf ${money(s.grandTotalAdvance)} — ${s.advFreeDelivery ? "delivery FREE" : "kam delivery"}, Rs. ${nf(s.advanceSaving)} bachat 🎁</p>` : ""}`;
+    } else {
+      const benefit = s.advGift ? COPY.advanceTier2 : (s.advFlatOff > 0 ? COPY.advanceTier1 : COPY.advanceFreeDelivery);
+      body = `
+        <div class="cart-summary__row"><span>Subtotal</span><strong>${money(s.subtotal)}</strong></div>
+        <div class="cart-summary__row"><span>Delivery</span><strong>${s.advFreeDelivery ? `<span class="cart-free">FREE</span>` : money(s.advDelivery)}</strong></div>
+        ${s.advFlatOff > 0 ? `<div class="cart-summary__row cart-summary__row--discount"><span>Advance discount</span><strong>&minus;${money(s.advFlatOff)}</strong></div>` : ""}
+        ${radios}
+        ${benefit ? `<p class="cart-benefit">${benefit}</p>` : ""}
+        ${s.advGift ? renderGiftPicker(products) : ""}
+        ${COPY.advanceReassurance ? `<p class="cart-reassure">${COPY.advanceReassurance}</p>` : ""}
+        ${s.advanceSaving > 0 ? `<p class="cart-compare cart-compare--adv">COD par Rs. ${nf(s.grandTotalCod)} — advance se Rs. ${nf(s.advanceSaving)} bachat.</p>` : ""}`;
     }
+    if (s.hasUnpriced) body += `<p class="cart-summary__note">Some items are priced on request — final total confirmed on WhatsApp.</p>`;
+    if (el) el.innerHTML = body;
     if (totalEl) {
       totalEl.innerHTML = `<div class="cart-summary__row cart-summary__row--total"><span>Grand Total</span><strong>${money(isCod ? s.grandTotalCod : s.grandTotalAdvance)}</strong></div>`;
     }
@@ -520,9 +551,13 @@
     renderCartSuggestions(products, lines);
     const checkoutBtn = document.querySelector("[data-cart-checkout]");
     if (checkoutBtn) {
-      const msg = window.CartAPI.buildCartWhatsAppMessage(products, cartPaymentMethod);
-      checkoutBtn.href = msg ? api.buildWhatsAppLink(msg) : "#";
-      checkoutBtn.setAttribute("aria-disabled", lines.length ? "false" : "true");
+      const s = window.CartAPI.getSummary(products);
+      // COD below its minimum blocks checkout; Advance is always allowed.
+      const blocked = !lines.length || (cartPaymentMethod === "cod" && !s.codEligible);
+      const msg = window.CartAPI.buildCartWhatsAppMessage(products, cartPaymentMethod, cartGiftSlug);
+      checkoutBtn.href = (!blocked && msg) ? api.buildWhatsAppLink(msg) : "#";
+      checkoutBtn.setAttribute("aria-disabled", blocked ? "true" : "false");
+      checkoutBtn.classList.toggle("is-disabled", blocked);
     }
     updateCartBadge();
     requestAnimationFrame(updateCartScrollHint);
@@ -628,6 +663,10 @@
       if (e.target.closest("[data-cart-toast-continue]")) { hideCartToast(); return; }
       if (e.target.closest("[data-cart-toast-view]")) { hideCartToast(); openCart(); return; }
       if (e.target.closest("[data-cart-empty-btn]")) { window.CartAPI.empty(); return; }
+      const giftBtn = e.target.closest("[data-cart-gift]");
+      if (giftBtn) { cartGiftSlug = giftBtn.dataset.cartGift; renderCart(productsCache); return; }
+      const blockedCheckout = e.target.closest("[data-cart-checkout].is-disabled");
+      if (blockedCheckout) { e.preventDefault(); return; }
 
       const minusBtn = e.target.closest("[data-cart-qty-minus]");
       if (minusBtn) {
@@ -1274,7 +1313,7 @@
                 ${comingSoon ? "Notify Me on WhatsApp" : "Order on WhatsApp"}
               </a>
             </div>
-            <p class="buy-box__note">${cfg.advanceDiscountPercent}% off on advance payment &middot; COD available (min. Rs. ${cfg.minCodOrder}) &middot; Delivery Rs. ${cfg.deliveryCharge}</p>
+            <p class="buy-box__note">Advance (JazzCash/EasyPaisa) par delivery FREE on Rs. ${Number(cfg.freeDeliveryThreshold || 1800).toLocaleString("en-PK")}+ &middot; COD available (min. Rs. ${Number(cfg.minCodOrder).toLocaleString("en-PK")}, delivery Rs. ${cfg.deliveryCharge})</p>
           </div>
 
           ${product.whatIsIt ? `
@@ -1467,7 +1506,7 @@
       minCodOrder: () => `${Number(cfg.minCodOrder).toLocaleString("en-PK")}`,
       minProductOrder: () => `${Number(cfg.minProductOrder).toLocaleString("en-PK")}`,
       deliveryCharge: () => `${Number(cfg.deliveryCharge).toLocaleString("en-PK")}`,
-      advanceDiscountPercent: () => `${cfg.advanceDiscountPercent}%`,
+      freeDeliveryThreshold: () => `${Number(cfg.freeDeliveryThreshold).toLocaleString("en-PK")}`,
     };
     document.querySelectorAll("[data-cfg]").forEach((el) => {
       const key = el.getAttribute("data-cfg");

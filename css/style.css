@@ -2060,6 +2060,53 @@ p { color: var(--color-text-muted); }
 .cart-pay__option input { accent-color: var(--color-deep-green); width: 16px; height: 16px; }
 .cart-pay__option em { font-style: normal; font-weight: 700; color: var(--color-mustard-dark); }
 .cart-pay__option.is-disabled { opacity: 0.45; cursor: not-allowed; }
+.cart-pay__option.is-active {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: 0.35rem 0.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+/* Advance-tier benefit line, reassurance, COD-vs-Advance comparison */
+.cart-benefit {
+  margin: 0.6rem 0 0;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--color-deep-green-dark);
+  background: rgba(31, 77, 58, 0.1);
+  border-radius: var(--radius-md);
+}
+.cart-reassure { margin: 0.5rem 0 0; font-size: 0.76rem; color: var(--color-text-muted); }
+.cart-compare { margin: 0.55rem 0 0; font-size: 0.8rem; font-weight: 700; color: var(--color-deep-green-dark); }
+.cart-compare--adv { color: var(--color-text-muted); font-weight: 600; }
+.cart-free { color: var(--color-deep-green); font-weight: 800; }
+
+/* Free-jar gift picker (Rs.2,500+ advance tier) */
+.cart-gift {
+  margin-top: 0.7rem;
+  padding: 0.65rem 0.75rem;
+  background: rgba(212, 160, 23, 0.12);
+  border: 1px dashed var(--color-mustard);
+  border-radius: var(--radius-md);
+}
+.cart-gift__title { display: block; font-size: 0.85rem; font-weight: 800; color: var(--color-brown); margin-bottom: 0.5rem; }
+.cart-gift__chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.cart-gift__chip {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.35rem 0.7rem;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  min-height: 32px;
+  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+.cart-gift__chip.is-active { background: var(--color-deep-green); border-color: var(--color-deep-green); color: var(--color-cream); }
+
+/* Disabled WhatsApp checkout (COD below minimum) */
+.btn.is-disabled { opacity: 0.5; pointer-events: none; filter: grayscale(0.3); }
 
 /* Header cart badge "pop" when an item is added (cart no longer auto-opens) */
 .cart-badge--pop { animation: cart-badge-pop 0.45s var(--ease); }
