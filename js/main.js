@@ -197,7 +197,7 @@
   function cardPriceHTML(price) {
     return price
       ? `Rs. ${Number(price).toLocaleString("en-PK")}`
-      : `<span style="font-size:.78rem;font-weight:600;font-style:italic">Contact for Price</span>`;
+      : `<span style="font-size:.78rem;font-weight:600;font-style:italic">Price on WhatsApp</span>`;
   }
 
   function productCardHTML(p) {
@@ -388,7 +388,7 @@
   }
 
   function cartLineHTML(line) {
-    const priceText = line.hasPrice ? money(line.lineTotal) : "Contact for Price";
+    const priceText = line.hasPrice ? money(line.lineTotal) : "Price on WhatsApp";
     return `
       <div class="cart-line" data-slug="${line.slug}" data-weight="${line.weight}">
         <div class="cart-line__info">
@@ -411,7 +411,7 @@
   }
 
   function cartSuggestionHTML(p) {
-    const priceText = p.price400 ? money(p.price400) : "Contact for Price";
+    const priceText = p.price400 ? money(p.price400) : "Price on WhatsApp";
     return `
       <div class="cart-suggest-item">
         <div class="cart-suggest-item__info">
@@ -766,8 +766,8 @@
           <strong>${p.nameEn}</strong><br>
           <span class="price-table__ur">${p.nameUr}</span>
         </td>
-        <td class="price-table__price" data-empty="${!p400}">${p400 || "Contact for Price"}</td>
-        <td class="price-table__price" data-empty="${!p800}">${p800 || "Contact for Price"}</td>
+        <td class="price-table__price" data-empty="${!p400}">${p400 || "Price on WhatsApp"}</td>
+        <td class="price-table__price" data-empty="${!p800}">${p800 || "Price on WhatsApp"}</td>
         <td class="price-table__cta">
           <a class="btn btn--outline-dark btn--sm" href="/products/${p.slug}.html">View</a>
           <button type="button" class="btn btn--gold btn--sm" data-price-add-cart="${p.slug}" aria-label="Add ${p.nameEn} to cart">Add to Cart</button>
@@ -1222,12 +1222,12 @@
               <label class="variant-option is-selected">
                 <input type="radio" name="variant" value="400g" checked>
                 <strong>400g</strong>
-                <span>${p400 || "Contact for Price"}</span>
+                <span>${p400 || "Price on WhatsApp"}</span>
               </label>
               <label class="variant-option">
                 <input type="radio" name="variant" value="800g">
                 <strong>800g</strong>
-                <span>${p800 || "Contact for Price"}</span>
+                <span>${p800 || "Price on WhatsApp"}</span>
               </label>
             </div>
             <div class="qty-row">

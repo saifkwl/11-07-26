@@ -14,7 +14,7 @@
  *
  * HOW TO ADD REAL PRICES:
  *   Fill in "price400" / "price800" (plain numbers, PKR). Leave as
- *   null to show "Contact for Price".
+ *   null to show "Price on WhatsApp" (item stays sellable via WhatsApp).
  *
  * HOW TO ADD/REMOVE A PRODUCT:
  *   Add or remove an object in the "products" array. Category pages,
