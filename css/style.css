@@ -2108,6 +2108,60 @@ p { color: var(--color-text-muted); }
 /* Disabled WhatsApp checkout (COD below minimum) */
 .btn.is-disabled { opacity: 0.5; pointer-events: none; filter: grayscale(0.3); }
 
+/* Free-delivery / free-jar progress bar (advance side only) */
+.cart-progress {
+  margin-bottom: 0.9rem;
+  padding: 0.6rem 0.75rem;
+  background: linear-gradient(135deg, rgba(31,77,58,0.1), rgba(212,160,23,0.14));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+.cart-progress[hidden] { display: none; }
+.cart-progress__msg { margin: 0 0 0.45rem; font-size: 0.82rem; font-weight: 800; color: var(--color-deep-green-dark); }
+.cart-progress__msg--done { margin: 0; color: var(--color-brown); }
+.cart-progress__track { height: 8px; background: var(--color-cream-deep); border-radius: var(--radius-pill); overflow: hidden; }
+.cart-progress__fill {
+  display: block; height: 100%;
+  background: linear-gradient(90deg, var(--color-deep-green), var(--color-mustard));
+  border-radius: var(--radius-pill);
+  transition: width 0.5s var(--ease);
+}
+.cart-progress.is-unlocked { animation: cart-progress-pop 0.5s var(--ease); }
+@keyframes cart-progress-pop {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.04); box-shadow: 0 0 0 4px rgba(212,160,23,0.35); }
+  100% { transform: scale(1); }
+}
+
+/* -------------------------------------------------------------------------
+   Bundle builder — "Koi bhi 3 × 800g — Rs. 2,499" (home + products)
+   ------------------------------------------------------------------------- */
+.bundle-builder {
+  background: linear-gradient(135deg, var(--color-deep-green-dark), var(--color-deep-green));
+  color: var(--color-cream);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+}
+.bundle-builder__head h3 { font-family: var(--font-heading); font-size: clamp(1.25rem, 3vw, 1.7rem); color: var(--color-cream); }
+.bundle-builder__head p { margin-top: 0.3rem; font-size: 0.95rem; color: var(--color-mustard-light); font-weight: 600; }
+.bundle-builder__chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
+.bundle-chip {
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.5rem 0.9rem;
+  min-height: 44px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.08);
+  color: var(--color-cream);
+  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+.bundle-chip:hover { border-color: var(--color-mustard); transform: translateY(-1px); }
+.bundle-chip.is-active { background: var(--color-mustard); border-color: var(--color-mustard); color: var(--color-deep-green-dark); }
+.bundle-builder__foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.bundle-builder__count { font-size: 0.85rem; font-weight: 700; color: var(--color-mustard-light); }
+
 /* Header cart badge "pop" when an item is added (cart no longer auto-opens) */
 .cart-badge--pop { animation: cart-badge-pop 0.45s var(--ease); }
 @keyframes cart-badge-pop {

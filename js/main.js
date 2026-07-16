@@ -309,6 +309,29 @@
         notifyAddedToCart(priceAddCartBtn.dataset.priceAddCart);
         return;
       }
+      const bundlePick = e.target.closest("[data-bundle-pick]");
+      if (bundlePick) {
+        const root = bundlePick.closest("[data-bundle-builder]");
+        const size = cfg.bundleSize || 3;
+        const active = root.querySelectorAll(".bundle-chip.is-active").length;
+        if (!bundlePick.classList.contains("is-active") && active >= size) return; // cap at size
+        bundlePick.classList.toggle("is-active");
+        updateBundleFoot(root);
+        return;
+      }
+      const bundleAdd = e.target.closest("[data-bundle-add]");
+      if (bundleAdd) {
+        const root = bundleAdd.closest("[data-bundle-builder]");
+        const size = cfg.bundleSize || 3;
+        const picks = [...root.querySelectorAll(".bundle-chip.is-active")].map((b) => b.dataset.bundlePick);
+        if (picks.length !== size) return;
+        picks.forEach((slug) => window.CartAPI.add(slug, "800g", 1));
+        root.querySelectorAll(".bundle-chip.is-active").forEach((b) => b.classList.remove("is-active"));
+        updateBundleFoot(root);
+        flashButton(bundleAdd, "Bundle added ✓");
+        notifyAddedToCart(picks[0]);
+        return;
+      }
     });
   }
 
@@ -436,15 +459,24 @@
       </div>`;
   }
 
+  /* "Complete your dastarkhwan" — suggest hero achars not already in the
+     cart, cheapest 400g first, for one-tap add. Falls back to same-category
+     items if no hero is left to suggest. */
   function renderCartSuggestions(products, lines) {
     const el = document.querySelector("[data-cart-suggested]");
     if (!el) return;
     if (!lines.length) { el.innerHTML = ""; return; }
     const cartSlugs = new Set(lines.map((l) => l.slug));
+    const inStock = products.filter((p) => !cartSlugs.has(p.slug) && p.status === "active" && api.variantPrice(p, "400g"));
+    const heroes = inStock.filter((p) => p.featured || api.extractYouTubeId(p.youtubeUrl || ""));
     const categories = new Set(lines.map((l) => l.product.category));
-    const suggestions = products.filter((p) => !cartSlugs.has(p.slug) && categories.has(p.category)).slice(0, 3);
+    const pool = heroes.length ? heroes : inStock.filter((p) => categories.has(p.category));
+    const suggestions = pool
+      .slice()
+      .sort((a, b) => api.variantPrice(a, "400g") - api.variantPrice(b, "400g"))
+      .slice(0, 3);
     el.innerHTML = suggestions.length
-      ? `<h3 class="cart-suggested__title">Customers Also Buy</h3>` + suggestions.map(cartSuggestionHTML).join("")
+      ? `<h3 class="cart-suggested__title">Complete your dastarkhwan</h3>` + suggestions.map(cartSuggestionHTML).join("")
       : "";
   }
 
@@ -469,6 +501,41 @@
       </div>`;
   }
 
+  /* Free-delivery / free-jar progress bar — ADVANCE side only. Teases the
+     next tier ("Rs. X aur — FREE ... unlock!") and celebrates when a tier
+     is reached. Hidden on COD and on an empty cart. */
+  let lastAdvancePerks = 0;
+  function renderCartProgress(products) {
+    const el = document.querySelector("[data-cart-progress]");
+    if (!el || !window.CartAPI) return;
+    const s = window.CartAPI.getSummary(products);
+    if (cartPaymentMethod === "cod" || s.subtotal <= 0) {
+      el.hidden = true;
+      el.innerHTML = "";
+      lastAdvancePerks = 0;
+      return;
+    }
+    el.hidden = false;
+    const nf = (n) => Number(n).toLocaleString("en-PK");
+    if (s.toNext) {
+      const label = s.toNext.gift ? "FREE 400g achar" : (s.toNext.freeDelivery ? "FREE delivery" : "reward");
+      const pct = Math.max(4, Math.min(100, Math.round((s.subtotal / s.toNext.min) * 100)));
+      el.innerHTML = `
+        <p class="cart-progress__msg">Rs. ${nf(s.toNext.amountNeeded)} aur — ${label} unlock! 🎁</p>
+        <div class="cart-progress__track"><span class="cart-progress__fill" style="width:${pct}%"></span></div>`;
+    } else {
+      el.innerHTML = `<p class="cart-progress__msg cart-progress__msg--done">🎉 Sab advance rewards unlocked — FREE delivery + FREE 400g achar!</p>`;
+    }
+    // celebrate the moment a new perk unlocks
+    const perks = (s.advFreeDelivery ? 1 : 0) + (s.advFlatOff > 0 ? 1 : 0) + (s.advGift ? 1 : 0);
+    if (perks > lastAdvancePerks) {
+      el.classList.remove("is-unlocked");
+      void el.offsetWidth;
+      el.classList.add("is-unlocked");
+    }
+    lastAdvancePerks = perks;
+  }
+
   /* Grand Total + checkout live in the pinned footer so they're never
      scrolled out of view; the line breakdown, COD/Advance choice, tier
      benefits, gift picker and notes stay in the scrollable body above it.
@@ -487,6 +554,9 @@
     const COPY = cfg.COPY || {};
     const isCod = cartPaymentMethod === "cod";
     const nf = (n) => Number(n).toLocaleString("en-PK");
+    const bundleRow = s.bundleDiscount > 0
+      ? `<div class="cart-summary__row cart-summary__row--discount"><span>Bundle saving (3×800g)</span><strong>&minus;${money(s.bundleDiscount)}</strong></div>`
+      : "";
 
     const radios = `
       <div class="cart-pay" role="radiogroup" aria-label="Payment method">
@@ -504,6 +574,7 @@
     if (isCod) {
       body = `
         <div class="cart-summary__row"><span>Subtotal</span><strong>${money(s.subtotal)}</strong></div>
+        ${bundleRow}
         <div class="cart-summary__row"><span>Delivery</span><strong>${money(s.codDelivery)}</strong></div>
         ${radios}
         ${!s.codEligible ? `<p class="cart-cod cart-cod--ineligible">${COPY.codMinWarning}</p>` : ""}
@@ -512,6 +583,7 @@
       const benefit = s.advGift ? COPY.advanceTier2 : (s.advFlatOff > 0 ? COPY.advanceTier1 : COPY.advanceFreeDelivery);
       body = `
         <div class="cart-summary__row"><span>Subtotal</span><strong>${money(s.subtotal)}</strong></div>
+        ${bundleRow}
         <div class="cart-summary__row"><span>Delivery</span><strong>${s.advFreeDelivery ? `<span class="cart-free">FREE</span>` : money(s.advDelivery)}</strong></div>
         ${s.advFlatOff > 0 ? `<div class="cart-summary__row cart-summary__row--discount"><span>Advance discount</span><strong>&minus;${money(s.advFlatOff)}</strong></div>` : ""}
         ${radios}
@@ -547,6 +619,7 @@
     if (linesEl) linesEl.innerHTML = lines.map(cartLineHTML).join("");
     if (emptyEl) emptyEl.hidden = lines.length > 0;
     if (footEl) footEl.hidden = lines.length === 0;
+    renderCartProgress(products);
     renderCartSummary(products);
     renderCartSuggestions(products, lines);
     const checkoutBtn = document.querySelector("[data-cart-checkout]");
@@ -593,6 +666,7 @@
             <button type="button" class="cart-panel__close" data-cart-close aria-label="Close cart">&times;</button>
           </div>
           <div class="cart-panel__body" data-cart-scroll>
+            <div data-cart-progress class="cart-progress" hidden></div>
             <div data-cart-lines class="cart-lines"></div>
             <div data-cart-empty-state class="cart-empty-state" hidden>
               <p>Your cart is empty.</p>
@@ -699,6 +773,48 @@
       if (e.key !== "Escape") return;
       const overlay = document.querySelector("[data-cart-overlay]");
       if (overlay && overlay.classList.contains("is-open")) closeCart();
+    });
+  }
+
+  /* ---------------------------------------------------------------
+     Bundle builder — "Koi bhi 3 × 800g — Rs. 2,499" (home + products).
+     Data-driven from SITE_CONFIG.bundleHeroSlugs; the cart auto-applies
+     the saving for any 3 of these 800g jars (see CartAPI.getBundle).
+  --------------------------------------------------------------- */
+  function updateBundleFoot(root) {
+    const size = cfg.bundleSize || 3;
+    const n = root.querySelectorAll(".bundle-chip.is-active").length;
+    const countEl = root.querySelector("[data-bundle-count]");
+    if (countEl) countEl.textContent = `${n} / ${size} selected`;
+    const addBtn = root.querySelector("[data-bundle-add]");
+    if (addBtn) addBtn.disabled = n !== size;
+  }
+
+  function renderBundleBuilder(products) {
+    document.querySelectorAll("[data-bundle-builder]").forEach((root) => {
+      const size = cfg.bundleSize || 3;
+      const price = cfg.bundlePrice || 0;
+      const heroes = (cfg.bundleHeroSlugs || []).map((s) => api.getBySlug(products, s)).filter((p) => p && api.variantPrice(p, "800g"));
+      const section = root.closest("section") || root;
+      if (heroes.length < size || !price) { section.hidden = true; return; }
+      section.hidden = false;
+      const normal = api.variantPrice(heroes[0], "800g") * size;
+      const save = Math.max(0, normal - price);
+      root.innerHTML = `
+        <div class="bundle-builder">
+          <div class="bundle-builder__head">
+            <h3>Koi bhi ${size} × 800g — Rs. ${price.toLocaleString("en-PK")}</h3>
+            <p>Apni pasand ke ${size} bestseller achar chunein${save > 0 ? ` — Rs. ${save.toLocaleString("en-PK")} bachat` : ""} 🎁</p>
+          </div>
+          <div class="bundle-builder__chips">
+            ${heroes.map((p) => `<button type="button" class="bundle-chip" data-bundle-pick="${p.slug}">${p.nameEn}</button>`).join("")}
+          </div>
+          <div class="bundle-builder__foot">
+            <span class="bundle-builder__count" data-bundle-count>0 / ${size} selected</span>
+            <button type="button" class="btn btn--gold btn--sm" data-bundle-add disabled>Add Bundle to Cart</button>
+          </div>
+        </div>`;
+      updateBundleFoot(root);
     });
   }
 
@@ -1559,6 +1675,7 @@
     if (!api) return;
     api.ready.then((products) => {
       productsCache = products;
+      renderBundleBuilder(products);
       renderFeaturedGrid(products);
       renderVideoGrid(products);
       initProductsPage(products);

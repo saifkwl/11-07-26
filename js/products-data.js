@@ -54,6 +54,15 @@ const SITE_CONFIG = {
   /* Hero achars offered as the free 400g jar at the 2,500+ advance tier. */
   giftPicks: ["mix-achar", "aam-ka-achar", "lehsan-ka-achar", "green-chutney"],
 
+  /* "Koi bhi 3 × 800g — Rs. 2,499" bundle. Restricted to the standard-price
+     hero achars (all Rs.899 at 800g) so the flat bundle price never loses
+     margin; premium heroes (garlic/ginger) are intentionally excluded.
+     Cart auto-applies the saving for each complete group of 3. */
+  bundlePrice: 2499,
+  bundleSize: 3,
+  bundleHeroSlugs: ["mix-achar", "aam-ka-achar", "lasooray-ka-achar", "lemon-ka-achar",
+                    "pyaz-ka-achar", "gajar-ka-achar", "green-chutney"],
+
   /* Locked microcopy — owner-approved exact strings. Reference these
      constants everywhere (buy-box, cart, WhatsApp, FAQ, price-list) so the
      Roman-Urdu + English tone stays identical. Do not paraphrase. */
@@ -430,6 +439,26 @@ const CartAPI = (function () {
     return getLines(products).reduce((sum, l) => sum + l.lineTotal, 0);
   }
 
+  /** "Any 3 × 800g standard-hero jars = Rs. bundlePrice" — auto-applied for
+      each complete group of 3. Returns { qty, groups, discount, perJar }. */
+  function getBundle(products) {
+    const slugs = SITE_CONFIG.bundleHeroSlugs || [];
+    const size = Number(SITE_CONFIG.bundleSize) || 3;
+    const bundlePrice = Number(SITE_CONFIG.bundlePrice) || 0;
+    if (!slugs.length || !bundlePrice) return { qty: 0, groups: 0, discount: 0, perJar: 0, size, bundlePrice };
+    let qty = 0;
+    let perJar = 0;
+    getLines(products).forEach((l) => {
+      if (l.weight === "800g" && l.hasPrice && slugs.indexOf(l.slug) !== -1) {
+        qty += l.qty;
+        perJar = l.unitPrice; // all bundle heroes share the same 800g price
+      }
+    });
+    const groups = Math.floor(qty / size);
+    const discount = Math.max(0, groups * (size * perJar - bundlePrice));
+    return { qty, groups, discount, perJar, size, bundlePrice };
+  }
+
   function hasUnpricedItems(products) {
     return getLines(products).some((l) => !l.hasPrice);
   }
@@ -449,12 +478,16 @@ const CartAPI = (function () {
     const subtotal = getSubtotal(products);
     const hasUnpriced = hasUnpricedItems(products);
 
+    // ---- Bundle discount (product-level, applies to both COD and Advance) ----
+    const bundle = getBundle(products);
+    const bundleDiscount = bundle.discount;
+
     // ---- COD side ----
     const minCod = Number(SITE_CONFIG.minCodOrder) || 0;
     const codDelivery = subtotal > 0 ? Number(SITE_CONFIG.deliveryCharge) || 0 : 0;
     const codEligible = subtotal >= minCod;
     const codAmountNeeded = codEligible ? 0 : minCod - subtotal;
-    const grandTotalCod = subtotal + codDelivery;
+    const grandTotalCod = subtotal + codDelivery - bundleDiscount;
 
     // ---- Advance side (highest matched tier wins) ----
     const tiers = (SITE_CONFIG.advanceTiers || []).slice().sort((a, b) => b.minSubtotal - a.minSubtotal);
@@ -464,8 +497,8 @@ const CartAPI = (function () {
     const advFlatOff = Number(tier.flatOff) || 0;
     const advGift = !!tier.gift && subtotal > 0;
     const advFreeDelivery = advDelivery === 0 && subtotal > 0;
-    const grandTotalAdvance = Math.max(0, subtotal - advFlatOff + advDelivery);
-    const advanceSaving = grandTotalCod - grandTotalAdvance; // Rs advance beats COD (gift extra)
+    const grandTotalAdvance = Math.max(0, subtotal - advFlatOff + advDelivery - bundleDiscount);
+    const advanceSaving = grandTotalCod - grandTotalAdvance; // how much advance beats COD (same bundle both sides)
 
     // next advance tier still to unlock (for the progress bar / nudges)
     const asc = (SITE_CONFIG.advanceTiers || []).slice().sort((a, b) => a.minSubtotal - b.minSubtotal);
@@ -483,6 +516,7 @@ const CartAPI = (function () {
       minCod, codEligible, codAmountNeeded, codDelivery, grandTotalCod,
       advDelivery, advFlatOff, advGift, advFreeDelivery, grandTotalAdvance,
       advanceSaving, toNext,
+      bundle, bundleDiscount,
       shipping: codDelivery, // legacy alias
     };
   }
@@ -511,6 +545,7 @@ const CartAPI = (function () {
     });
     parts.push("");
     parts.push(`Subtotal: ${money(s.subtotal)}`);
+    if (s.bundleDiscount > 0) parts.push(`Bundle saving (3×800g): -${money(s.bundleDiscount)}`);
     if (isAdvance) {
       parts.push(`Delivery: ${s.advFreeDelivery ? "FREE 🎁" : money(s.advDelivery)}`);
       if (s.advFlatOff > 0) parts.push(`Advance discount: -${money(s.advFlatOff)}`);
@@ -544,7 +579,7 @@ const CartAPI = (function () {
 
   return {
     getItems, getCount, add, setQty, removeItem, empty,
-    getLines, getSubtotal, hasUnpricedItems, getCodStatus, getSummary,
+    getLines, getSubtotal, hasUnpricedItems, getCodStatus, getSummary, getBundle,
     buildCartWhatsAppMessage, onChange,
   };
 })();
