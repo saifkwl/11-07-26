@@ -2162,6 +2162,56 @@ p { color: var(--color-text-muted); }
 .bundle-builder__foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 .bundle-builder__count { font-size: 0.85rem; font-weight: 700; color: var(--color-mustard-light); }
 
+/* Trust strip (under buy-box + in cart) — true claims only, no fake counts */
+.trust-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  margin-top: 0.9rem;
+  padding: 0.6rem 0.2rem;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-deep-green-dark);
+}
+.trust-strip span { display: inline-flex; align-items: center; gap: 0.35rem; }
+.trust-strip span::before {
+  content: "✓";
+  color: var(--color-mustard-dark);
+  font-weight: 900;
+}
+.cart-panel__foot .trust-strip { margin-top: 0; border-top: 0; padding-top: 0; }
+
+/* Mobile sticky buy bar on product pages (hidden on desktop) */
+.sticky-buy {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 1120; /* below cart overlay (1150) + toast (1140) */
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.75rem;
+  padding-bottom: calc(0.55rem + env(safe-area-inset-bottom, 0px));
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  box-shadow: 0 -8px 24px rgba(0,0,0,0.12);
+}
+.sticky-buy[hidden] { display: none !important; }
+.sticky-buy__info { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.sticky-buy__name {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  color: var(--color-deep-green-dark);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.sticky-buy__price { font-size: 0.85rem; color: var(--color-dark-red); white-space: nowrap; }
+.sticky-buy .btn { flex-shrink: 0; min-height: 44px; }
+@media (max-width: 640px) {
+  .sticky-buy:not([hidden]) { display: flex; }
+  body.has-sticky-buy .wa-float { display: none; }
+}
+
 /* Header cart badge "pop" when an item is added (cart no longer auto-opens) */
 .cart-badge--pop { animation: cart-badge-pop 0.45s var(--ease); }
 @keyframes cart-badge-pop {

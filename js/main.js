@@ -372,6 +372,16 @@
     return `<div class="text-center" style="grid-column:1/-1;padding:2rem"><p>${message}</p></div>`;
   }
 
+  /* Reusable trust strip (under the buy-box and in the cart). No fabricated
+     order/customer counts — only claims that are true. */
+  function trustStripHTML() {
+    return `<div class="trust-strip">
+      <span>Since 1985</span>
+      <span>Nationwide Delivery</span>
+      <span>COD Available</span>
+    </div>`;
+  }
+
   /* ---------------------------------------------------------------
      Small reusable UI feedback: swap a button's label briefly.
   --------------------------------------------------------------- */
@@ -679,6 +689,7 @@
             </button>
           </div>
           <div class="cart-panel__foot" data-cart-foot hidden>
+            ${trustStripHTML()}
             <div data-cart-grandtotal class="cart-grandtotal"></div>
             <div class="cart-panel__actions">
               <button type="button" class="btn btn--outline-dark btn--sm btn--block" data-cart-empty-btn>Empty Cart</button>
@@ -1432,6 +1443,8 @@
             <p class="buy-box__note">Advance (JazzCash/EasyPaisa) par delivery FREE on Rs. ${Number(cfg.freeDeliveryThreshold || 1800).toLocaleString("en-PK")}+ &middot; COD available (min. Rs. ${Number(cfg.minCodOrder).toLocaleString("en-PK")}, delivery Rs. ${cfg.deliveryCharge})</p>
           </div>
 
+          ${trustStripHTML()}
+
           ${product.whatIsIt ? `
             <h2 class="mt-lg" style="font-size:clamp(1.25rem,2.6vw,1.6rem)">What Is ${product.nameEn}?</h2>
             <p style="margin-block:.5rem 0">${product.whatIsIt}</p>` : ""}
@@ -1470,6 +1483,25 @@
 
     initVideoFacades(root);
 
+    /* Mobile sticky buy bar — mirrors the buy-box, appears once the real
+       buy-box scrolls out of view (CSS hides it entirely on desktop). */
+    const buyBoxEl = root.querySelector(".buy-box");
+    let stickyBar = document.querySelector("[data-sticky-buy]");
+    if (buyBoxEl && !stickyBar) {
+      stickyBar = document.createElement("div");
+      stickyBar.className = "sticky-buy";
+      stickyBar.setAttribute("data-sticky-buy", "");
+      stickyBar.hidden = true;
+      stickyBar.innerHTML = `
+        <div class="sticky-buy__info">
+          <span class="sticky-buy__name">${product.nameEn}</span>
+          <strong class="sticky-buy__price" data-sticky-price></strong>
+        </div>
+        <button type="button" class="btn btn--gold btn--sm" data-sticky-add aria-label="Add ${product.nameEn} to cart">Add</button>
+        <a class="btn btn--whatsapp btn--sm" data-sticky-order href="#" target="_blank" rel="noopener" aria-label="Order on WhatsApp">WhatsApp</a>`;
+      document.body.appendChild(stickyBar);
+    }
+
     /* Weight + quantity → live total + WhatsApp message */
     let qty = 1;
     const orderBtn = root.querySelector("[data-order-btn]");
@@ -1494,6 +1526,10 @@
       variantInputs.forEach((input) => {
         input.closest(".variant-option").classList.toggle("is-selected", input.checked);
       });
+      const stickyPrice = document.querySelector("[data-sticky-price]");
+      if (stickyPrice) stickyPrice.textContent = unitPrice ? `${weight} · Rs. ${Number(unitPrice * qty).toLocaleString("en-PK")}` : `${weight} · WhatsApp`;
+      const stickyOrder = document.querySelector("[data-sticky-order]");
+      if (stickyOrder && orderBtn) stickyOrder.href = orderBtn.href;
     }
     variantInputs.forEach((input) => input.addEventListener("change", updateOrder));
     const minusBtn = root.querySelector("[data-qty-minus]");
@@ -1507,6 +1543,23 @@
         flashButton(addCartBtn, "Added to Cart ✓");
         notifyAddedToCart(product.slug);
       });
+    }
+    const stickyAdd = stickyBar && stickyBar.querySelector("[data-sticky-add]");
+    if (stickyAdd) {
+      stickyAdd.addEventListener("click", () => {
+        window.CartAPI.add(product.slug, selectedWeight(), qty);
+        flashButton(stickyAdd, "✓");
+        notifyAddedToCart(product.slug);
+      });
+    }
+    /* Reveal the sticky bar only once the real buy-box is out of view. */
+    if (buyBoxEl && stickyBar && "IntersectionObserver" in window) {
+      const io = new IntersectionObserver(([entry]) => {
+        const show = !entry.isIntersecting;
+        stickyBar.hidden = !show;
+        document.body.classList.toggle("has-sticky-buy", show);
+      }, { threshold: 0 });
+      io.observe(buyBoxEl);
     }
     updateOrder();
 
