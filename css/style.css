@@ -1071,8 +1071,7 @@ p { color: var(--color-text-muted); }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+  gap: 0.6rem;
   margin-top: 0.3rem;
   padding: 0.45rem 0.55rem;
   background: var(--color-cream-soft);
@@ -1099,17 +1098,6 @@ p { color: var(--color-text-muted); }
   background: var(--color-deep-green);
   color: var(--color-cream);
 }
-/* subtle "popular" marker on the default (800g) size chip */
-.card-weight.is-popular { position: relative; }
-.card-weight.is-popular::after {
-  content: "";
-  position: absolute;
-  top: -1px; right: -1px;
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--color-mustard);
-  box-shadow: 0 0 0 2px var(--color-surface);
-}
 .product-card__price {
   font-family: var(--font-heading);
   font-weight: 700;
@@ -1117,16 +1105,6 @@ p { color: var(--color-text-muted); }
   color: var(--color-dark-red);
   white-space: nowrap;
 }
-/* per-gram savings line under the card size selector */
-.product-card__save {
-  margin: 0.25rem 0 0;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--color-deep-green);
-  line-height: 1.2;
-  min-height: 0.9rem;
-}
-.product-card__save:empty { display: none; }
 
 /* -------------------------------------------------------------------------
    10. GLASS / INFO CARDS
@@ -1347,18 +1325,6 @@ p { color: var(--color-text-muted); }
   padding: var(--space-sm) var(--space-md);
 }
 .price-note svg { width: 22px; height: 22px; flex-shrink: 0; color: var(--color-dark-red); margin-top: 2px; }
-
-/* Advance-payment tier explainer box (price-list page) */
-.advance-tiers-box {
-  margin-top: var(--space-md);
-  padding: var(--space-md) var(--space-lg);
-  background: linear-gradient(135deg, rgba(31,77,58,0.1), rgba(212,160,23,0.14));
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-}
-.advance-tiers-box h3 { font-family: var(--font-heading); font-size: 1.15rem; color: var(--color-deep-green-dark); margin-bottom: 0.6rem; }
-.advance-tiers-box ul { display: flex; flex-direction: column; gap: 0.4rem; padding-left: 1.1rem; font-size: 0.9rem; color: var(--color-ink); }
-.advance-tiers-box__reassure { margin-top: 0.7rem; font-size: 0.78rem; color: var(--color-text-muted); }
 
 /* -------------------------------------------------------------------------
    12. FAQ ACCORDION
@@ -1658,37 +1624,6 @@ p { color: var(--color-text-muted); }
 .variant-option span { font-size: 0.8rem; color: var(--color-text-muted); }
 .variant-option.is-selected { border-color: var(--color-mustard); background: var(--color-cream-soft); box-shadow: var(--shadow-gold); }
 .variant-option input { position: absolute; opacity: 0; pointer-events: none; }
-/* "Most Popular" / "Family Pack" tag + per-jar savings inside each size option */
-.variant-option__tag {
-  display: inline-block;
-  font-size: 0.62rem !important;
-  font-weight: 800;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: var(--color-cream) !important;
-  background: var(--color-deep-green);
-  padding: 0.1rem 0.4rem;
-  border-radius: var(--radius-pill);
-  margin-bottom: 0.35rem;
-}
-.variant-option__save {
-  display: block !important;
-  margin-top: 0.2rem;
-  font-size: 0.72rem !important;
-  font-weight: 700;
-  color: var(--color-deep-green) !important;
-}
-/* Advance-payment free-delivery nudge under the size selector */
-.buy-box__advance-free {
-  margin: 0;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--color-deep-green-dark);
-  background: rgba(31, 77, 58, 0.08);
-  border-radius: var(--radius-md);
-  padding: 0.5rem 0.7rem;
-}
-.buy-box__advance-free:empty { display: none; }
 
 .product-detail__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: var(--space-md); }
 
@@ -2072,157 +2007,6 @@ p { color: var(--color-text-muted); }
 .cart-pay__option input { accent-color: var(--color-deep-green); width: 16px; height: 16px; }
 .cart-pay__option em { font-style: normal; font-weight: 700; color: var(--color-mustard-dark); }
 .cart-pay__option.is-disabled { opacity: 0.45; cursor: not-allowed; }
-.cart-pay__option.is-active {
-  background: var(--color-surface);
-  border-radius: var(--radius-md);
-  padding: 0.35rem 0.5rem;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-}
-
-/* Advance-tier benefit line, reassurance, COD-vs-Advance comparison */
-.cart-benefit {
-  margin: 0.6rem 0 0;
-  padding: 0.55rem 0.7rem;
-  font-size: 0.86rem;
-  font-weight: 700;
-  color: var(--color-deep-green-dark);
-  background: rgba(31, 77, 58, 0.1);
-  border-radius: var(--radius-md);
-}
-.cart-reassure { margin: 0.5rem 0 0; font-size: 0.76rem; color: var(--color-text-muted); }
-.cart-compare { margin: 0.55rem 0 0; font-size: 0.8rem; font-weight: 700; color: var(--color-deep-green-dark); }
-.cart-compare--adv { color: var(--color-text-muted); font-weight: 600; }
-.cart-free { color: var(--color-deep-green); font-weight: 800; }
-
-/* Free-jar gift picker (Rs.2,500+ advance tier) */
-.cart-gift {
-  margin-top: 0.7rem;
-  padding: 0.65rem 0.75rem;
-  background: rgba(212, 160, 23, 0.12);
-  border: 1px dashed var(--color-mustard);
-  border-radius: var(--radius-md);
-}
-.cart-gift__title { display: block; font-size: 0.85rem; font-weight: 800; color: var(--color-brown); margin-bottom: 0.5rem; }
-.cart-gift__chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-.cart-gift__chip {
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 0.35rem 0.7rem;
-  border-radius: var(--radius-pill);
-  border: 1.5px solid var(--color-border);
-  background: var(--color-surface);
-  color: var(--color-ink);
-  min-height: 32px;
-  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
-}
-.cart-gift__chip.is-active { background: var(--color-deep-green); border-color: var(--color-deep-green); color: var(--color-cream); }
-
-/* Disabled WhatsApp checkout (COD below minimum) */
-.btn.is-disabled { opacity: 0.5; pointer-events: none; filter: grayscale(0.3); }
-
-/* Free-delivery / free-jar progress bar (advance side only) */
-.cart-progress {
-  margin-bottom: 0.9rem;
-  padding: 0.6rem 0.75rem;
-  background: linear-gradient(135deg, rgba(31,77,58,0.1), rgba(212,160,23,0.14));
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-}
-.cart-progress[hidden] { display: none; }
-.cart-progress__msg { margin: 0 0 0.45rem; font-size: 0.82rem; font-weight: 800; color: var(--color-deep-green-dark); }
-.cart-progress__msg--done { margin: 0; color: var(--color-brown); }
-.cart-progress__track { height: 8px; background: var(--color-cream-deep); border-radius: var(--radius-pill); overflow: hidden; }
-.cart-progress__fill {
-  display: block; height: 100%;
-  background: linear-gradient(90deg, var(--color-deep-green), var(--color-mustard));
-  border-radius: var(--radius-pill);
-  transition: width 0.5s var(--ease);
-}
-.cart-progress.is-unlocked { animation: cart-progress-pop 0.5s var(--ease); }
-@keyframes cart-progress-pop {
-  0% { transform: scale(1); }
-  35% { transform: scale(1.04); box-shadow: 0 0 0 4px rgba(212,160,23,0.35); }
-  100% { transform: scale(1); }
-}
-
-/* -------------------------------------------------------------------------
-   Bundle builder — "Koi bhi 3 × 800g — Rs. 2,499" (home + products)
-   ------------------------------------------------------------------------- */
-.bundle-builder {
-  background: linear-gradient(135deg, var(--color-deep-green-dark), var(--color-deep-green));
-  color: var(--color-cream);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  box-shadow: var(--shadow-md);
-}
-.bundle-builder__head h3 { font-family: var(--font-heading); font-size: clamp(1.25rem, 3vw, 1.7rem); color: var(--color-cream); }
-.bundle-builder__head p { margin-top: 0.3rem; font-size: 0.95rem; color: var(--color-mustard-light); font-weight: 600; }
-.bundle-builder__chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
-.bundle-chip {
-  font-size: 0.85rem;
-  font-weight: 700;
-  padding: 0.5rem 0.9rem;
-  min-height: 44px;
-  border-radius: var(--radius-pill);
-  border: 1.5px solid rgba(255,255,255,0.35);
-  background: rgba(255,255,255,0.08);
-  color: var(--color-cream);
-  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
-}
-.bundle-chip:hover { border-color: var(--color-mustard); transform: translateY(-1px); }
-.bundle-chip.is-active { background: var(--color-mustard); border-color: var(--color-mustard); color: var(--color-deep-green-dark); }
-.bundle-builder__foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-.bundle-builder__count { font-size: 0.85rem; font-weight: 700; color: var(--color-mustard-light); }
-
-/* Trust strip (under buy-box + in cart) — true claims only, no fake counts */
-.trust-strip {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 1rem;
-  margin-top: 0.9rem;
-  padding: 0.6rem 0.2rem;
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--color-deep-green-dark);
-}
-.trust-strip span { display: inline-flex; align-items: center; gap: 0.35rem; }
-.trust-strip span::before {
-  content: "✓";
-  color: var(--color-mustard-dark);
-  font-weight: 900;
-}
-.cart-panel__foot .trust-strip { margin-top: 0; border-top: 0; padding-top: 0; }
-
-/* Mobile sticky buy bar on product pages (hidden on desktop) */
-.sticky-buy {
-  position: fixed;
-  left: 0; right: 0; bottom: 0;
-  z-index: 1120; /* below cart overlay (1150) + toast (1140) */
-  display: none;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.55rem 0.75rem;
-  padding-bottom: calc(0.55rem + env(safe-area-inset-bottom, 0px));
-  background: var(--color-surface);
-  border-top: 1px solid var(--color-border);
-  box-shadow: 0 -8px 24px rgba(0,0,0,0.12);
-}
-.sticky-buy[hidden] { display: none !important; }
-.sticky-buy__info { display: flex; flex-direction: column; min-width: 0; flex: 1; }
-.sticky-buy__name {
-  font-family: var(--font-heading);
-  font-size: 0.85rem;
-  color: var(--color-deep-green-dark);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.sticky-buy__price { font-size: 0.85rem; color: var(--color-dark-red); white-space: nowrap; }
-.sticky-buy .btn { flex-shrink: 0; min-height: 44px; }
-@media (max-width: 640px) {
-  .sticky-buy:not([hidden]) { display: flex; }
-  body.has-sticky-buy .wa-float { display: none; }
-}
 
 /* Header cart badge "pop" when an item is added (cart no longer auto-opens) */
 .cart-badge--pop { animation: cart-badge-pop 0.45s var(--ease); }

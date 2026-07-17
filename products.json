@@ -1,8 +1,8 @@
 {
   "meta": {
-    "note": "SINGLE SOURCE OF TRUTH for all product content, prices and video links. Prices use per-product `variants` [{weight, price, popular?, label?}]; `price400`/`price800` are kept as convenience mirrors of the 400g/800g variants. Greed-ladder pricing: 800g is ~10% cheaper per gram than 400g, 2kg (hero products) ~20% cheaper per gram. Every page reads this file — edit here only.",
+    "note": "SINGLE SOURCE OF TRUTH for all product content, prices and video links. Every page on the site (home, products, price list, product pages, category filters, search, WhatsApp order messages) reads from this file. Edit here only — nothing else needs to change. Catalog and pricing sourced from the official Shikarpuri Achar rate-list PDFs (Pickles-Oil, Pickles-Vinegar, Chutneys, Murabba).",
     "currency": "PKR",
-    "updated": "2026-07-16"
+    "updated": "2026-07-11"
   },
   "products": [
     {
@@ -34,24 +34,8 @@
         "sindhi mixed pickle",
         "مکس اچار"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        },
-        {
-          "weight": "2kg",
-          "price": 1999,
-          "label": "Family Pack"
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "https://www.youtube.com/shorts/boNuyx-UWas",
       "whatsappProductName": "Mix Achar",
       "featured": true,
@@ -87,24 +71,8 @@
         "shikarpuri mango achar",
         "آم کا اچار"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        },
-        {
-          "weight": "2kg",
-          "price": 1999,
-          "label": "Family Pack"
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "https://www.youtube.com/shorts/Xje6mfEUkwM",
       "whatsappProductName": "Aam Ka Achar",
       "featured": true,
@@ -140,24 +108,8 @@
         "lasooray ka achar",
         "لسوڑے کا اچار"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        },
-        {
-          "weight": "2kg",
-          "price": 1999,
-          "label": "Family Pack"
-        }
-      ],
+      "price400": 460,
+      "price800": 920,
       "youtubeUrl": "https://www.youtube.com/shorts/6f8FV77ZNmY",
       "whatsappProductName": "Lasooray Ka Achar",
       "featured": false,
@@ -191,24 +143,8 @@
         "garlic pickle pakistan",
         "لہسن کا اچار"
       ],
-      "price400": 749,
-      "price800": 1349,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 749
-        },
-        {
-          "weight": "800g",
-          "price": 1349,
-          "popular": true
-        },
-        {
-          "weight": "2kg",
-          "price": 2999,
-          "label": "Family Pack"
-        }
-      ],
+      "price400": 700,
+      "price800": 1400,
       "youtubeUrl": "https://www.youtube.com/shorts/YQehp_MgVQw",
       "whatsappProductName": "Lehsan Ka Achar",
       "featured": true,
@@ -242,24 +178,8 @@
         "ginger pickle pakistan",
         "ادرک کا اچار"
       ],
-      "price400": 849,
-      "price800": 1549,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 849
-        },
-        {
-          "weight": "800g",
-          "price": 1549,
-          "popular": true
-        },
-        {
-          "weight": "2kg",
-          "price": 3399,
-          "label": "Family Pack"
-        }
-      ],
+      "price400": 800,
+      "price800": 1600,
       "youtubeUrl": "https://www.youtube.com/shorts/jHaeEL_A2cM",
       "whatsappProductName": "Adrak Ka Achar",
       "featured": false,
@@ -292,24 +212,8 @@
         "nimbu pickle pakistan",
         "لیموں کا اچار"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        },
-        {
-          "weight": "2kg",
-          "price": 1999,
-          "label": "Family Pack"
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "https://www.youtube.com/shorts/BQzsJaPWFi8",
       "whatsappProductName": "Lemon Ka Achar",
       "featured": false,
@@ -343,24 +247,8 @@
         "onion pickle pakistan",
         "پیاز کا اچار"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        },
-        {
-          "weight": "2kg",
-          "price": 1999,
-          "label": "Family Pack"
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "https://www.youtube.com/shorts/M74oNjWFfW8",
       "whatsappProductName": "Pyaz Ka Achar",
       "featured": false,
@@ -394,24 +282,8 @@
         "carrot pickle pakistan",
         "گاجر کا اچار"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        },
-        {
-          "weight": "2kg",
-          "price": 1999,
-          "label": "Family Pack"
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "https://www.youtube.com/shorts/AEhDA_5l8zg",
       "whatsappProductName": "Gajar Ka Achar",
       "featured": false,
@@ -445,24 +317,8 @@
         "hari chutney",
         "ہری چٹنی"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        },
-        {
-          "weight": "2kg",
-          "price": 1999,
-          "label": "Family Pack"
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "https://www.youtube.com/shorts/t_fKoHC8rUM",
       "whatsappProductName": "Green Chutney",
       "featured": true,
@@ -489,19 +345,8 @@
         "shikarpuri achar",
         "اچار مرچ تیل"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "",
       "whatsappProductName": "Chilli Achar (Oil)",
       "featured": false,
@@ -528,19 +373,8 @@
         "shikarpuri achar",
         "اچار آم کھٹا میٹھا"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "",
       "whatsappProductName": "Mango Sweet & Sour Achar",
       "featured": false,
@@ -567,19 +401,8 @@
         "shikarpuri achar",
         "اچار مکس قورمہ تیل"
       ],
-      "price400": 549,
-      "price800": 999,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 549
-        },
-        {
-          "weight": "800g",
-          "price": 999,
-          "popular": true
-        }
-      ],
+      "price400": 500,
+      "price800": 1000,
       "youtubeUrl": "",
       "whatsappProductName": "Mix Korma Achar",
       "featured": false,
@@ -606,19 +429,8 @@
         "shikarpuri achar",
         "اچار آم کترا تیل"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "",
       "whatsappProductName": "Mango Cut Achar (Oil)",
       "featured": false,
@@ -645,19 +457,8 @@
         "shikarpuri achar",
         "اچار کھجور تیل"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "",
       "whatsappProductName": "Dates Achar (Oil)",
       "featured": false,
@@ -684,19 +485,8 @@
         "shikarpuri achar",
         "اچار چھولے سرکہ"
       ],
-      "price400": 649,
-      "price800": 1149,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 649
-        },
-        {
-          "weight": "800g",
-          "price": 1149,
-          "popular": true
-        }
-      ],
+      "price400": 600,
+      "price800": 1200,
       "youtubeUrl": "",
       "whatsappProductName": "Chana Achar (Vinegar)",
       "featured": false,
@@ -723,19 +513,8 @@
         "shikarpuri achar",
         "اچار سلاد سرکہ"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "",
       "whatsappProductName": "Salad Achar (Vinegar)",
       "featured": false,
@@ -762,19 +541,8 @@
         "shikarpuri achar",
         "اچار بھرا تیل"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "",
       "whatsappProductName": "Stuffed Achar (Oil)",
       "featured": false,
@@ -801,19 +569,8 @@
         "shikarpuri achar",
         "اچار مکس سبزی پانی"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "",
       "whatsappProductName": "Mix Vegetable Achar",
       "featured": false,
@@ -840,19 +597,8 @@
         "shikarpuri achar",
         "اچار لہسن سرکہ"
       ],
-      "price400": 749,
-      "price800": 1349,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 749
-        },
-        {
-          "weight": "800g",
-          "price": 1349,
-          "popular": true
-        }
-      ],
+      "price400": 700,
+      "price800": 1400,
       "youtubeUrl": "",
       "whatsappProductName": "Garlic Achar (Vinegar)",
       "featured": false,
@@ -879,19 +625,8 @@
         "shikarpuri achar",
         "اچار پیاز کترا سرکہ"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "",
       "whatsappProductName": "Onion Cut Achar",
       "featured": false,
@@ -918,19 +653,8 @@
         "shikarpuri achar",
         "اچار آم سرکہ"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "",
       "whatsappProductName": "Mango Achar (Vinegar)",
       "featured": false,
@@ -957,19 +681,8 @@
         "shikarpuri achar",
         "اچار مکس سرکہ"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "",
       "whatsappProductName": "Mix Achar (Vinegar)",
       "featured": false,
@@ -996,19 +709,8 @@
         "shikarpuri achar",
         "اچار مرچ سرکہ"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "",
       "whatsappProductName": "Chilli Achar (Vinegar)",
       "featured": false,
@@ -1035,19 +737,8 @@
         "shikarpuri achar",
         "اچار لیموں سرکہ"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "",
       "whatsappProductName": "Lemon Achar (Vinegar)",
       "featured": false,
@@ -1074,19 +765,8 @@
         "shikarpuri achar",
         "اچار گاجر سرکہ"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "",
       "whatsappProductName": "Carrot Achar (Vinegar)",
       "featured": false,
@@ -1113,19 +793,8 @@
         "shikarpuri achar",
         "اچار لیموں پانی"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "",
       "whatsappProductName": "Lemon Achar (Water)",
       "featured": false,
@@ -1152,19 +821,8 @@
         "shikarpuri achar",
         "اچار کریلا تیل"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "",
       "whatsappProductName": "Karela Achar (Oil)",
       "featured": false,
@@ -1191,19 +849,8 @@
         "shikarpuri achar",
         "اچار فالسہ تیل"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "",
       "whatsappProductName": "Falsa Achar (Oil)",
       "featured": false,
@@ -1230,19 +877,8 @@
         "shikarpuri achar",
         "اچار آم چپس تیل"
       ],
-      "price400": 549,
-      "price800": 999,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 549
-        },
-        {
-          "weight": "800g",
-          "price": 999,
-          "popular": true
-        }
-      ],
+      "price400": 500,
+      "price800": 1000,
       "youtubeUrl": "",
       "whatsappProductName": "Mango Chips Achar",
       "featured": false,
@@ -1269,19 +905,8 @@
         "shikarpuri achar",
         "اچار مرچ کترا تیل"
       ],
-      "price400": 549,
-      "price800": 999,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 549
-        },
-        {
-          "weight": "800g",
-          "price": 999,
-          "popular": true
-        }
-      ],
+      "price400": 500,
+      "price800": 1000,
       "youtubeUrl": "",
       "whatsappProductName": "Chilli Cut Achar",
       "featured": false,
@@ -1308,19 +933,8 @@
         "shikarpuri achar",
         "اچار چھولے سرکہ تیل"
       ],
-      "price400": 649,
-      "price800": 1149,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 649
-        },
-        {
-          "weight": "800g",
-          "price": 1149,
-          "popular": true
-        }
-      ],
+      "price400": 600,
+      "price800": 1200,
       "youtubeUrl": "",
       "whatsappProductName": "Chana Achar (Vinegar & Oil)",
       "featured": false,
@@ -1347,19 +961,8 @@
         "shikarpuri achar",
         "اچار مرغی تیل"
       ],
-      "price400": 849,
-      "price800": 1549,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 849
-        },
-        {
-          "weight": "800g",
-          "price": 1549,
-          "popular": true
-        }
-      ],
+      "price400": 800,
+      "price800": 1600,
       "youtubeUrl": "",
       "whatsappProductName": "Chicken Achar (Oil)",
       "featured": false,
@@ -1386,19 +989,8 @@
         "shikarpuri achar",
         "اچار آم کترا سرکہ"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "",
       "whatsappProductName": "Mango Cut Achar (Vinegar)",
       "featured": false,
@@ -1425,19 +1017,8 @@
         "shikarpuri achar",
         "اچار آم کترا کھٹا میٹھا"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "",
       "whatsappProductName": "Mango Cut Sweet & Sour Achar",
       "featured": false,
@@ -1464,19 +1045,8 @@
         "shikarpuri achar",
         "اچار پالک تیل"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        }
-      ],
+      "price400": 480,
+      "price800": 960,
       "youtubeUrl": "",
       "whatsappProductName": "Palak Achar (Oil)",
       "featured": false,
@@ -1503,19 +1073,8 @@
         "shikarpuri chutney",
         "چٹنی آلو بخارا"
       ],
-      "price400": 1049,
-      "price800": 1899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 1049
-        },
-        {
-          "weight": "800g",
-          "price": 1899,
-          "popular": true
-        }
-      ],
+      "price400": 1000,
+      "price800": 2000,
       "youtubeUrl": "",
       "whatsappProductName": "Aloo Bukhara Chutney",
       "featured": false,
@@ -1542,19 +1101,8 @@
         "shikarpuri chutney",
         "چٹنی آم کھٹی میٹھی"
       ],
-      "price400": 749,
-      "price800": 1349,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 749
-        },
-        {
-          "weight": "800g",
-          "price": 1349,
-          "popular": true
-        }
-      ],
+      "price400": 700,
+      "price800": 1400,
       "youtubeUrl": "",
       "whatsappProductName": "Mango Sweet & Sour Chutney",
       "featured": false,
@@ -1581,19 +1129,8 @@
         "shikarpuri chutney",
         "چٹنی آلو بخارا ڈرائی فروٹ"
       ],
-      "price400": 1249,
-      "price800": 2249,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 1249
-        },
-        {
-          "weight": "800g",
-          "price": 2249,
-          "popular": true
-        }
-      ],
+      "price400": 1200,
+      "price800": 2400,
       "youtubeUrl": "",
       "whatsappProductName": "Aloo Bukhara Dry Fruit Chutney",
       "featured": false,
@@ -1620,19 +1157,8 @@
         "shikarpuri chutney",
         "چٹنی آم میٹھی"
       ],
-      "price400": 749,
-      "price800": 1349,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 749
-        },
-        {
-          "weight": "800g",
-          "price": 1349,
-          "popular": true
-        }
-      ],
+      "price400": 700,
+      "price800": 1400,
       "youtubeUrl": "",
       "whatsappProductName": "Mango Sweet Chutney",
       "featured": false,
@@ -1659,19 +1185,8 @@
         "shikarpuri chutney",
         "چٹنی املی"
       ],
-      "price400": 749,
-      "price800": 1349,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 749
-        },
-        {
-          "weight": "800g",
-          "price": 1349,
-          "popular": true
-        }
-      ],
+      "price400": 700,
+      "price800": 1400,
       "youtubeUrl": "",
       "whatsappProductName": "Imli Chutney",
       "featured": false,
@@ -1697,19 +1212,8 @@
         "shikarpuri chutney",
         "چٹنی مکس فروٹ"
       ],
-      "price400": 749,
-      "price800": 1349,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 749
-        },
-        {
-          "weight": "800g",
-          "price": 1349,
-          "popular": true
-        }
-      ],
+      "price400": 700,
+      "price800": 1400,
       "youtubeUrl": "",
       "whatsappProductName": "Mix Fruit Chutney",
       "featured": false,
@@ -1736,19 +1240,8 @@
         "shikarpuri chutney",
         "چٹنی کھجور"
       ],
-      "price400": 749,
-      "price800": 1349,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 749
-        },
-        {
-          "weight": "800g",
-          "price": 1349,
-          "popular": true
-        }
-      ],
+      "price400": 700,
+      "price800": 1400,
       "youtubeUrl": "",
       "whatsappProductName": "Dates Chutney",
       "featured": false,
@@ -1775,19 +1268,8 @@
         "shikarpuri chutney",
         "چٹنی آم ڈرائی فروٹ"
       ],
-      "price400": 1249,
-      "price800": 2249,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 1249
-        },
-        {
-          "weight": "800g",
-          "price": 2249,
-          "popular": true
-        }
-      ],
+      "price400": 1200,
+      "price800": 2400,
       "youtubeUrl": "",
       "whatsappProductName": "Mango Dry Fruit Chutney",
       "featured": false,
@@ -1816,17 +1298,6 @@
       ],
       "price400": null,
       "price800": null,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": null
-        },
-        {
-          "weight": "800g",
-          "price": null,
-          "popular": true
-        }
-      ],
       "youtubeUrl": "",
       "whatsappProductName": "Tomato Ketchup",
       "featured": false,
@@ -1855,17 +1326,6 @@
       ],
       "price400": null,
       "price800": null,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": null
-        },
-        {
-          "weight": "800g",
-          "price": null,
-          "popular": true
-        }
-      ],
       "youtubeUrl": "",
       "whatsappProductName": "Chilli Garlic Chutney",
       "featured": false,
@@ -1892,19 +1352,8 @@
         "shikarpuri murabba",
         "مربہ آم"
       ],
-      "price400": 749,
-      "price800": 1349,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 749
-        },
-        {
-          "weight": "800g",
-          "price": 1349,
-          "popular": true
-        }
-      ],
+      "price400": 700,
+      "price800": 1400,
       "youtubeUrl": "",
       "whatsappProductName": "Mango Murabba",
       "featured": false,
@@ -1931,19 +1380,8 @@
         "shikarpuri murabba",
         "مربہ آملہ"
       ],
-      "price400": 749,
-      "price800": 1349,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 749
-        },
-        {
-          "weight": "800g",
-          "price": 1349,
-          "popular": true
-        }
-      ],
+      "price400": 700,
+      "price800": 1400,
       "youtubeUrl": "",
       "whatsappProductName": "Amla Murabba",
       "featured": false,
@@ -1969,19 +1407,8 @@
         "shikarpuri murabba",
         "مربہ ہربڑ"
       ],
-      "price400": 749,
-      "price800": 1349,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 749
-        },
-        {
-          "weight": "800g",
-          "price": 1349,
-          "popular": true
-        }
-      ],
+      "price400": 700,
+      "price800": 1400,
       "youtubeUrl": "",
       "whatsappProductName": "Harar Murabba",
       "featured": false,
@@ -2008,19 +1435,8 @@
         "shikarpuri murabba",
         "مربہ بہی"
       ],
-      "price400": 749,
-      "price800": 1349,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 749
-        },
-        {
-          "weight": "800g",
-          "price": 1349,
-          "popular": true
-        }
-      ],
+      "price400": 700,
+      "price800": 1400,
       "youtubeUrl": "",
       "whatsappProductName": "Quince Murabba",
       "featured": false,
@@ -2046,19 +1462,8 @@
         "shikarpuri murabba",
         "مربہ بیل گری"
       ],
-      "price400": 749,
-      "price800": 1349,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 749
-        },
-        {
-          "weight": "800g",
-          "price": 1349,
-          "popular": true
-        }
-      ],
+      "price400": 700,
+      "price800": 1400,
       "youtubeUrl": "",
       "whatsappProductName": "Bael Giri Murabba",
       "featured": false,
@@ -2084,19 +1489,8 @@
         "shikarpuri murabba",
         "مربہ کروندہ"
       ],
-      "price400": 749,
-      "price800": 1349,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 749
-        },
-        {
-          "weight": "800g",
-          "price": 1349,
-          "popular": true
-        }
-      ],
+      "price400": 700,
+      "price800": 1400,
       "youtubeUrl": "",
       "whatsappProductName": "Karonda Murabba",
       "featured": false,
@@ -2123,19 +1517,8 @@
         "shikarpuri murabba",
         "مربہ بانس"
       ],
-      "price400": 1449,
-      "price800": 2599,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 1449
-        },
-        {
-          "weight": "800g",
-          "price": 2599,
-          "popular": true
-        }
-      ],
+      "price400": 1400,
+      "price800": 2800,
       "youtubeUrl": "",
       "whatsappProductName": "Baans (Bamboo) Murabba",
       "featured": false,
@@ -2162,19 +1545,8 @@
         "shikarpuri murabba",
         "مربہ سیب"
       ],
-      "price400": 749,
-      "price800": 1349,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 749
-        },
-        {
-          "weight": "800g",
-          "price": 1349,
-          "popular": true
-        }
-      ],
+      "price400": 700,
+      "price800": 1400,
       "youtubeUrl": "",
       "whatsappProductName": "Apple Murabba",
       "featured": false,
@@ -2201,19 +1573,8 @@
         "shikarpuri murabba",
         "مربہ گاجر"
       ],
-      "price400": 749,
-      "price800": 1349,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 749
-        },
-        {
-          "weight": "800g",
-          "price": 1349,
-          "popular": true
-        }
-      ],
+      "price400": 700,
+      "price800": 1400,
       "youtubeUrl": "",
       "whatsappProductName": "Carrot Murabba",
       "featured": false,
@@ -2240,19 +1601,8 @@
         "shikarpuri murabba",
         "مربہ ادرک"
       ],
-      "price400": 1649,
-      "price800": 2949,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 1649
-        },
-        {
-          "weight": "800g",
-          "price": 2949,
-          "popular": true
-        }
-      ],
+      "price400": 1600,
+      "price800": 3200,
       "youtubeUrl": "",
       "whatsappProductName": "Ginger Murabba",
       "featured": false,
@@ -2279,19 +1629,8 @@
         "shikarpuri murabba",
         "مربہ کدو"
       ],
-      "price400": 749,
-      "price800": 1349,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 749
-        },
-        {
-          "weight": "800g",
-          "price": 1349,
-          "popular": true
-        }
-      ],
+      "price400": 700,
+      "price800": 1400,
       "youtubeUrl": "",
       "whatsappProductName": "Pumpkin Murabba",
       "featured": false,
@@ -2317,19 +1656,8 @@
         "shikarpuri murabba",
         "مربہ اشرفی"
       ],
-      "price400": 449,
-      "price800": 799,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 449
-        },
-        {
-          "weight": "800g",
-          "price": 799,
-          "popular": true
-        }
-      ],
+      "price400": 400,
+      "price800": 800,
       "youtubeUrl": "",
       "whatsappProductName": "Ashrafi Murabba",
       "featured": false,
@@ -2356,19 +1684,8 @@
         "shikarpuri gulqand",
         "گلقند"
       ],
-      "price400": 499,
-      "price800": 899,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 499
-        },
-        {
-          "weight": "800g",
-          "price": 899,
-          "popular": true
-        }
-      ],
+      "price400": 460,
+      "price800": 920,
       "youtubeUrl": "",
       "whatsappProductName": "Gulqand",
       "featured": false,
@@ -2395,19 +1712,8 @@
         "saag achar pakistan",
         "ساگ کا اچار"
       ],
-      "price400": 599,
-      "price800": 1099,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 599
-        },
-        {
-          "weight": "800g",
-          "price": 1099,
-          "popular": true
-        }
-      ],
+      "price400": 560,
+      "price800": 1120,
       "youtubeUrl": "",
       "whatsappProductName": "Sarson Da Saag Achar",
       "featured": false,
@@ -2434,19 +1740,8 @@
         "moringa pickle pakistan",
         "سہانجنا اچار"
       ],
-      "price400": 699,
-      "price800": 1249,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 699
-        },
-        {
-          "weight": "800g",
-          "price": 1249,
-          "popular": true
-        }
-      ],
+      "price400": 650,
+      "price800": 1300,
       "youtubeUrl": "",
       "whatsappProductName": "Moringa Achar",
       "featured": false,
@@ -2473,19 +1768,8 @@
         "larkana bhei achar",
         "بھے کا اچار"
       ],
-      "price400": 599,
-      "price800": 1099,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 599
-        },
-        {
-          "weight": "800g",
-          "price": 1099,
-          "popular": true
-        }
-      ],
+      "price400": 560,
+      "price800": 1120,
       "youtubeUrl": "",
       "whatsappProductName": "Larkana Bhei Achar",
       "featured": false,
@@ -2512,19 +1796,8 @@
         "amla pickle pakistan",
         "آملہ اچار"
       ],
-      "price400": 649,
-      "price800": 1149,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 649
-        },
-        {
-          "weight": "800g",
-          "price": 1149,
-          "popular": true
-        }
-      ],
+      "price400": 600,
+      "price800": 1200,
       "youtubeUrl": "",
       "whatsappProductName": "Amla Achar",
       "featured": false,
@@ -2550,19 +1823,8 @@
         "moringa garlic pickle",
         "سہانجنا لہسن اچار"
       ],
-      "price400": 699,
-      "price800": 1249,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 699
-        },
-        {
-          "weight": "800g",
-          "price": 1249,
-          "popular": true
-        }
-      ],
+      "price400": 650,
+      "price800": 1300,
       "priceNote": "TODO: estimated price, confirm with owner",
       "youtubeUrl": "",
       "whatsappProductName": "Moringa Lahsan Achar",
@@ -2590,19 +1852,8 @@
         "mirch achar pakistan",
         "ہری مرچ اچار"
       ],
-      "price400": 599,
-      "price800": 1099,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 599
-        },
-        {
-          "weight": "800g",
-          "price": 1099,
-          "popular": true
-        }
-      ],
+      "price400": 560,
+      "price800": 1120,
       "priceNote": "TODO: estimated price, confirm with owner",
       "youtubeUrl": "",
       "whatsappProductName": "Hari Mirch Achar",
@@ -2630,19 +1881,8 @@
         "shikarpuri chutney",
         "خوبانی چٹنی"
       ],
-      "price400": 849,
-      "price800": 1549,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 849
-        },
-        {
-          "weight": "800g",
-          "price": 1549,
-          "popular": true
-        }
-      ],
+      "price400": 840,
+      "price800": 1680,
       "youtubeUrl": "",
       "whatsappProductName": "Khubani Chutney",
       "featured": false,
@@ -2669,19 +1909,8 @@
         "shikarpuri murabba",
         "کروندا مربہ"
       ],
-      "price400": 599,
-      "price800": 1099,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 599
-        },
-        {
-          "weight": "800g",
-          "price": 1099,
-          "popular": true
-        }
-      ],
+      "price400": 560,
+      "price800": 1120,
       "priceNote": "TODO: price is an ESTIMATE, confirm before launch",
       "youtubeUrl": "",
       "whatsappProductName": "Cranberry Murabba",
@@ -2709,19 +1938,8 @@
         "karela murabba",
         "مربہ تمہ"
       ],
-      "price400": 849,
-      "price800": 1549,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 849
-        },
-        {
-          "weight": "800g",
-          "price": 1549,
-          "popular": true
-        }
-      ],
+      "price400": 810,
+      "price800": 1620,
       "priceNote": "TODO: price is an ESTIMATE, confirm before launch",
       "youtubeUrl": "",
       "whatsappProductName": "Bitter Gourd Murabba",
@@ -2748,19 +1966,8 @@
         "buy chia seeds online",
         "چیا سیڈز"
       ],
-      "price400": 799,
-      "price800": 1449,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 799
-        },
-        {
-          "weight": "800g",
-          "price": 1449,
-          "popular": true
-        }
-      ],
+      "price400": 750,
+      "price800": 1500,
       "youtubeUrl": "",
       "whatsappProductName": "Chia Seeds",
       "featured": false,
@@ -2787,19 +1994,8 @@
         "buy pumpkin seeds online",
         "کدو کے بیج"
       ],
-      "price400": 949,
-      "price800": 1699,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 949
-        },
-        {
-          "weight": "800g",
-          "price": 1699,
-          "popular": true
-        }
-      ],
+      "price400": 900,
+      "price800": 1800,
       "youtubeUrl": "",
       "whatsappProductName": "Pumpkin Seeds",
       "featured": false,
@@ -2826,19 +2022,8 @@
         "buy sesame seeds online",
         "تل کے بیج"
       ],
-      "price400": 599,
-      "price800": 1099,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 599
-        },
-        {
-          "weight": "800g",
-          "price": 1099,
-          "popular": true
-        }
-      ],
+      "price400": 560,
+      "price800": 1120,
       "youtubeUrl": "",
       "whatsappProductName": "Sesame Seeds",
       "featured": false,
@@ -2865,19 +2050,8 @@
         "buy moringa powder online",
         "سہانجنا پاؤڈر"
       ],
-      "price400": 799,
-      "price800": 1449,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 799
-        },
-        {
-          "weight": "800g",
-          "price": 1449,
-          "popular": true
-        }
-      ],
+      "price400": 750,
+      "price800": 1500,
       "youtubeUrl": "",
       "whatsappProductName": "Moringa Powder",
       "featured": false,
@@ -2904,19 +2078,8 @@
         "buy flax seeds online",
         "السی کے بیج"
       ],
-      "price400": 549,
-      "price800": 999,
-      "variants": [
-        {
-          "weight": "400g",
-          "price": 549
-        },
-        {
-          "weight": "800g",
-          "price": 999,
-          "popular": true
-        }
-      ],
+      "price400": 520,
+      "price800": 1040,
       "youtubeUrl": "",
       "whatsappProductName": "Flax Seeds",
       "featured": false,

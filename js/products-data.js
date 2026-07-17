@@ -14,7 +14,7 @@
  *
  * HOW TO ADD REAL PRICES:
  *   Fill in "price400" / "price800" (plain numbers, PKR). Leave as
- *   null to show "Price on WhatsApp" (item stays sellable via WhatsApp).
+ *   null to show "Contact for Price".
  *
  * HOW TO ADD/REMOVE A PRODUCT:
  *   Add or remove an object in the "products" array. Category pages,
@@ -33,48 +33,12 @@ const SITE_CONFIG = {
   youtubeChannelUrl: "https://www.youtube.com/@Shikarpuriachar-m9i",
   facebookUrl: "https://www.facebook.com/people/Shikarpuri-Achar/61573741591107/",
   instagramUrl: "https://www.instagram.com/shikarpuriachar.pk/",
+  advanceDiscountPercent: 10,
   codAvailable: true,
   deliveryCharge: 300,
   minProductOrder: 1500,
   minCodOrder: 1500, // = minProductOrder: COD is available on any order that meets the minimum
-  freeDeliveryThreshold: 1800, // advance orders at/above this get FREE delivery (see advanceTiers)
-  advanceDeliveryCharge: 200,  // advance orders below the threshold (still < COD's 300)
   currency: "PKR",
-
-  /* Advance-payment incentive tiers (replaces the old flat % discount).
-     Everything that rewards the customer is ADVANCE-ONLY. Highest matched
-     tier wins. Tune numbers here — cart math, WhatsApp and copy all read
-     this table. delivery:0 = FREE delivery; flatOff = Rs off; gift = free
-     400g jar (customer picks from giftPicks). */
-  advanceTiers: [
-    { minSubtotal: 2500, delivery: 0,   flatOff: 0,   gift: true },
-    { minSubtotal: 1800, delivery: 0,   flatOff: 100, gift: false },
-    { minSubtotal: 0,    delivery: 200, flatOff: 0,   gift: false },
-  ],
-  /* Hero achars offered as the free 400g jar at the 2,500+ advance tier. */
-  giftPicks: ["mix-achar", "aam-ka-achar", "lehsan-ka-achar", "green-chutney"],
-
-  /* "Koi bhi 3 × 800g — Rs. 2,499" bundle. Restricted to the standard-price
-     hero achars (all Rs.899 at 800g) so the flat bundle price never loses
-     margin; premium heroes (garlic/ginger) are intentionally excluded.
-     Cart auto-applies the saving for each complete group of 3. */
-  bundlePrice: 2499,
-  bundleSize: 3,
-  bundleHeroSlugs: ["mix-achar", "aam-ka-achar", "lasooray-ka-achar", "lemon-ka-achar",
-                    "pyaz-ka-achar", "gajar-ka-achar", "green-chutney"],
-
-  /* Locked microcopy — owner-approved exact strings. Reference these
-     constants everywhere (buy-box, cart, WhatsApp, FAQ, price-list) so the
-     Roman-Urdu + English tone stays identical. Do not paraphrase. */
-  COPY: {
-    advanceFreeDelivery: "Advance payment par delivery FREE 🎁",
-    codMinWarning: "Minimum Order amount is PKR 1500, add more.",
-    advanceTier1: "Advance payment par delivery FREE + Rs. 100 off 🎁",
-    advanceTier2: "FREE delivery + FREE 400g achar 🎁",
-    giftPickerTitle: "🎁 Apna FREE 400g achar chunein",
-    advanceReassurance: "Payment screenshot WhatsApp par bhejein, order foran confirm ✓",
-    advanceMethod: "Advance payment JazzCash/EasyPaisa se — account details WhatsApp par milen ge.",
-  },
 };
 
 function resolveJsonUrl(filename) {
@@ -173,59 +137,6 @@ const ProductsAPI = (function () {
     return `Rs. ${Number(value).toLocaleString("en-PK")}`;
   }
 
-  /* ---- Variant helpers ----------------------------------------------
-     `variants` is the canonical price structure on every product:
-       [{ weight:"400g", price:499 },
-        { weight:"800g", price:899, popular:true },
-        { weight:"2kg",  price:1999, label:"Family Pack" }]
-     price400 / price800 are kept only as convenience mirrors. All size /
-     savings logic reads variants so extra sizes (2kg) work everywhere. */
-  function getVariants(product) {
-    if (product && Array.isArray(product.variants) && product.variants.length) {
-      return product.variants;
-    }
-    const v = [];
-    if (product) {
-      v.push({ weight: "400g", price: product.price400 != null ? product.price400 : null });
-      v.push({ weight: "800g", price: product.price800 != null ? product.price800 : null, popular: true });
-    }
-    return v;
-  }
-  function variantByWeight(product, weight) {
-    return getVariants(product).find((v) => v.weight === weight) || null;
-  }
-  function variantPrice(product, weight) {
-    const v = variantByWeight(product, weight);
-    return v ? v.price : null;
-  }
-  function defaultVariant(product) {
-    const vs = getVariants(product);
-    return vs.find((v) => v.popular) || vs[0] || null;
-  }
-  function baseVariant(product) {
-    return variantByWeight(product, "400g") || getVariants(product)[0] || null;
-  }
-  function weightGrams(weight) {
-    const m = String(weight || "").match(/([\d.]+)\s*(kg|g)/i);
-    if (!m) return null;
-    const n = parseFloat(m[1]);
-    return /kg/i.test(m[2]) ? n * 1000 : n;
-  }
-  /** Rs saved vs buying the same grams in 400g jars, and % cheaper per gram. */
-  function variantSavings(product, weight) {
-    const base = baseVariant(product);
-    const v = variantByWeight(product, weight);
-    if (!base || !v || base.price == null || v.price == null) return null;
-    const g = weightGrams(weight);
-    const bg = weightGrams(base.weight);
-    if (!g || !bg || g <= bg) return null;
-    const perGramBase = base.price / bg;
-    const equiv = Math.round(perGramBase * g);
-    const saveRs = equiv - v.price;
-    const pct = Math.round((1 - (v.price / g) / perGramBase) * 100);
-    return { saveRs, pct, equiv };
-  }
-
   function buildWhatsAppLink(message) {
     const base = `https://wa.me/${SITE_CONFIG.whatsappNumber}`;
     return message ? `${base}?text=${encodeURIComponent(message)}` : base;
@@ -254,8 +165,6 @@ const ProductsAPI = (function () {
     ready: load(),
     getBySlug, getFeatured, getByCategory, getCategories, getRelated,
     search, slugify, extractYouTubeId, formatPrice,
-    getVariants, variantByWeight, variantPrice, defaultVariant, baseVariant,
-    weightGrams, variantSavings,
     buildWhatsAppLink, buildProductOrderMessage,
   };
 })();
@@ -420,7 +329,7 @@ const CartAPI = (function () {
       .map((item) => {
         const product = products.find((p) => p.slug === item.slug);
         if (!product) return null;
-        const unitPrice = ProductsAPI.variantPrice(product, item.weight);
+        const unitPrice = item.weight === "800g" ? product.price800 : product.price400;
         const hasPrice = unitPrice !== null && unitPrice !== undefined;
         return {
           slug: item.slug,
@@ -439,26 +348,6 @@ const CartAPI = (function () {
     return getLines(products).reduce((sum, l) => sum + l.lineTotal, 0);
   }
 
-  /** "Any 3 × 800g standard-hero jars = Rs. bundlePrice" — auto-applied for
-      each complete group of 3. Returns { qty, groups, discount, perJar }. */
-  function getBundle(products) {
-    const slugs = SITE_CONFIG.bundleHeroSlugs || [];
-    const size = Number(SITE_CONFIG.bundleSize) || 3;
-    const bundlePrice = Number(SITE_CONFIG.bundlePrice) || 0;
-    if (!slugs.length || !bundlePrice) return { qty: 0, groups: 0, discount: 0, perJar: 0, size, bundlePrice };
-    let qty = 0;
-    let perJar = 0;
-    getLines(products).forEach((l) => {
-      if (l.weight === "800g" && l.hasPrice && slugs.indexOf(l.slug) !== -1) {
-        qty += l.qty;
-        perJar = l.unitPrice; // all bundle heroes share the same 800g price
-      }
-    });
-    const groups = Math.floor(qty / size);
-    const discount = Math.max(0, groups * (size * perJar - bundlePrice));
-    return { qty, groups, discount, perJar, size, bundlePrice };
-  }
-
   function hasUnpricedItems(products) {
     return getLines(products).some((l) => !l.hasPrice);
   }
@@ -471,53 +360,20 @@ const CartAPI = (function () {
     return { eligible, amountNeeded: eligible ? 0 : min - subtotal, subtotal, min };
   }
 
-  /** Full pricing breakdown used by both the drawer UI and the WhatsApp message.
-      COD: flat Rs.300 delivery, minimum order applies, no perks.
-      ADVANCE: tiered (config.advanceTiers) — free delivery / Rs off / free jar. */
+  /** Full pricing breakdown used by both the drawer UI and the WhatsApp message. */
   function getSummary(products) {
     const subtotal = getSubtotal(products);
-    const hasUnpriced = hasUnpricedItems(products);
-
-    // ---- Bundle discount (product-level, applies to both COD and Advance) ----
-    const bundle = getBundle(products);
-    const bundleDiscount = bundle.discount;
-
-    // ---- COD side ----
-    const minCod = Number(SITE_CONFIG.minCodOrder) || 0;
-    const codDelivery = subtotal > 0 ? Number(SITE_CONFIG.deliveryCharge) || 0 : 0;
-    const codEligible = subtotal >= minCod;
-    const codAmountNeeded = codEligible ? 0 : minCod - subtotal;
-    const grandTotalCod = subtotal + codDelivery - bundleDiscount;
-
-    // ---- Advance side (highest matched tier wins) ----
-    const tiers = (SITE_CONFIG.advanceTiers || []).slice().sort((a, b) => b.minSubtotal - a.minSubtotal);
-    const tier = tiers.find((t) => subtotal >= t.minSubtotal) ||
-      { delivery: Number(SITE_CONFIG.advanceDeliveryCharge) || 0, flatOff: 0, gift: false };
-    const advDelivery = subtotal > 0 ? Number(tier.delivery) || 0 : 0;
-    const advFlatOff = Number(tier.flatOff) || 0;
-    const advGift = !!tier.gift && subtotal > 0;
-    const advFreeDelivery = advDelivery === 0 && subtotal > 0;
-    const grandTotalAdvance = Math.max(0, subtotal - advFlatOff + advDelivery - bundleDiscount);
-    const advanceSaving = grandTotalCod - grandTotalAdvance; // how much advance beats COD (same bundle both sides)
-
-    // next advance tier still to unlock (for the progress bar / nudges)
-    const asc = (SITE_CONFIG.advanceTiers || []).slice().sort((a, b) => a.minSubtotal - b.minSubtotal);
-    const next = asc.find((t) => t.minSubtotal > subtotal) || null;
-    const toNext = next ? {
-      amountNeeded: next.minSubtotal - subtotal,
-      min: next.minSubtotal,
-      gift: !!next.gift,
-      flatOff: Number(next.flatOff) || 0,
-      freeDelivery: Number(next.delivery) === 0,
-    } : null;
-
+    const shipping = subtotal > 0 ? Number(SITE_CONFIG.deliveryCharge) || 0 : 0;
+    const discountPct = Number(SITE_CONFIG.advanceDiscountPercent) || 0;
+    const discountAmount = Math.round(subtotal * (discountPct / 100));
+    const grandTotalCod = subtotal + shipping;
+    const grandTotalAdvance = subtotal - discountAmount + shipping;
+    const cod = getCodStatus(products);
     return {
-      subtotal, hasUnpriced,
-      minCod, codEligible, codAmountNeeded, codDelivery, grandTotalCod,
-      advDelivery, advFlatOff, advGift, advFreeDelivery, grandTotalAdvance,
-      advanceSaving, toNext,
-      bundle, bundleDiscount,
-      shipping: codDelivery, // legacy alias
+      subtotal, shipping, discountPct, discountAmount,
+      grandTotalCod, grandTotalAdvance,
+      codEligible: cod.eligible, codAmountNeeded: cod.amountNeeded,
+      hasUnpriced: hasUnpricedItems(products),
     };
   }
 
@@ -528,13 +384,11 @@ const CartAPI = (function () {
   /** Builds the single consolidated WhatsApp order message for the whole cart.
       paymentMethod: "cod" | "advance" — the option the customer selected in
       the cart before checkout (defaults to COD). */
-  function buildCartWhatsAppMessage(products, paymentMethod, giftSlug) {
+  function buildCartWhatsAppMessage(products, paymentMethod) {
     const lines = getLines(products);
     if (!lines.length) return "";
     const s = getSummary(products);
-    const COPY = SITE_CONFIG.COPY || {};
-    // Advance is the default unless the customer explicitly chose COD and qualifies.
-    const isAdvance = paymentMethod !== "cod";
+    const isAdvance = paymentMethod === "advance" || !s.codEligible;
     const parts = [];
     parts.push("Assalam-o-Alaikum! I want to place the following order from ShikarpuriAchar.pk:");
     parts.push("");
@@ -545,29 +399,18 @@ const CartAPI = (function () {
     });
     parts.push("");
     parts.push(`Subtotal: ${money(s.subtotal)}`);
-    if (s.bundleDiscount > 0) parts.push(`Bundle saving (3×800g): -${money(s.bundleDiscount)}`);
+    parts.push(`Shipping: ${money(s.shipping)}`);
     if (isAdvance) {
-      parts.push(`Delivery: ${s.advFreeDelivery ? "FREE 🎁" : money(s.advDelivery)}`);
-      if (s.advFlatOff > 0) parts.push(`Advance discount: -${money(s.advFlatOff)}`);
+      parts.push(`Advance Discount (${s.discountPct}%): -${money(s.discountAmount)}`);
       parts.push(`Grand Total: ${money(s.grandTotalAdvance)}`);
-      if (s.advGift) {
-        const picks = SITE_CONFIG.giftPicks || [];
-        const gift = products.find((p) => p.slug === giftSlug) || products.find((p) => p.slug === picks[0]);
-        const giftName = gift ? (gift.nameUr ? `${gift.nameEn} (${gift.nameUr})` : gift.nameEn) : "Mix Achar";
-        parts.push(`🎁 FREE Gift: ${giftName} 400g (advance payment offer)`);
-      }
       parts.push("");
-      parts.push("Payment Method: Advance Payment (JazzCash/EasyPaisa)");
-      if (COPY.advanceMethod) parts.push(COPY.advanceMethod);
+      parts.push(`Payment Method: Advance Payment (${s.discountPct}% discount applied)`);
     } else {
-      parts.push(`Delivery: ${money(s.codDelivery)}`);
       parts.push(`Grand Total: ${money(s.grandTotalCod)}`);
       parts.push("");
       parts.push("Payment Method: Cash on Delivery");
     }
     if (s.hasUnpriced) parts.push("(Some items are priced on request — final total to be confirmed.)");
-    parts.push("");
-    parts.push(`💡 Rs. ${Number(SITE_CONFIG.freeDeliveryThreshold || 1800).toLocaleString("en-PK")}+ advance order par FREE delivery hai.`);
     parts.push("");
     parts.push("Name: ___");
     parts.push("City: ___");
@@ -579,7 +422,7 @@ const CartAPI = (function () {
 
   return {
     getItems, getCount, add, setQty, removeItem, empty,
-    getLines, getSubtotal, hasUnpricedItems, getCodStatus, getSummary, getBundle,
+    getLines, getSubtotal, hasUnpricedItems, getCodStatus, getSummary,
     buildCartWhatsAppMessage, onChange,
   };
 })();

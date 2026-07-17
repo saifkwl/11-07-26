@@ -6,6 +6,12 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "5500"],
       "port": 5500
+    },
+    {
+      "name": "weekly-cleaning-preview",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "5600", "--directory", "C:\\Users\\Bismillah-PC\\Desktop\\Weekly Cleaning service"],
+      "port": 5600
     }
   ]
 }

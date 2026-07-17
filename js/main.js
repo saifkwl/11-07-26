@@ -197,15 +197,7 @@
   function cardPriceHTML(price) {
     return price
       ? `Rs. ${Number(price).toLocaleString("en-PK")}`
-      : `<span style="font-size:.78rem;font-weight:600;font-style:italic">Price on WhatsApp</span>`;
-  }
-
-  /* "Save Rs. X · Y% sasta" for a bigger size vs the 400g per-gram rate;
-     empty string when there's no saving (e.g. the 400g base itself). */
-  function savingsText(p, weight) {
-    const s = api.variantSavings(p, weight);
-    if (!s || s.saveRs <= 0) return "";
-    return `Save Rs. ${s.saveRs.toLocaleString("en-PK")} · ${s.pct}% sasta`;
+      : `<span style="font-size:.78rem;font-weight:600;font-style:italic">Contact for Price</span>`;
   }
 
   function productCardHTML(p) {
@@ -214,12 +206,6 @@
       ? `<span class="chip" style="background:var(--color-dark-red);color:#fff;border-color:transparent">${p.status.replace(/-/g, " ")}</span>`
       : "";
     const ribbon = p.featured ? `<span class="product-card__ribbon">Bestseller</span>` : "";
-    const variants = api.getVariants(p);
-    const def = api.defaultVariant(p) || variants[0] || { weight: "400g", price: p.price400 };
-    const defW = def.weight;
-    const weightBtns = variants.map((v) =>
-      `<button type="button" class="card-weight${v.weight === defW ? " is-active" : ""}${v.popular ? " is-popular" : ""}" data-card-weight="${v.weight}">${v.weight}</button>`
-    ).join("");
     const hasVideo = !!api.extractYouTubeId(p.youtubeUrl || "");
     const actionsRow = hasVideo
       ? `<div class="product-card__actions product-card__actions--split">
@@ -240,12 +226,12 @@
           <h3 class="product-card__name-en">${p.nameEn}</h3>
           <p class="product-card__name-ur">${p.nameUr}</p>
           <div class="product-card__buy">
-            <div class="card-weights" role="group" aria-label="Select size">
-              ${weightBtns}
+            <div class="card-weights" role="group" aria-label="Select weight">
+              <button type="button" class="card-weight is-active" data-card-weight="400g">400g</button>
+              <button type="button" class="card-weight" data-card-weight="800g">800g</button>
             </div>
-            <span class="product-card__price" data-card-price>${cardPriceHTML(def.price)}</span>
+            <span class="product-card__price" data-card-price>${cardPriceHTML(p.price400)}</span>
           </div>
-          <p class="product-card__save" data-card-save>${savingsText(p, defW)}</p>
           ${statusBadge ? `<div class="product-card__variants">${statusBadge}</div>` : ""}
           ${actionsRow}
           <div class="product-card__actions">
@@ -270,12 +256,12 @@
         const product = api.getBySlug(productsCache, card ? card.dataset.slug : "");
         if (!card || !product) return;
         const weight = weightBtn.dataset.cardWeight;
-        const price = api.variantPrice(product, weight);
+        const price = weight === "800g" ? product.price800 : product.price400;
         card.querySelectorAll("[data-card-weight]").forEach((b) => b.classList.toggle("is-active", b === weightBtn));
         const priceEl = card.querySelector("[data-card-price]");
         if (priceEl) priceEl.innerHTML = cardPriceHTML(price);
-        const saveEl = card.querySelector("[data-card-save]");
-        if (saveEl) saveEl.textContent = savingsText(product, weight);
+        const orderEl = card.querySelector("[data-card-order]");
+        if (orderEl) orderEl.href = api.buildWhatsAppLink(api.buildProductOrderMessage(product, weight, { unitPrice: price }));
         return;
       }
       const watchBtn = e.target.closest("[data-card-watch]");
@@ -307,29 +293,6 @@
         window.CartAPI.add(priceAddCartBtn.dataset.priceAddCart, "400g", 1);
         flashButton(priceAddCartBtn, "Added ✓");
         notifyAddedToCart(priceAddCartBtn.dataset.priceAddCart);
-        return;
-      }
-      const bundlePick = e.target.closest("[data-bundle-pick]");
-      if (bundlePick) {
-        const root = bundlePick.closest("[data-bundle-builder]");
-        const size = cfg.bundleSize || 3;
-        const active = root.querySelectorAll(".bundle-chip.is-active").length;
-        if (!bundlePick.classList.contains("is-active") && active >= size) return; // cap at size
-        bundlePick.classList.toggle("is-active");
-        updateBundleFoot(root);
-        return;
-      }
-      const bundleAdd = e.target.closest("[data-bundle-add]");
-      if (bundleAdd) {
-        const root = bundleAdd.closest("[data-bundle-builder]");
-        const size = cfg.bundleSize || 3;
-        const picks = [...root.querySelectorAll(".bundle-chip.is-active")].map((b) => b.dataset.bundlePick);
-        if (picks.length !== size) return;
-        picks.forEach((slug) => window.CartAPI.add(slug, "800g", 1));
-        root.querySelectorAll(".bundle-chip.is-active").forEach((b) => b.classList.remove("is-active"));
-        updateBundleFoot(root);
-        flashButton(bundleAdd, "Bundle added ✓");
-        notifyAddedToCart(picks[0]);
         return;
       }
     });
@@ -370,16 +333,6 @@
 
   function emptyStateHTML(message) {
     return `<div class="text-center" style="grid-column:1/-1;padding:2rem"><p>${message}</p></div>`;
-  }
-
-  /* Reusable trust strip (under the buy-box and in the cart). No fabricated
-     order/customer counts — only claims that are true. */
-  function trustStripHTML() {
-    return `<div class="trust-strip">
-      <span>Since 1985</span>
-      <span>Nationwide Delivery</span>
-      <span>COD Available</span>
-    </div>`;
   }
 
   /* ---------------------------------------------------------------
@@ -435,7 +388,7 @@
   }
 
   function cartLineHTML(line) {
-    const priceText = line.hasPrice ? money(line.lineTotal) : "Price on WhatsApp";
+    const priceText = line.hasPrice ? money(line.lineTotal) : "Contact for Price";
     return `
       <div class="cart-line" data-slug="${line.slug}" data-weight="${line.weight}">
         <div class="cart-line__info">
@@ -458,7 +411,7 @@
   }
 
   function cartSuggestionHTML(p) {
-    const priceText = p.price400 ? money(p.price400) : "Price on WhatsApp";
+    const priceText = p.price400 ? money(p.price400) : "Contact for Price";
     return `
       <div class="cart-suggest-item">
         <div class="cart-suggest-item__info">
@@ -469,88 +422,26 @@
       </div>`;
   }
 
-  /* "Complete your dastarkhwan" — suggest hero achars not already in the
-     cart, cheapest 400g first, for one-tap add. Falls back to same-category
-     items if no hero is left to suggest. */
   function renderCartSuggestions(products, lines) {
     const el = document.querySelector("[data-cart-suggested]");
     if (!el) return;
     if (!lines.length) { el.innerHTML = ""; return; }
     const cartSlugs = new Set(lines.map((l) => l.slug));
-    const inStock = products.filter((p) => !cartSlugs.has(p.slug) && p.status === "active" && api.variantPrice(p, "400g"));
-    const heroes = inStock.filter((p) => p.featured || api.extractYouTubeId(p.youtubeUrl || ""));
     const categories = new Set(lines.map((l) => l.product.category));
-    const pool = heroes.length ? heroes : inStock.filter((p) => categories.has(p.category));
-    const suggestions = pool
-      .slice()
-      .sort((a, b) => api.variantPrice(a, "400g") - api.variantPrice(b, "400g"))
-      .slice(0, 3);
+    const suggestions = products.filter((p) => !cartSlugs.has(p.slug) && categories.has(p.category)).slice(0, 3);
     el.innerHTML = suggestions.length
-      ? `<h3 class="cart-suggested__title">Complete your dastarkhwan</h3>` + suggestions.map(cartSuggestionHTML).join("")
+      ? `<h3 class="cart-suggested__title">Customers Also Buy</h3>` + suggestions.map(cartSuggestionHTML).join("")
       : "";
   }
 
-  /* Payment method the customer picked in the cart ("advance" | "cod").
-     Advance is the default because it is always the better deal (free
-     delivery / Rs off / free jar) and has no minimum; COD is one tap away. */
-  let cartPaymentMethod = "advance";
-  /* Chosen free 400g jar for the Rs.2,500+ advance gift tier. */
-  let cartGiftSlug = (cfg.giftPicks && cfg.giftPicks[0]) || "mix-achar";
-
-  function renderGiftPicker(products) {
-    const COPY = cfg.COPY || {};
-    const picks = (cfg.giftPicks || []).map((sl) => api.getBySlug(products, sl)).filter(Boolean);
-    if (!picks.length) return "";
-    if (!picks.some((p) => p.slug === cartGiftSlug)) cartGiftSlug = picks[0].slug;
-    return `
-      <div class="cart-gift">
-        <span class="cart-gift__title">${COPY.giftPickerTitle || ""}</span>
-        <div class="cart-gift__chips">
-          ${picks.map((p) => `<button type="button" class="cart-gift__chip${p.slug === cartGiftSlug ? " is-active" : ""}" data-cart-gift="${p.slug}">${p.nameEn}</button>`).join("")}
-        </div>
-      </div>`;
-  }
-
-  /* Free-delivery / free-jar progress bar — ADVANCE side only. Teases the
-     next tier ("Rs. X aur — FREE ... unlock!") and celebrates when a tier
-     is reached. Hidden on COD and on an empty cart. */
-  let lastAdvancePerks = 0;
-  function renderCartProgress(products) {
-    const el = document.querySelector("[data-cart-progress]");
-    if (!el || !window.CartAPI) return;
-    const s = window.CartAPI.getSummary(products);
-    if (cartPaymentMethod === "cod" || s.subtotal <= 0) {
-      el.hidden = true;
-      el.innerHTML = "";
-      lastAdvancePerks = 0;
-      return;
-    }
-    el.hidden = false;
-    const nf = (n) => Number(n).toLocaleString("en-PK");
-    if (s.toNext) {
-      const label = s.toNext.gift ? "FREE 400g achar" : (s.toNext.freeDelivery ? "FREE delivery" : "reward");
-      const pct = Math.max(4, Math.min(100, Math.round((s.subtotal / s.toNext.min) * 100)));
-      el.innerHTML = `
-        <p class="cart-progress__msg">Rs. ${nf(s.toNext.amountNeeded)} aur — ${label} unlock! 🎁</p>
-        <div class="cart-progress__track"><span class="cart-progress__fill" style="width:${pct}%"></span></div>`;
-    } else {
-      el.innerHTML = `<p class="cart-progress__msg cart-progress__msg--done">🎉 Sab advance rewards unlocked — FREE delivery + FREE 400g achar!</p>`;
-    }
-    // celebrate the moment a new perk unlocks
-    const perks = (s.advFreeDelivery ? 1 : 0) + (s.advFlatOff > 0 ? 1 : 0) + (s.advGift ? 1 : 0);
-    if (perks > lastAdvancePerks) {
-      el.classList.remove("is-unlocked");
-      void el.offsetWidth;
-      el.classList.add("is-unlocked");
-    }
-    lastAdvancePerks = perks;
-  }
+  /* Payment method the customer picked in the cart ("cod" | "advance").
+     COD is the default; if the order is below the COD minimum the COD
+     option is disabled and the selection falls back to advance payment. */
+  let cartPaymentMethod = "cod";
 
   /* Grand Total + checkout live in the pinned footer so they're never
-     scrolled out of view; the line breakdown, COD/Advance choice, tier
-     benefits, gift picker and notes stay in the scrollable body above it.
-     Everything that rewards the customer (free delivery / Rs off / free
-     jar / progress) renders on the ADVANCE side only. */
+     scrolled out of view; everything else (line breakdown, payment choice,
+     notes) stays in the scrollable body above it. */
   function renderCartSummary(products) {
     const el = document.querySelector("[data-cart-summary]");
     const totalEl = document.querySelector("[data-cart-grandtotal]");
@@ -561,49 +452,31 @@
       if (totalEl) totalEl.innerHTML = "";
       return;
     }
-    const COPY = cfg.COPY || {};
+    if (!s.codEligible && cartPaymentMethod === "cod") cartPaymentMethod = "advance";
     const isCod = cartPaymentMethod === "cod";
-    const nf = (n) => Number(n).toLocaleString("en-PK");
-    const bundleRow = s.bundleDiscount > 0
-      ? `<div class="cart-summary__row cart-summary__row--discount"><span>Bundle saving (3×800g)</span><strong>&minus;${money(s.bundleDiscount)}</strong></div>`
-      : "";
-
-    const radios = `
-      <div class="cart-pay" role="radiogroup" aria-label="Payment method">
-        <label class="cart-pay__option${isCod ? "" : " is-active"}">
-          <input type="radio" name="cart-pay" value="advance" ${isCod ? "" : "checked"}>
-          <span>Advance Payment <em>(best deal)</em></span>
-        </label>
-        <label class="cart-pay__option${isCod ? " is-active" : ""}">
-          <input type="radio" name="cart-pay" value="cod" ${isCod ? "checked" : ""}>
-          <span>Cash on Delivery</span>
-        </label>
-      </div>`;
-
-    let body;
-    if (isCod) {
-      body = `
+    const codNote = s.codEligible
+      ? ""
+      : `<p class="cart-cod cart-cod--ineligible">Minimum order for Cash on Delivery is ${money(cfg.minCodOrder)} — add ${money(s.codAmountNeeded)} more, or continue with Advance Payment (${s.discountPct}% off).</p>`;
+    if (el) {
+      el.innerHTML = `
         <div class="cart-summary__row"><span>Subtotal</span><strong>${money(s.subtotal)}</strong></div>
-        ${bundleRow}
-        <div class="cart-summary__row"><span>Delivery</span><strong>${money(s.codDelivery)}</strong></div>
-        ${radios}
-        ${!s.codEligible ? `<p class="cart-cod cart-cod--ineligible">${COPY.codMinWarning}</p>` : ""}
-        ${s.advanceSaving > 0 ? `<p class="cart-compare">Advance par sirf ${money(s.grandTotalAdvance)} — ${s.advFreeDelivery ? "delivery FREE" : "kam delivery"}, Rs. ${nf(s.advanceSaving)} bachat 🎁</p>` : ""}`;
-    } else {
-      const benefit = s.advGift ? COPY.advanceTier2 : (s.advFlatOff > 0 ? COPY.advanceTier1 : COPY.advanceFreeDelivery);
-      body = `
-        <div class="cart-summary__row"><span>Subtotal</span><strong>${money(s.subtotal)}</strong></div>
-        ${bundleRow}
-        <div class="cart-summary__row"><span>Delivery</span><strong>${s.advFreeDelivery ? `<span class="cart-free">FREE</span>` : money(s.advDelivery)}</strong></div>
-        ${s.advFlatOff > 0 ? `<div class="cart-summary__row cart-summary__row--discount"><span>Advance discount</span><strong>&minus;${money(s.advFlatOff)}</strong></div>` : ""}
-        ${radios}
-        ${benefit ? `<p class="cart-benefit">${benefit}</p>` : ""}
-        ${s.advGift ? renderGiftPicker(products) : ""}
-        ${COPY.advanceReassurance ? `<p class="cart-reassure">${COPY.advanceReassurance}</p>` : ""}
-        ${s.advanceSaving > 0 ? `<p class="cart-compare cart-compare--adv">COD par Rs. ${nf(s.grandTotalCod)} — advance se Rs. ${nf(s.advanceSaving)} bachat.</p>` : ""}`;
+        <div class="cart-summary__row"><span>Shipping</span><strong>${money(s.shipping)}</strong></div>
+        <div class="cart-pay" role="radiogroup" aria-label="Payment method">
+          <span class="cart-pay__label">Payment Method</span>
+          <label class="cart-pay__option${s.codEligible ? "" : " is-disabled"}">
+            <input type="radio" name="cart-pay" value="cod" ${isCod ? "checked" : ""} ${s.codEligible ? "" : "disabled"}>
+            <span>Cash on Delivery</span>
+          </label>
+          <label class="cart-pay__option">
+            <input type="radio" name="cart-pay" value="advance" ${isCod ? "" : "checked"}>
+            <span>Advance Payment <em>(${s.discountPct}% discount)</em></span>
+          </label>
+        </div>
+        ${isCod ? "" : `<div class="cart-summary__row cart-summary__row--discount"><span>Advance Discount (${s.discountPct}%)</span><strong>&minus;${money(s.discountAmount)}</strong></div>`}
+        ${codNote}
+        ${s.hasUnpriced ? `<p class="cart-summary__note">Some items are priced on request — final total confirmed on WhatsApp.</p>` : ""}
+      `;
     }
-    if (s.hasUnpriced) body += `<p class="cart-summary__note">Some items are priced on request — final total confirmed on WhatsApp.</p>`;
-    if (el) el.innerHTML = body;
     if (totalEl) {
       totalEl.innerHTML = `<div class="cart-summary__row cart-summary__row--total"><span>Grand Total</span><strong>${money(isCod ? s.grandTotalCod : s.grandTotalAdvance)}</strong></div>`;
     }
@@ -629,18 +502,13 @@
     if (linesEl) linesEl.innerHTML = lines.map(cartLineHTML).join("");
     if (emptyEl) emptyEl.hidden = lines.length > 0;
     if (footEl) footEl.hidden = lines.length === 0;
-    renderCartProgress(products);
     renderCartSummary(products);
     renderCartSuggestions(products, lines);
     const checkoutBtn = document.querySelector("[data-cart-checkout]");
     if (checkoutBtn) {
-      const s = window.CartAPI.getSummary(products);
-      // COD below its minimum blocks checkout; Advance is always allowed.
-      const blocked = !lines.length || (cartPaymentMethod === "cod" && !s.codEligible);
-      const msg = window.CartAPI.buildCartWhatsAppMessage(products, cartPaymentMethod, cartGiftSlug);
-      checkoutBtn.href = (!blocked && msg) ? api.buildWhatsAppLink(msg) : "#";
-      checkoutBtn.setAttribute("aria-disabled", blocked ? "true" : "false");
-      checkoutBtn.classList.toggle("is-disabled", blocked);
+      const msg = window.CartAPI.buildCartWhatsAppMessage(products, cartPaymentMethod);
+      checkoutBtn.href = msg ? api.buildWhatsAppLink(msg) : "#";
+      checkoutBtn.setAttribute("aria-disabled", lines.length ? "false" : "true");
     }
     updateCartBadge();
     requestAnimationFrame(updateCartScrollHint);
@@ -676,7 +544,6 @@
             <button type="button" class="cart-panel__close" data-cart-close aria-label="Close cart">&times;</button>
           </div>
           <div class="cart-panel__body" data-cart-scroll>
-            <div data-cart-progress class="cart-progress" hidden></div>
             <div data-cart-lines class="cart-lines"></div>
             <div data-cart-empty-state class="cart-empty-state" hidden>
               <p>Your cart is empty.</p>
@@ -689,7 +556,6 @@
             </button>
           </div>
           <div class="cart-panel__foot" data-cart-foot hidden>
-            ${trustStripHTML()}
             <div data-cart-grandtotal class="cart-grandtotal"></div>
             <div class="cart-panel__actions">
               <button type="button" class="btn btn--outline-dark btn--sm btn--block" data-cart-empty-btn>Empty Cart</button>
@@ -748,10 +614,6 @@
       if (e.target.closest("[data-cart-toast-continue]")) { hideCartToast(); return; }
       if (e.target.closest("[data-cart-toast-view]")) { hideCartToast(); openCart(); return; }
       if (e.target.closest("[data-cart-empty-btn]")) { window.CartAPI.empty(); return; }
-      const giftBtn = e.target.closest("[data-cart-gift]");
-      if (giftBtn) { cartGiftSlug = giftBtn.dataset.cartGift; renderCart(productsCache); return; }
-      const blockedCheckout = e.target.closest("[data-cart-checkout].is-disabled");
-      if (blockedCheckout) { e.preventDefault(); return; }
 
       const minusBtn = e.target.closest("[data-cart-qty-minus]");
       if (minusBtn) {
@@ -784,48 +646,6 @@
       if (e.key !== "Escape") return;
       const overlay = document.querySelector("[data-cart-overlay]");
       if (overlay && overlay.classList.contains("is-open")) closeCart();
-    });
-  }
-
-  /* ---------------------------------------------------------------
-     Bundle builder — "Koi bhi 3 × 800g — Rs. 2,499" (home + products).
-     Data-driven from SITE_CONFIG.bundleHeroSlugs; the cart auto-applies
-     the saving for any 3 of these 800g jars (see CartAPI.getBundle).
-  --------------------------------------------------------------- */
-  function updateBundleFoot(root) {
-    const size = cfg.bundleSize || 3;
-    const n = root.querySelectorAll(".bundle-chip.is-active").length;
-    const countEl = root.querySelector("[data-bundle-count]");
-    if (countEl) countEl.textContent = `${n} / ${size} selected`;
-    const addBtn = root.querySelector("[data-bundle-add]");
-    if (addBtn) addBtn.disabled = n !== size;
-  }
-
-  function renderBundleBuilder(products) {
-    document.querySelectorAll("[data-bundle-builder]").forEach((root) => {
-      const size = cfg.bundleSize || 3;
-      const price = cfg.bundlePrice || 0;
-      const heroes = (cfg.bundleHeroSlugs || []).map((s) => api.getBySlug(products, s)).filter((p) => p && api.variantPrice(p, "800g"));
-      const section = root.closest("section") || root;
-      if (heroes.length < size || !price) { section.hidden = true; return; }
-      section.hidden = false;
-      const normal = api.variantPrice(heroes[0], "800g") * size;
-      const save = Math.max(0, normal - price);
-      root.innerHTML = `
-        <div class="bundle-builder">
-          <div class="bundle-builder__head">
-            <h3>Koi bhi ${size} × 800g — Rs. ${price.toLocaleString("en-PK")}</h3>
-            <p>Apni pasand ke ${size} bestseller achar chunein${save > 0 ? ` — Rs. ${save.toLocaleString("en-PK")} bachat` : ""} 🎁</p>
-          </div>
-          <div class="bundle-builder__chips">
-            ${heroes.map((p) => `<button type="button" class="bundle-chip" data-bundle-pick="${p.slug}">${p.nameEn}</button>`).join("")}
-          </div>
-          <div class="bundle-builder__foot">
-            <span class="bundle-builder__count" data-bundle-count>0 / ${size} selected</span>
-            <button type="button" class="btn btn--gold btn--sm" data-bundle-add disabled>Add Bundle to Cart</button>
-          </div>
-        </div>`;
-      updateBundleFoot(root);
     });
   }
 
@@ -938,18 +758,16 @@
      Price table renderer — with live search
   --------------------------------------------------------------- */
   function priceRowHTML(p) {
-    const p400 = api.formatPrice(api.variantPrice(p, "400g"));
-    const p800 = api.formatPrice(api.variantPrice(p, "800g"));
-    const p2k = api.formatPrice(api.variantPrice(p, "2kg"));
+    const p400 = api.formatPrice(p.price400);
+    const p800 = api.formatPrice(p.price800);
     return `
       <tr>
         <td>
           <strong>${p.nameEn}</strong><br>
           <span class="price-table__ur">${p.nameUr}</span>
         </td>
-        <td class="price-table__price" data-empty="${!p400}">${p400 || "Price on WhatsApp"}</td>
-        <td class="price-table__price" data-empty="${!p800}">${p800 || "Price on WhatsApp"}</td>
-        <td class="price-table__price" data-empty="${!p2k}">${p2k || "—"}</td>
+        <td class="price-table__price" data-empty="${!p400}">${p400 || "Contact for Price"}</td>
+        <td class="price-table__price" data-empty="${!p800}">${p800 || "Contact for Price"}</td>
         <td class="price-table__cta">
           <a class="btn btn--outline-dark btn--sm" href="/products/${p.slug}.html">View</a>
           <button type="button" class="btn btn--gold btn--sm" data-price-add-cart="${p.slug}" aria-label="Add ${p.nameEn} to cart">Add to Cart</button>
@@ -978,7 +796,7 @@
       list = api.search(list, activeQuery);
       tbody.innerHTML = list.length
         ? list.map(priceRowHTML).join("")
-        : `<tr><td colspan="5" class="text-center">No products match your search.</td></tr>`;
+        : `<tr><td colspan="4" class="text-center">No products match your search.</td></tr>`;
       if (resultCount) resultCount.textContent = `${list.length} product${list.length === 1 ? "" : "s"}`;
       if (filterBar) {
         filterBar.querySelectorAll(".category-pill").forEach((btn) => {
@@ -1309,17 +1127,15 @@
   }
 
   function productFaqs(p) {
-    const priced = api.getVariants(p).filter((v) => v.price != null);
-    const priceText = priced.length
-      ? priced.map((v) => `${v.weight}${v.label ? ` (${v.label})` : ""} Rs. ${Number(v.price).toLocaleString("en-PK")}`).join(", ") + "."
+    const priceText = p.price400
+      ? `The 400g jar is Rs. ${Number(p.price400).toLocaleString("en-PK")} and the 800g jar is Rs. ${Number(p.price800).toLocaleString("en-PK")}.`
       : "Message us on WhatsApp for the current price.";
-    const sizeList = api.getVariants(p).map((v) => v.weight).join(" / ");
     return [
       { q: `How spicy is ${p.nameEn}?`, a: spiceLevelInfo(p) },
       { q: `How long does ${p.nameEn} last?`, a: shelfLifeInfo(p) },
       { q: "Does it need refrigeration?", a: storageInfo(p) },
-      { q: "Is delivery available across Pakistan?", a: `Yes — we deliver ${p.nameEn} nationwide. On advance payment (JazzCash/EasyPaisa) delivery is FREE on orders of Rs. ${Number(cfg.freeDeliveryThreshold || 1800).toLocaleString("en-PK")} or more. For Cash on Delivery, delivery is Rs. ${cfg.deliveryCharge} and the minimum order is Rs. ${cfg.minCodOrder}.` },
-      { q: "How do I order on WhatsApp?", a: `Choose your jar size (${sizeList}) and quantity above, then tap "Order on WhatsApp" — your message is pre-filled with the product, weight and price. ${priceText} Advance payment (JazzCash/EasyPaisa) par delivery FREE + extra bachat.` },
+      { q: "Is delivery available across Pakistan?", a: `Yes — we deliver ${p.nameEn} nationwide. Delivery charges are Rs. ${cfg.deliveryCharge}, minimum product order Rs. ${cfg.minProductOrder}, and Cash on Delivery is available on orders of Rs. ${cfg.minCodOrder} or more.` },
+      { q: "How do I order on WhatsApp?", a: `Choose your jar size (400g or 800g) and quantity above, then tap "Order on WhatsApp" — your message is pre-filled with the product, weight and price. ${priceText} Advance payment gets ${cfg.advanceDiscountPercent}% off.` },
     ];
   }
 
@@ -1384,26 +1200,9 @@
     if (heroUr) heroUr.textContent = product.nameUr;
 
     const comingSoon = product.status && product.status !== "active";
+    const p400 = api.formatPrice(product.price400);
+    const p800 = api.formatPrice(product.price800);
     const taste = tasteProfile(product);
-    const variants = api.getVariants(product);
-    const defWeight = (api.defaultVariant(product) || variants[0] || { weight: "400g" }).weight;
-    const variantsHTML = variants.map((v) => {
-      const checked = v.weight === defWeight;
-      const sav = api.variantSavings(product, v.weight);
-      const tag = v.label
-        ? `<span class="variant-option__tag">${v.label}</span>`
-        : (v.popular ? `<span class="variant-option__tag">Most Popular</span>` : "");
-      const save = (sav && sav.saveRs > 0)
-        ? `<span class="variant-option__save">Save Rs. ${sav.saveRs.toLocaleString("en-PK")}</span>`
-        : "";
-      return `<label class="variant-option${checked ? " is-selected" : ""}">
-                <input type="radio" name="variant" value="${v.weight}"${checked ? " checked" : ""}>
-                ${tag}
-                <strong>${v.weight}</strong>
-                <span>${api.formatPrice(v.price) || "Price on WhatsApp"}</span>
-                ${save}
-              </label>`;
-    }).join("");
 
     if (container) {
       container.innerHTML = `
@@ -1420,9 +1219,17 @@
 
           <div class="buy-box">
             <div class="variant-select" role="radiogroup" aria-label="Select size" style="margin-bottom:0">
-              ${variantsHTML}
+              <label class="variant-option is-selected">
+                <input type="radio" name="variant" value="400g" checked>
+                <strong>400g</strong>
+                <span>${p400 || "Contact for Price"}</span>
+              </label>
+              <label class="variant-option">
+                <input type="radio" name="variant" value="800g">
+                <strong>800g</strong>
+                <span>${p800 || "Contact for Price"}</span>
+              </label>
             </div>
-            <p class="buy-box__advance-free">${(cfg.COPY && cfg.COPY.advanceFreeDelivery) || ""}</p>
             <div class="qty-row">
               <span class="qty-row__label">Quantity</span>
               <div class="qty-stepper" role="group" aria-label="Quantity">
@@ -1442,10 +1249,8 @@
                 ${comingSoon ? "Notify Me on WhatsApp" : "Order on WhatsApp"}
               </a>
             </div>
-            <p class="buy-box__note">Advance (JazzCash/EasyPaisa) par delivery FREE on Rs. ${Number(cfg.freeDeliveryThreshold || 1800).toLocaleString("en-PK")}+ &middot; COD available (min. Rs. ${Number(cfg.minCodOrder).toLocaleString("en-PK")}, delivery Rs. ${cfg.deliveryCharge})</p>
+            <p class="buy-box__note">${cfg.advanceDiscountPercent}% off on advance payment &middot; COD available (min. Rs. ${cfg.minCodOrder}) &middot; Delivery Rs. ${cfg.deliveryCharge}</p>
           </div>
-
-          ${trustStripHTML()}
 
           ${product.whatIsIt ? `
             <h2 class="mt-lg" style="font-size:clamp(1.25rem,2.6vw,1.6rem)">What Is ${product.nameEn}?</h2>
@@ -1485,25 +1290,6 @@
 
     initVideoFacades(root);
 
-    /* Mobile sticky buy bar — mirrors the buy-box, appears once the real
-       buy-box scrolls out of view (CSS hides it entirely on desktop). */
-    const buyBoxEl = root.querySelector(".buy-box");
-    let stickyBar = document.querySelector("[data-sticky-buy]");
-    if (buyBoxEl && !stickyBar) {
-      stickyBar = document.createElement("div");
-      stickyBar.className = "sticky-buy";
-      stickyBar.setAttribute("data-sticky-buy", "");
-      stickyBar.hidden = true;
-      stickyBar.innerHTML = `
-        <div class="sticky-buy__info">
-          <span class="sticky-buy__name">${product.nameEn}</span>
-          <strong class="sticky-buy__price" data-sticky-price></strong>
-        </div>
-        <button type="button" class="btn btn--gold btn--sm" data-sticky-add aria-label="Add ${product.nameEn} to cart">Add</button>
-        <a class="btn btn--whatsapp btn--sm" data-sticky-order href="#" target="_blank" rel="noopener" aria-label="Order on WhatsApp">WhatsApp</a>`;
-      document.body.appendChild(stickyBar);
-    }
-
     /* Weight + quantity → live total + WhatsApp message */
     let qty = 1;
     const orderBtn = root.querySelector("[data-order-btn]");
@@ -1517,7 +1303,7 @@
     }
     function updateOrder() {
       const weight = selectedWeight();
-      const unitPrice = api.variantPrice(product, weight);
+      const unitPrice = weight === "800g" ? product.price800 : product.price400;
       if (qtyValue) qtyValue.textContent = qty;
       if (priceDisplay) {
         priceDisplay.textContent = unitPrice
@@ -1528,10 +1314,6 @@
       variantInputs.forEach((input) => {
         input.closest(".variant-option").classList.toggle("is-selected", input.checked);
       });
-      const stickyPrice = document.querySelector("[data-sticky-price]");
-      if (stickyPrice) stickyPrice.textContent = unitPrice ? `${weight} · Rs. ${Number(unitPrice * qty).toLocaleString("en-PK")}` : `${weight} · WhatsApp`;
-      const stickyOrder = document.querySelector("[data-sticky-order]");
-      if (stickyOrder && orderBtn) stickyOrder.href = orderBtn.href;
     }
     variantInputs.forEach((input) => input.addEventListener("change", updateOrder));
     const minusBtn = root.querySelector("[data-qty-minus]");
@@ -1545,23 +1327,6 @@
         flashButton(addCartBtn, "Added to Cart ✓");
         notifyAddedToCart(product.slug);
       });
-    }
-    const stickyAdd = stickyBar && stickyBar.querySelector("[data-sticky-add]");
-    if (stickyAdd) {
-      stickyAdd.addEventListener("click", () => {
-        window.CartAPI.add(product.slug, selectedWeight(), qty);
-        flashButton(stickyAdd, "✓");
-        notifyAddedToCart(product.slug);
-      });
-    }
-    /* Reveal the sticky bar only once the real buy-box is out of view. */
-    if (buyBoxEl && stickyBar && "IntersectionObserver" in window) {
-      const io = new IntersectionObserver(([entry]) => {
-        const show = !entry.isIntersecting;
-        stickyBar.hidden = !show;
-        document.body.classList.toggle("has-sticky-buy", show);
-      }, { threshold: 0 });
-      io.observe(buyBoxEl);
     }
     updateOrder();
 
@@ -1613,10 +1378,9 @@
       "sku": product.id,
       "brand": { "@type": "Brand", "name": "ShikarpuriAchar.pk" },
     };
-    const availability = product.status === "active" ? "https://schema.org/InStock" : "https://schema.org/PreOrder";
-    const offers = api.getVariants(product)
-      .filter((v) => v.price != null)
-      .map((v) => ({ "@type": "Offer", "name": v.weight, "price": v.price, "priceCurrency": "PKR", "availability": availability }));
+    const offers = [];
+    if (product.price400) offers.push({ "@type": "Offer", "name": "400g", "price": product.price400, "priceCurrency": "PKR", "availability": product.status === "active" ? "https://schema.org/InStock" : "https://schema.org/PreOrder" });
+    if (product.price800) offers.push({ "@type": "Offer", "name": "800g", "price": product.price800, "priceCurrency": "PKR", "availability": product.status === "active" ? "https://schema.org/InStock" : "https://schema.org/PreOrder" });
     if (offers.length) data.offers = offers;
     script.textContent = JSON.stringify(data);
     document.head.appendChild(script);
@@ -1677,9 +1441,7 @@
       minCodOrder: () => `${Number(cfg.minCodOrder).toLocaleString("en-PK")}`,
       minProductOrder: () => `${Number(cfg.minProductOrder).toLocaleString("en-PK")}`,
       deliveryCharge: () => `${Number(cfg.deliveryCharge).toLocaleString("en-PK")}`,
-      freeDeliveryThreshold: () => `${Number(cfg.freeDeliveryThreshold).toLocaleString("en-PK")}`,
-      advanceFreeDelivery: () => (cfg.COPY && cfg.COPY.advanceFreeDelivery) || "",
-      advanceReassurance: () => (cfg.COPY && cfg.COPY.advanceReassurance) || "",
+      advanceDiscountPercent: () => `${cfg.advanceDiscountPercent}%`,
     };
     document.querySelectorAll("[data-cfg]").forEach((el) => {
       const key = el.getAttribute("data-cfg");
@@ -1732,7 +1494,6 @@
     if (!api) return;
     api.ready.then((products) => {
       productsCache = products;
-      renderBundleBuilder(products);
       renderFeaturedGrid(products);
       renderVideoGrid(products);
       initProductsPage(products);
