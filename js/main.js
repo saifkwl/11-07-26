@@ -938,8 +938,9 @@
      Price table renderer — with live search
   --------------------------------------------------------------- */
   function priceRowHTML(p) {
-    const p400 = api.formatPrice(p.price400);
-    const p800 = api.formatPrice(p.price800);
+    const p400 = api.formatPrice(api.variantPrice(p, "400g"));
+    const p800 = api.formatPrice(api.variantPrice(p, "800g"));
+    const p2k = api.formatPrice(api.variantPrice(p, "2kg"));
     return `
       <tr>
         <td>
@@ -948,6 +949,7 @@
         </td>
         <td class="price-table__price" data-empty="${!p400}">${p400 || "Price on WhatsApp"}</td>
         <td class="price-table__price" data-empty="${!p800}">${p800 || "Price on WhatsApp"}</td>
+        <td class="price-table__price" data-empty="${!p2k}">${p2k || "—"}</td>
         <td class="price-table__cta">
           <a class="btn btn--outline-dark btn--sm" href="/products/${p.slug}.html">View</a>
           <button type="button" class="btn btn--gold btn--sm" data-price-add-cart="${p.slug}" aria-label="Add ${p.nameEn} to cart">Add to Cart</button>
@@ -976,7 +978,7 @@
       list = api.search(list, activeQuery);
       tbody.innerHTML = list.length
         ? list.map(priceRowHTML).join("")
-        : `<tr><td colspan="4" class="text-center">No products match your search.</td></tr>`;
+        : `<tr><td colspan="5" class="text-center">No products match your search.</td></tr>`;
       if (resultCount) resultCount.textContent = `${list.length} product${list.length === 1 ? "" : "s"}`;
       if (filterBar) {
         filterBar.querySelectorAll(".category-pill").forEach((btn) => {
@@ -1676,6 +1678,8 @@
       minProductOrder: () => `${Number(cfg.minProductOrder).toLocaleString("en-PK")}`,
       deliveryCharge: () => `${Number(cfg.deliveryCharge).toLocaleString("en-PK")}`,
       freeDeliveryThreshold: () => `${Number(cfg.freeDeliveryThreshold).toLocaleString("en-PK")}`,
+      advanceFreeDelivery: () => (cfg.COPY && cfg.COPY.advanceFreeDelivery) || "",
+      advanceReassurance: () => (cfg.COPY && cfg.COPY.advanceReassurance) || "",
     };
     document.querySelectorAll("[data-cfg]").forEach((el) => {
       const key = el.getAttribute("data-cfg");
