@@ -1516,3 +1516,27 @@
     });
   });
 })();
+
+/* ---------------------------------------------------------------
+   Meta Pixel: Track WhatsApp clicks as "Contact" conversion
+   and cart checkout as "InitiateCheckout"
+--------------------------------------------------------------- */
+(function(){
+  document.addEventListener('click', function(e){
+    var link = e.target.closest('a[href*="wa.me"], a[href*="whatsapp"]');
+    if (link && typeof fbq === 'function') {
+      fbq('track', 'Contact');
+    }
+  });
+  // Track cart checkout button
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest('.cart-checkout-btn, [data-cart-checkout]');
+    if (btn && typeof fbq === 'function') {
+      fbq('track', 'InitiateCheckout');
+    }
+  });
+  // Track product page view
+  if (window.location.pathname.startsWith('/products/') && window.location.pathname !== '/products/' && typeof fbq === 'function') {
+    fbq('track', 'ViewContent');
+  }
+})();
