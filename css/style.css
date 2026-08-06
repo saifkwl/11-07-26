@@ -2068,3 +2068,74 @@ p { color: var(--color-text-muted); }
 @media (prefers-reduced-motion: reduce) {
   .cart-toast { transition: opacity 0.2s linear; }
 }
+
+/* =====================================================================
+   HERO PRODUCT IMAGE  (added — mobile-first)
+   Mobile: image sits under the copy, centred and capped so it never
+   pushes the WhatsApp button below the fold.
+   Desktop (≥900px): hero becomes two columns, copy left / jar right.
+   ===================================================================== */
+.hero__figure {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 340px;
+  margin: var(--space-md) auto 0;
+  padding-inline: var(--space-sm);
+}
+.hero__figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.38));
+}
+
+@media (min-width: 900px) {
+  .hero { padding-bottom: var(--space-xl); }
+  .hero__inner {
+    text-align: start;
+    justify-items: start;
+  }
+  .hero__inner .hero__badges,
+  .hero__inner .hero__actions { justify-content: flex-start; }
+
+  /* two-column layout: the section itself becomes the grid */
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    align-items: center;
+    column-gap: var(--space-lg);
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--space-lg);
+  }
+  .hero__inner { max-width: none; padding-inline: 0; }
+  .hero__figure { max-width: 460px; margin: 0; padding-inline: 0; }
+}
+
+/* Self-hosted product video — same footprint as the YouTube facade so
+   swapping one for the other never shifts the layout. */
+.product-video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  max-height: 460px;
+  object-fit: cover;
+  background: var(--color-deep-green-dark);
+  border: 0;
+}
+.product-detail__media .product-video { max-height: 620px; }
+
+/* Urdu (Nastaliq) word gaps — the default space glyph is far too wide at
+   these sizes, which is what makes "سندھی ذائقہ" look broken apart. */
+.hero__badge-ur,
+.urdu-display,
+.urdu-subtitle,
+.hero__urdu-mark,
+.hero__urdu-line,
+.product-card__name-ur {
+  word-spacing: -0.3em;
+  letter-spacing: 0;
+  font-feature-settings: "liga" 1, "calt" 1;
+}

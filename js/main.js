@@ -1,3 +1,21 @@
+/* ---------------------------------------------------------------
+   Google Analytics 4 — loaded from here so every page is covered
+   without touching 131 HTML files.
+--------------------------------------------------------------- */
+(function initAnalytics() {
+  var ID = "G-527VV0V5G3";
+  if (document.querySelector('script[src*="' + ID + '"]')) return;
+  var t = document.createElement("script");
+  t.async = true;
+  t.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+  document.head.appendChild(t);
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  window.gtag = gtag;
+  gtag("js", new Date());
+  gtag("config", ID);
+})();
+
 /**
  * ShikarpuriAchar.pk — Site Behaviour
  * Vanilla JS. No dependencies. No build step.
@@ -145,6 +163,18 @@
   /* ---------------------------------------------------------------
      YouTube facade (click-to-load) for performance
   --------------------------------------------------------------- */
+  /* Self-hosted video (assets/videos/*.mp4). Preferred when a product has
+     videoFile set in products.json; YouTube stays as the fallback so nothing
+     breaks for products whose own video has not been uploaded yet. */
+  function createLocalVideoMarkup(src, poster, label) {
+    return `
+      <video class="product-video" controls preload="none" playsinline
+        ${poster ? `poster="${poster}"` : ""}
+        aria-label="Video: ${label}">
+        <source src="${src}" type="video/mp4">
+      </video>`;
+  }
+
   function createFacadeMarkup(id, label) {
     if (id) {
       return `
@@ -181,8 +211,13 @@
     (scope || document).querySelectorAll(".product-card__media, .product-detail__media, .video-embed").forEach((container) => {
       if (container.dataset.wired) return;
       container.dataset.wired = "true";
-      const id = api.extractYouTubeId(container.getAttribute("data-youtube-url") || "");
       const label = container.getAttribute("data-video-label") || "Product video";
+      const localSrc = container.getAttribute("data-video-file") || "";
+      if (localSrc) {
+        container.innerHTML = createLocalVideoMarkup(localSrc, container.getAttribute("data-video-poster") || "", label);
+        return;
+      }
+      const id = api.extractYouTubeId(container.getAttribute("data-youtube-url") || "");
       container.innerHTML = createFacadeMarkup(id, label);
       const btn = container.querySelector(".video-facade[data-yt-id]");
       if (btn) {
@@ -206,22 +241,22 @@
       ? `<span class="chip" style="background:var(--color-dark-red);color:#fff;border-color:transparent">${p.status.replace(/-/g, " ")}</span>`
       : "";
     const ribbon = p.featured ? `<span class="product-card__ribbon">Bestseller</span>` : "";
-    const hasVideo = !!api.extractYouTubeId(p.youtubeUrl || "");
+    const hasVideo = !!(p.videoFile || api.extractYouTubeId(p.youtubeUrl || ""));
     const actionsRow = hasVideo
       ? `<div class="product-card__actions product-card__actions--split">
             <button type="button" class="btn btn--outline-dark btn--sm" data-card-watch>
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
               Watch Video
             </button>
-            <a class="btn btn--outline-dark btn--sm" href="/products/${p.slug}.html">View Details</a>
+            <a class="btn btn--outline-dark btn--sm" href="/products/${p.slug}">View Details</a>
           </div>`
       : `<div class="product-card__actions">
-            <a class="btn btn--outline-dark btn--sm btn--block" href="/products/${p.slug}.html">View Details</a>
+            <a class="btn btn--outline-dark btn--sm btn--block" href="/products/${p.slug}">View Details</a>
           </div>`;
     return `
       <article class="product-card" data-reveal data-slug="${p.slug}" data-category="${api.slugify(p.category)}" data-name="${(p.nameEn + " " + p.nameUr).toLowerCase()}">
         ${ribbon}
-        <div class="product-card__media" data-youtube-url="${p.youtubeUrl || ""}" data-video-label="${p.nameEn}"></div>
+        <div class="product-card__media" data-youtube-url="${p.youtubeUrl || ""}" data-video-file="${p.videoFile || ""}" data-video-poster="${p.videoPoster || ""}" data-video-label="${p.nameEn}"></div>
         <div class="product-card__body">
           <h3 class="product-card__name-en">${p.nameEn}</h3>
           <p class="product-card__name-ur">${p.nameUr}</p>
@@ -273,7 +308,7 @@
           facade.click();
           card.querySelector(".product-card__media").scrollIntoView({ behavior: "smooth", block: "nearest" });
         } else {
-          window.location.href = `/products/${card.dataset.slug}.html`;
+          window.location.href = `/products/${card.dataset.slug}`;
         }
         return;
       }
@@ -547,7 +582,7 @@
             <div data-cart-lines class="cart-lines"></div>
             <div data-cart-empty-state class="cart-empty-state" hidden>
               <p>Your cart is empty.</p>
-              <a href="/products.html" class="btn btn--outline-dark btn--sm">Browse Products</a>
+              <a href="/products" class="btn btn--outline-dark btn--sm">Browse Products</a>
             </div>
             <div data-cart-summary class="cart-summary"></div>
             <div data-cart-suggested class="cart-suggested"></div>
@@ -655,7 +690,16 @@
   function renderFeaturedGrid(products) {
     document.querySelectorAll("[data-product-grid][data-featured]").forEach((grid) => {
       const limit = parseInt(grid.getAttribute("data-limit") || "0", 10);
-      const list = api.getFeatured(products, limit || undefined);
+      let list;
+      if (grid.hasAttribute("data-video-only")) {
+        /* Home page shows only products that actually have a video, so a
+           visitor never lands on an empty-looking card. Everything else
+           stays available on /products and /price-list. */
+        list = products.filter((p) => p.videoFile || api.extractYouTubeId(p.youtubeUrl || ""));
+        if (limit) list = list.slice(0, limit);
+      } else {
+        list = api.getFeatured(products, limit || undefined);
+      }
       grid.innerHTML = list.length ? list.map(productCardHTML).join("") : emptyStateHTML("Products are being updated. Please check back soon.");
       initVideoFacades(grid);
       initWhatsAppLinks();
@@ -769,7 +813,7 @@
         <td class="price-table__price" data-empty="${!p400}">${p400 || "Contact for Price"}</td>
         <td class="price-table__price" data-empty="${!p800}">${p800 || "Contact for Price"}</td>
         <td class="price-table__cta">
-          <a class="btn btn--outline-dark btn--sm" href="/products/${p.slug}.html">View</a>
+          <a class="btn btn--outline-dark btn--sm" href="/products/${p.slug}">View</a>
           <button type="button" class="btn btn--gold btn--sm" data-price-add-cart="${p.slug}" aria-label="Add ${p.nameEn} to cart">Add to Cart</button>
         </td>
       </tr>`;
@@ -903,7 +947,7 @@
     document.querySelectorAll("[data-footer-products]").forEach((list) => {
       const limit = parseInt(list.getAttribute("data-limit") || "5", 10);
       const items = api.getFeatured(products, limit).length ? api.getFeatured(products, limit) : products.slice(0, limit);
-      list.innerHTML = items.map((p) => `<li><a href="/products/${p.slug}.html">${p.nameEn}</a></li>`).join("");
+      list.innerHTML = items.map((p) => `<li><a href="/products/${p.slug}">${p.nameEn}</a></li>`).join("");
     });
   }
 
@@ -913,7 +957,7 @@
   function renderFooterCategories(products) {
     document.querySelectorAll("[data-footer-categories]").forEach((list) => {
       const categories = api.getCategories(products);
-      list.innerHTML = categories.map((c) => `<li><a href="/products.html?category=${c.slug}">${c.name}</a></li>`).join("");
+      list.innerHTML = categories.map((c) => `<li><a href="/products?category=${c.slug}">${c.name}</a></li>`).join("");
     });
   }
 
@@ -929,7 +973,7 @@
           <h3 class="product-card__name-en" style="margin-top:.5rem">${a.title}</h3>
           <p style="font-size:.9rem;color:var(--color-text-muted);flex:1">${a.excerpt || ""}</p>
           <div class="product-card__actions">
-            <a class="btn btn--outline-dark btn--sm btn--block" href="/blog/${a.slug}.html">Read Article</a>
+            <a class="btn btn--outline-dark btn--sm btn--block" href="/blog/${a.slug}">Read Article</a>
           </div>
         </div>
       </article>`;
@@ -1012,7 +1056,7 @@
     const article = blogApi.getBySlug(articles, slug);
     const container = root.querySelector("[data-blog-article-root]");
     if (!article) {
-      if (container) container.innerHTML = `<div class="text-center"><h2>Article Not Found</h2><p>This article may have been removed. <a href="/blog.html">View all articles</a>.</p></div>`;
+      if (container) container.innerHTML = `<div class="text-center"><h2>Article Not Found</h2><p>This article may have been removed. <a href="/blog">View all articles</a>.</p></div>`;
       return;
     }
 
@@ -1062,7 +1106,7 @@
     block.innerHTML = `
       <h2 class="mt-lg" style="font-size:clamp(1.25rem,2.6vw,1.6rem)">Related Reading</h2>
       <ul style="margin-top:.5rem">
-        ${matches.map((a) => `<li><a href="/blog/${a.slug}.html">${a.title}</a></li>`).join("")}
+        ${matches.map((a) => `<li><a href="/blog/${a.slug}">${a.title}</a></li>`).join("")}
       </ul>`;
     container.appendChild(block);
   }
@@ -1177,7 +1221,7 @@
     const product = api.getBySlug(products, slug);
     const container = root.querySelector("[data-product-root]");
     if (!product) {
-      if (container) container.innerHTML = `<div class="text-center"><h2>Product Not Found</h2><p>This product may have been removed. <a href="/products.html">View all products</a>.</p></div>`;
+      if (container) container.innerHTML = `<div class="text-center"><h2>Product Not Found</h2><p>This product may have been removed. <a href="/products">View all products</a>.</p></div>`;
       return;
     }
 
@@ -1206,16 +1250,16 @@
 
     if (container) {
       container.innerHTML = `
-        <div class="product-detail__media" data-youtube-url="${product.youtubeUrl || ""}" data-video-label="${product.nameEn}"></div>
+        <div class="product-detail__media" data-youtube-url="${product.youtubeUrl || ""}" data-video-file="${product.videoFile || ""}" data-video-poster="${product.videoPoster || ""}" data-video-label="${product.nameEn}"></div>
         <div class="product-detail__info" data-reveal>
           <h2 style="font-size:clamp(1.7rem,3.6vw,2.4rem)">${product.nameEn}</h2>
           <p class="product-detail__title-ur">${product.nameUr}</p>
           <div class="product-detail__meta">
-            <a class="chip" href="/products.html?category=${api.slugify(product.category)}">${product.category}</a>
+            <a class="chip" href="/products?category=${api.slugify(product.category)}">${product.category}</a>
             ${comingSoon ? `<span class="chip" style="background:var(--color-dark-red);color:#fff;border-color:transparent">${product.status.replace(/-/g, " ")}</span>` : `<span class="chip">In Stock</span>`}
           </div>
           <p class="product-detail__intro">${product.shortDescription || ""}</p>
-          <p style="font-size:.9rem"><a href="/price-list.html">See full price list</a> &middot; <a href="/contact.html">Contact us</a></p>
+          <p style="font-size:.9rem"><a href="/price-list">See full price list</a> &middot; <a href="/contact">Contact us</a></p>
 
           <div class="buy-box">
             <div class="variant-select" role="radiogroup" aria-label="Select size" style="margin-bottom:0">

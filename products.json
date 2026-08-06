@@ -44,7 +44,9 @@
       "traditionalBackground": "In Shikarpur, mixed pickles developed out of necessity as much as taste — families pickled whatever vegetables and fruit were in season together, in one large matka (clay jar), rather than keeping separate jars for each item. Mustard oil was the natural preservative available locally, and combining several ingredients in a single achar became a Sindhi household signature, distinct from the single-ingredient pickles more common further north.",
       "tasteProfileText": "Because it blends several ingredients, Mix Achar changes character spoonful to spoonful — one bite leans into the mango's sourness, the next into raw green chili heat, the next into garlic's depth. Mustard oil ties it together with a sharp, slightly bitter backbone that mellows the longer the jar sits.",
       "howToEat": "Spoon a small amount alongside daal chawal, khichdi or plain roti — Mix Achar is built to be a side, not a main flavour, so a teaspoon per meal is typical. It's also a common addition to parathas, and many households stir a spoonful into plain yogurt raita for extra tang.",
-      "whoShouldBuy": "If you only want to keep one achar jar in the kitchen, Mix Achar is the one to buy — it's the closest thing to a taste of everything the brand makes. It suits people who like variety in a single jar rather than committing to one dominant flavour."
+      "whoShouldBuy": "If you only want to keep one achar jar in the kitchen, Mix Achar is the one to buy — it's the closest thing to a taste of everything the brand makes. It suits people who like variety in a single jar rather than committing to one dominant flavour.",
+      "videoFile": "/assets/videos/mix.mp4",
+      "videoPoster": ""
     },
     {
       "id": "P002",
@@ -81,7 +83,9 @@
       "traditionalBackground": "Raw mango pickling is one of the oldest preservation methods in Sindh, tied to the mango harvest season when unripe fruit was picked in bulk before the summer heat and salted down to last the rest of the year. Shikarpur's version leans on fenugreek and mustard seed rather than the sweeter masalas used in some other regional styles, giving it a sharper, more sour-forward profile that's become the city's signature.",
       "tasteProfileText": "This is a sour-forward achar first, spice second — the raw mango's tartness dominates, with fenugreek adding a faint bitterness and mustard oil rounding out the sharpness. It doesn't mellow into sweetness the way ripe-mango preparations do; the tang stays firm even months after the jar is opened.",
       "howToEat": "The classic pairing is daal chawal or khichdi, where the sourness cuts through the blandness of plain rice and lentils. It's equally common alongside parathas at breakfast, or as a side with biryani to balance the rice's richness.",
-      "whoShouldBuy": "Choose Aam Ka Achar if you specifically want the sour, traditional Shikarpuri flavour rather than a milder or sweeter achar — it's not for people who prefer sweet-and-sour styles (our Mango Sweet & Sour Achar is the milder option)."
+      "whoShouldBuy": "Choose Aam Ka Achar if you specifically want the sour, traditional Shikarpuri flavour rather than a milder or sweeter achar — it's not for people who prefer sweet-and-sour styles (our Mango Sweet & Sour Achar is the milder option).",
+      "videoFile": "/assets/videos/aam.mp4",
+      "videoPoster": ""
     },
     {
       "id": "P003",
@@ -112,13 +116,15 @@
       "price800": 920,
       "youtubeUrl": "https://www.youtube.com/shorts/6f8FV77ZNmY",
       "whatsappProductName": "Lasooray Ka Achar",
-      "featured": false,
+      "featured": true,
       "status": "active",
       "whatIsIt": "Lasooray Ka Achar is made from lasora (gunda) — a small, round fruit used specifically for pickling in South Asia — cleaned, salted and slow-matured in mustard oil with fennel and mustard seed until each piece turns soft and tangy.",
       "traditionalBackground": "Lasora is a fruit most people outside Sindh have never pickled, but it's a staple here — the trees grow across rural Sindh and the fruit is harvested specifically for pickling since it isn't commonly eaten fresh. Preparing lasora achar the old way, slow-matured rather than quick-pickled, is considered a mark of a serious achar-maker, since rushing the process leaves the fruit tough instead of tender.",
       "tasteProfileText": "Lasora has a naturally tender, slightly slippery texture once pickled — quite different from mango or chili achar — with a mild tang and fennel's faint sweetness running through the mustard-oil base. It's less aggressively spicy than most of our achar, letting the fruit's own character come through.",
       "howToEat": "Best eaten as a standalone side rather than mixed into a dish — a few pieces alongside daal chawal or roti let the texture and flavour stand on their own. It's a good introduction for anyone who's never tried lasora before.",
-      "whoShouldBuy": "If you grew up with lasora achar and want the authentic version, or if you're curious to try a pickling fruit specific to Sindh rather than the more commonly available mango or lemon achar, this is worth trying."
+      "whoShouldBuy": "If you grew up with lasora achar and want the authentic version, or if you're curious to try a pickling fruit specific to Sindh rather than the more commonly available mango or lemon achar, this is worth trying.",
+      "videoFile": "/assets/videos/lasooray.mp4",
+      "videoPoster": ""
     },
     {
       "id": "P004",
@@ -153,7 +159,9 @@
       "traditionalBackground": "Garlic achar has long been valued in Sindhi households both as a condiment and for its believed digestive benefits, often kept on hand specifically for richer meals like biryani or barbecue. Because whole garlic takes longer to mature than most vegetables, a well-made jar of Lehsan Achar is often judged by how long it's been left to sit — the longer it matures, the milder and more savoury the cloves become.",
       "tasteProfileText": "Fresh garlic is sharp and biting; pickled garlic is a different thing entirely — savoury, rounded and only mildly pungent, with mustard oil and red chili adding warmth rather than raw heat. It's bold, but not sour or fiery the way chili or mango achar can be.",
       "howToEat": "A few cloves alongside biryani, barbecue or grilled meat is the classic pairing — the pickle cuts through richness the way a chutney would. It also works well with parathas or daal chawal for anyone who simply loves garlic.",
-      "whoShouldBuy": "Best for people who already like garlic and want it in a bold, savoury, ready-to-eat form — not recommended if you're sensitive to strong garlic flavour, since whole-clove pickling doesn't dilute it much."
+      "whoShouldBuy": "Best for people who already like garlic and want it in a bold, savoury, ready-to-eat form — not recommended if you're sensitive to strong garlic flavour, since whole-clove pickling doesn't dilute it much.",
+      "videoFile": "/assets/videos/lehsan.mp4",
+      "videoPoster": ""
     },
     {
       "id": "P005",
@@ -182,13 +190,15 @@
       "price800": 1600,
       "youtubeUrl": "https://www.youtube.com/shorts/jHaeEL_A2cM",
       "whatsappProductName": "Adrak Ka Achar",
-      "featured": false,
+      "featured": true,
       "status": "active",
       "whatIsIt": "Adrak Ka Achar is fresh ginger, cut fine and pickled in mustard oil with a warm, aromatic spice blend — sharp, zesty and noticeably more warming than our other achar.",
       "traditionalBackground": "Ginger achar has a practical history in Sindhi households — it was traditionally kept close at hand during the monsoon and winter months, valued for cutting through heavy, oil-rich meals and for its warming effect. Unlike mango or lasora achar, which need months to mature, ginger achar is often ready sooner, making it a common quick-turnaround pickle in home kitchens.",
       "tasteProfileText": "The dominant note is ginger's own sharp heat, not chili heat — it warms rather than burns, with mustard seed and turmeric adding an earthy, slightly bitter undertone. It's more aromatic than most of our other achar, noticeably so as soon as the jar is opened.",
       "howToEat": "A small amount goes a long way — a few pieces alongside rich or fried food (paratha, fried fish, heavier curries) helps cut through the oiliness. It's also commonly eaten in small amounts on its own as a digestive after a heavy meal.",
-      "whoShouldBuy": "Good for anyone who wants a warming, aromatic achar rather than a sour or fiery one, or who specifically enjoys ginger's flavour on its own terms."
+      "whoShouldBuy": "Good for anyone who wants a warming, aromatic achar rather than a sour or fiery one, or who specifically enjoys ginger's flavour on its own terms.",
+      "videoFile": "/assets/videos/adrak.mp4",
+      "videoPoster": ""
     },
     {
       "id": "P006",
@@ -216,13 +226,15 @@
       "price800": 960,
       "youtubeUrl": "https://www.youtube.com/shorts/BQzsJaPWFi8",
       "whatsappProductName": "Lemon Ka Achar",
-      "featured": false,
+      "featured": true,
       "status": "active",
       "whatIsIt": "Lemon Ka Achar is whole lemons, salt-cured and left to mature slowly until they turn into a deep, tangy, almost jammy pickle — no cutting into small pieces, the lemons stay whole through the process.",
       "traditionalBackground": "Salt-curing whole lemons rather than cutting them is the older, slower method — it takes longer for the rind to soften and the flavour to develop, but it produces a rounder, less harshly sour result than quick-pickled lemon. This whole-lemon method has stayed the standard in Shikarpuri kitchens even as faster alternatives became available elsewhere.",
       "tasteProfileText": "Salt-cured lemon develops a flavour that's tangy but also slightly bitter from the rind and mellowed by the long cure — different from fresh lemon juice, closer to a concentrated, preserved citrus flavour. Fenugreek and red chili round it out without overpowering the citrus.",
       "howToEat": "Traditionally served in small quantities alongside daal chawal or biryani, where its acidity brightens a heavier dish. Some households also chop a piece finely into raita or chutney for extra tang.",
-      "whoShouldBuy": "Choose this if you want a citrus-forward achar rather than a mango, garlic or chili-based one — a good pick for people who prefer their food with a bright, sour edge."
+      "whoShouldBuy": "Choose this if you want a citrus-forward achar rather than a mango, garlic or chili-based one — a good pick for people who prefer their food with a bright, sour edge.",
+      "videoFile": "/assets/videos/limbo.mp4",
+      "videoPoster": ""
     },
     {
       "id": "P007",
@@ -251,13 +263,15 @@
       "price800": 960,
       "youtubeUrl": "https://www.youtube.com/shorts/M74oNjWFfW8",
       "whatsappProductName": "Pyaz Ka Achar",
-      "featured": false,
+      "featured": true,
       "status": "active",
       "whatIsIt": "Pyaz Ka Achar is small whole baby onions pickled in a tangy mustard-oil masala — sweet, sharp and satisfyingly crunchy, unlike most of our achar which soften with time.",
       "traditionalBackground": "Whole baby onion pickling is common across Sindhi households, usually served as a crunchy counterpoint to rich, slow-cooked dishes. Because whole onions retain more crunch than sliced ones, choosing the right size of baby onion is part of what separates a good batch from an average one — too large and they don't pickle evenly.",
       "tasteProfileText": "Unlike the soft texture of mango or lasora achar, Pyaz Ka Achar stays crunchy — the onion's natural sweetness balances against the tang of mustard oil and vinegar, with red chili adding a light kick rather than dominant heat.",
       "howToEat": "Best served as a crunchy side with biryani, pulao or any rice dish, where the texture contrast matters as much as the flavour. It also pairs well with kebabs and barbecue.",
-      "whoShouldBuy": "Pick this if texture matters to you as much as taste — anyone who wants a crunchy, tangy side rather than a soft, matured pickle."
+      "whoShouldBuy": "Pick this if texture matters to you as much as taste — anyone who wants a crunchy, tangy side rather than a soft, matured pickle.",
+      "videoFile": "/assets/videos/pyaz.mp4",
+      "videoPoster": ""
     },
     {
       "id": "P008",
@@ -286,13 +300,15 @@
       "price800": 960,
       "youtubeUrl": "https://www.youtube.com/shorts/AEhDA_5l8zg",
       "whatsappProductName": "Gajar Ka Achar",
-      "featured": false,
+      "featured": true,
       "status": "active",
       "whatIsIt": "Gajar Ka Achar is fresh carrot, hand-cut and pickled in mustard oil with mustard seed and red chili — crisp, tangy and one of our brighter-coloured, more approachable achar.",
       "traditionalBackground": "Carrot achar is a relatively easy entry point into Sindhi pickling because carrots pickle quickly and hold their crunch well, making it a common choice for households making achar in smaller batches. It's often paired with cauliflower or turnip in other regional styles, but the Shikarpuri version here is kept simple — carrot on its own, letting the vegetable's natural sweetness come through against the mustard-oil tang.",
       "tasteProfileText": "Carrot's natural sweetness is more present here than in most of our achar, balanced against mustard seed's sharpness and red chili's warmth — it reads as tangy and mildly spicy rather than sour or fiery.",
       "howToEat": "A crunchy side for daal chawal, paratha or any everyday meal — its milder flavour makes it one of the easier achar to eat in larger quantities without overwhelming the rest of the meal.",
-      "whoShouldBuy": "A good starting achar for someone new to Shikarpuri pickles, or for households with kids who want something tangy but not too sharp or spicy."
+      "whoShouldBuy": "A good starting achar for someone new to Shikarpuri pickles, or for households with kids who want something tangy but not too sharp or spicy.",
+      "videoFile": "/assets/videos/gajar.mp4",
+      "videoPoster": ""
     },
     {
       "id": "P009",
@@ -327,7 +343,9 @@
       "traditionalBackground": "Unlike our oil-based achar, which are meant to mature over months, chutneys like this one are ground fresh and used relatively quickly — closer to a sauce than a preserve. Green chutney has long been a go-to condiment for snacks and street food across Sindh, valued for how fast it can be made and how much flavour it adds in a small amount.",
       "tasteProfileText": "This is fresh heat, not matured heat — green chili and coriander give it a sharp, herbaceous, immediate spiciness, with garlic adding depth and lemon cutting through with acidity. It doesn't have the slow-developed complexity of an oil achar; it's meant to taste bright and punchy.",
       "howToEat": "Use it as a dipping sauce for pakoras, samosas or grilled meat, or spread thinly inside parathas and sandwiches. A small spoonful also works stirred into raita or as a topping for chaat.",
-      "whoShouldBuy": "Best for anyone who wants a fresh, fast condiment rather than a slow-matured pickle — ideal alongside snacks, barbecue or fried food rather than eaten the way achar typically is with daal chawal."
+      "whoShouldBuy": "Best for anyone who wants a fresh, fast condiment rather than a slow-matured pickle — ideal alongside snacks, barbecue or fried food rather than eaten the way achar typically is with daal chawal.",
+      "videoFile": "/assets/videos/green-chutney.mp4",
+      "videoPoster": ""
     },
     {
       "id": "P010",
