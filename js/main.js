@@ -168,7 +168,7 @@
      breaks for products whose own video has not been uploaded yet. */
   function createLocalVideoMarkup(src, poster, label) {
     return `
-      <video class="product-video" controls preload="none" playsinline
+      <video class="product-video" controls preload="metadata" playsinline
         ${poster ? `poster="${poster}"` : ""}
         aria-label="Video: ${label}">
         <source src="${src}" type="video/mp4">
@@ -241,7 +241,8 @@
       ? `<span class="chip" style="background:var(--color-dark-red);color:#fff;border-color:transparent">${p.status.replace(/-/g, " ")}</span>`
       : "";
     const ribbon = p.featured ? `<span class="product-card__ribbon">Bestseller</span>` : "";
-    const hasVideo = !!(p.videoFile || api.extractYouTubeId(p.youtubeUrl || ""));
+    const hasLocalVideo = !!p.videoFile;
+    const hasVideo = !hasLocalVideo && !!api.extractYouTubeId(p.youtubeUrl || "");
     const actionsRow = hasVideo
       ? `<div class="product-card__actions product-card__actions--split">
             <button type="button" class="btn btn--outline-dark btn--sm" data-card-watch>

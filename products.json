@@ -46,7 +46,7 @@
       "howToEat": "Spoon a small amount alongside daal chawal, khichdi or plain roti — Mix Achar is built to be a side, not a main flavour, so a teaspoon per meal is typical. It's also a common addition to parathas, and many households stir a spoonful into plain yogurt raita for extra tang.",
       "whoShouldBuy": "If you only want to keep one achar jar in the kitchen, Mix Achar is the one to buy — it's the closest thing to a taste of everything the brand makes. It suits people who like variety in a single jar rather than committing to one dominant flavour.",
       "videoFile": "/assets/videos/mix.mp4",
-      "videoPoster": ""
+      "videoPoster": "/assets/posters/poster-mix.jpg"
     },
     {
       "id": "P002",
@@ -85,7 +85,7 @@
       "howToEat": "The classic pairing is daal chawal or khichdi, where the sourness cuts through the blandness of plain rice and lentils. It's equally common alongside parathas at breakfast, or as a side with biryani to balance the rice's richness.",
       "whoShouldBuy": "Choose Aam Ka Achar if you specifically want the sour, traditional Shikarpuri flavour rather than a milder or sweeter achar — it's not for people who prefer sweet-and-sour styles (our Mango Sweet & Sour Achar is the milder option).",
       "videoFile": "/assets/videos/aam.mp4",
-      "videoPoster": ""
+      "videoPoster": "/assets/posters/poster-aam.jpg"
     },
     {
       "id": "P003",
@@ -124,7 +124,7 @@
       "howToEat": "Best eaten as a standalone side rather than mixed into a dish — a few pieces alongside daal chawal or roti let the texture and flavour stand on their own. It's a good introduction for anyone who's never tried lasora before.",
       "whoShouldBuy": "If you grew up with lasora achar and want the authentic version, or if you're curious to try a pickling fruit specific to Sindh rather than the more commonly available mango or lemon achar, this is worth trying.",
       "videoFile": "/assets/videos/lasooray.mp4",
-      "videoPoster": ""
+      "videoPoster": "/assets/posters/poster-lasooray.jpg"
     },
     {
       "id": "P004",
@@ -161,7 +161,7 @@
       "howToEat": "A few cloves alongside biryani, barbecue or grilled meat is the classic pairing — the pickle cuts through richness the way a chutney would. It also works well with parathas or daal chawal for anyone who simply loves garlic.",
       "whoShouldBuy": "Best for people who already like garlic and want it in a bold, savoury, ready-to-eat form — not recommended if you're sensitive to strong garlic flavour, since whole-clove pickling doesn't dilute it much.",
       "videoFile": "/assets/videos/lehsan.mp4",
-      "videoPoster": ""
+      "videoPoster": "/assets/posters/poster-lehsan.jpg"
     },
     {
       "id": "P005",
@@ -198,7 +198,7 @@
       "howToEat": "A small amount goes a long way — a few pieces alongside rich or fried food (paratha, fried fish, heavier curries) helps cut through the oiliness. It's also commonly eaten in small amounts on its own as a digestive after a heavy meal.",
       "whoShouldBuy": "Good for anyone who wants a warming, aromatic achar rather than a sour or fiery one, or who specifically enjoys ginger's flavour on its own terms.",
       "videoFile": "/assets/videos/adrak.mp4",
-      "videoPoster": ""
+      "videoPoster": "/assets/posters/poster-adrak.jpg"
     },
     {
       "id": "P006",
@@ -234,7 +234,7 @@
       "howToEat": "Traditionally served in small quantities alongside daal chawal or biryani, where its acidity brightens a heavier dish. Some households also chop a piece finely into raita or chutney for extra tang.",
       "whoShouldBuy": "Choose this if you want a citrus-forward achar rather than a mango, garlic or chili-based one — a good pick for people who prefer their food with a bright, sour edge.",
       "videoFile": "/assets/videos/limbo.mp4",
-      "videoPoster": ""
+      "videoPoster": "/assets/posters/poster-limbo.jpg"
     },
     {
       "id": "P007",
@@ -271,7 +271,7 @@
       "howToEat": "Best served as a crunchy side with biryani, pulao or any rice dish, where the texture contrast matters as much as the flavour. It also pairs well with kebabs and barbecue.",
       "whoShouldBuy": "Pick this if texture matters to you as much as taste — anyone who wants a crunchy, tangy side rather than a soft, matured pickle.",
       "videoFile": "/assets/videos/pyaz.mp4",
-      "videoPoster": ""
+      "videoPoster": "/assets/posters/poster-pyaz.jpg"
     },
     {
       "id": "P008",
@@ -308,7 +308,7 @@
       "howToEat": "A crunchy side for daal chawal, paratha or any everyday meal — its milder flavour makes it one of the easier achar to eat in larger quantities without overwhelming the rest of the meal.",
       "whoShouldBuy": "A good starting achar for someone new to Shikarpuri pickles, or for households with kids who want something tangy but not too sharp or spicy.",
       "videoFile": "/assets/videos/gajar.mp4",
-      "videoPoster": ""
+      "videoPoster": "/assets/posters/poster-gajar.jpg"
     },
     {
       "id": "P009",
@@ -345,7 +345,7 @@
       "howToEat": "Use it as a dipping sauce for pakoras, samosas or grilled meat, or spread thinly inside parathas and sandwiches. A small spoonful also works stirred into raita or as a topping for chaat.",
       "whoShouldBuy": "Best for anyone who wants a fresh, fast condiment rather than a slow-matured pickle — ideal alongside snacks, barbecue or fried food rather than eaten the way achar typically is with daal chawal.",
       "videoFile": "/assets/videos/green-chutney.mp4",
-      "videoPoster": ""
+      "videoPoster": "/assets/posters/poster-green-chutney.jpg"
     },
     {
       "id": "P010",
