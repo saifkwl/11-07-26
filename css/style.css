@@ -2122,16 +2122,18 @@ p { color: var(--color-text-muted); }
 
 /* Self-hosted product video — same footprint as the YouTube facade so
    swapping one for the other never shifts the layout. */
+/* Fill the 9:16 media box exactly — the container already sets the ratio,
+   so any extra height on the video just leaves a green strip underneath. */
 .product-video {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
-  aspect-ratio: 9 / 16;
-  max-height: 460px;
+  height: 100%;
   object-fit: cover;
   background: var(--color-deep-green-dark);
   border: 0;
 }
-.product-detail__media .product-video { max-height: 620px; }
 
 /* Urdu (Nastaliq) word gaps — the default space glyph is far too wide at
    these sizes, which is what makes "سندھی ذائقہ" look broken apart. */

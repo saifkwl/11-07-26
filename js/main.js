@@ -241,7 +241,8 @@
       ? `<span class="chip" style="background:var(--color-dark-red);color:#fff;border-color:transparent">${p.status.replace(/-/g, " ")}</span>`
       : "";
     const ribbon = p.featured ? `<span class="product-card__ribbon">Bestseller</span>` : "";
-    const hasVideo = !!(p.videoFile || api.extractYouTubeId(p.youtubeUrl || ""));
+    const hasLocalVideo = !!p.videoFile;
+    const hasVideo = !hasLocalVideo && !!api.extractYouTubeId(p.youtubeUrl || "");
     const actionsRow = hasVideo
       ? `<div class="product-card__actions product-card__actions--split">
             <button type="button" class="btn btn--outline-dark btn--sm" data-card-watch>
