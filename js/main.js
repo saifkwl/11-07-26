@@ -168,7 +168,7 @@
      breaks for products whose own video has not been uploaded yet. */
   function createLocalVideoMarkup(src, poster, label) {
     return `
-      <video class="product-video" controls preload="metadata" playsinline
+      <video class="product-video" controls preload="none" playsinline
         ${poster ? `poster="${poster}"` : ""}
         aria-label="Video: ${label}">
         <source src="${src}" type="video/mp4">
