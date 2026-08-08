@@ -2229,3 +2229,12 @@ p { color: var(--color-text-muted); }
   font-variant-numeric: tabular-nums;
 }
 .hero__pill--licence svg { width: 1em; height: 1em; flex: none; }
+
+/* Per-kg column on the price list — secondary to the jar prices, and hidden
+   on the narrowest phones so the table never needs sideways scrolling. */
+.price-table__perkg { color: var(--color-text-muted); font-size: .92em; }
+.th-note { display: block; font-size: .7em; font-weight: 400; opacity: .75; }
+@media (max-width: 560px) {
+  .price-table th:nth-child(4),
+  .price-table td:nth-child(4) { display: none; }
+}
