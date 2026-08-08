@@ -1,4 +1,28 @@
 /* ---------------------------------------------------------------
+   Food licence number in the footer. Injected here so it appears on
+   all 131 pages without editing each file. A visible registration
+   number is one of the strongest trust signals for a food business.
+--------------------------------------------------------------- */
+(function initLicence() {
+  var NUMBER = "SFAL-7827-23-R";
+  function place() {
+    var lists = document.querySelectorAll(".site-footer ul, .footer-col ul");
+    var target = null;
+    lists.forEach(function (ul) {
+      if (ul.textContent.indexOf("Nationwide Delivery") !== -1) target = ul;
+    });
+    if (!target || target.querySelector(".footer-licence")) return;
+    var li = document.createElement("li");
+    li.className = "footer-licence";
+    li.innerHTML = 'Food Licence No: <strong>' + NUMBER + '</strong>';
+    target.appendChild(li);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", place);
+  } else { place(); }
+})();
+
+/* ---------------------------------------------------------------
    Google Analytics 4 — loaded from here so every page is covered
    without touching 131 HTML files.
 --------------------------------------------------------------- */

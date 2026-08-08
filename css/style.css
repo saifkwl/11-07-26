@@ -1,3 +1,9 @@
+/* Gulzar — a Nastaliq face engineered for screen text. Noto Nastaliq Urdu's
+   shaping leaves an over-wide break inside words like "سندھی" (the natural
+   non-joining point after د), especially at bold weights. Gulzar handles
+   that connection correctly. Noto kept as fallback. */
+@import url('https://fonts.googleapis.com/css2?family=Gulzar&display=swap');
+
 /* =========================================================================
    ShikarpuriAchar.pk — Design System & Stylesheet
    Original Shikarpuri Achar Since 1985
@@ -48,7 +54,7 @@
   /* Typography */
   --font-heading: "Playfair Display", "Noto Serif", Georgia, serif;
   --font-body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --font-urdu: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", serif;
+  --font-urdu: "Gulzar", "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", serif;
 
   /* Spacing scale */
   --space-3xs: 0.25rem;
@@ -680,7 +686,7 @@ p { color: var(--color-text-muted); }
   box-shadow: 0 4px 20px rgba(0,0,0,0.15);
 }
 .hero__badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-mustard-light); animation: wa-pulse 2s infinite; }
-.hero__badge-ur { font-family: var(--font-urdu); direction: rtl; font-size: 1.05rem; font-weight: 700; letter-spacing: 0; word-spacing: normal; text-transform: none; line-height: 2.1; padding-block: .35rem; }
+.hero__badge-ur { font-family: var(--font-urdu); direction: rtl; font-size: 1.05rem; font-weight: 400; letter-spacing: 0; word-spacing: normal; text-transform: none; line-height: 2.1; padding-block: .35rem; }
 .hero__badge-sep { opacity: 0.5; }
 
 /* Premium badges row — reuses .hero__badge's visual language (uppercase,
@@ -2182,6 +2188,47 @@ p { color: var(--color-text-muted); }
   text-shadow: none;
   font-weight: 700;
 }
+
+/* Nastaliq never wants synthetic bold — the browser fakes it by smearing the
+   glyphs, which is what widens the gaps. Force normal weight everywhere Urdu
+   is used, and give the script the vertical room its descenders need. */
+.hero__badge-ur,
+.urdu-display,
+.urdu-subtitle,
+.hero__urdu-mark,
+.hero__urdu-line,
+.product-card__name-ur,
+.price-table__ur,
+.product-detail__title-ur {
+  font-weight: 400;
+  word-spacing: normal;
+  letter-spacing: 0;
+  line-height: 2;
+}
+
+/* Licence badge in the footer */
+.footer-licence {
+  margin-top: .55rem;
+  font-size: .78rem;
+  letter-spacing: .04em;
+  color: rgba(251, 243, 228, .6);
+}
+.footer-licence strong { color: rgba(251, 243, 228, .85); font-weight: 600; }
+
+/* Licence pill in the hero — a registration number is the single strongest
+   trust cue for a food business, so it sits with the other badges where a
+   first-time visitor sees it without scrolling. Gold-tinted to draw the eye
+   without adding another band across the page. */
+.hero__pill--licence {
+  display: inline-flex;
+  align-items: center;
+  gap: .38em;
+  border-color: rgba(201, 151, 43, .75);
+  background: rgba(201, 151, 43, .16);
+  color: var(--color-mustard-light);
+  font-variant-numeric: tabular-nums;
+}
+.hero__pill--licence svg { width: 1em; height: 1em; flex: none; }
 
 /* Per-kg column on the price list — secondary to the jar prices, and hidden
    on the narrowest phones so the table never needs sideways scrolling. */
