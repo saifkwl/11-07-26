@@ -1,4 +1,28 @@
 /* ---------------------------------------------------------------
+   Food licence number in the footer. Injected here so it appears on
+   all 131 pages without editing each file. A visible registration
+   number is one of the strongest trust signals for a food business.
+--------------------------------------------------------------- */
+(function initLicence() {
+  var NUMBER = "SFAL-7827-23-R";
+  function place() {
+    var lists = document.querySelectorAll(".site-footer ul, .footer-col ul");
+    var target = null;
+    lists.forEach(function (ul) {
+      if (ul.textContent.indexOf("Nationwide Delivery") !== -1) target = ul;
+    });
+    if (!target || target.querySelector(".footer-licence")) return;
+    var li = document.createElement("li");
+    li.className = "footer-licence";
+    li.innerHTML = 'Food Licence No: <strong>' + NUMBER + '</strong>';
+    target.appendChild(li);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", place);
+  } else { place(); }
+})();
+
+/* ---------------------------------------------------------------
    Google Analytics 4 — loaded from here so every page is covered
    without touching 131 HTML files.
 --------------------------------------------------------------- */
@@ -168,7 +192,7 @@
      breaks for products whose own video has not been uploaded yet. */
   function createLocalVideoMarkup(src, poster, label) {
     return `
-      <video class="product-video" controls preload="metadata" playsinline
+      <video class="product-video" controls preload="none" playsinline
         ${poster ? `poster="${poster}"` : ""}
         aria-label="Video: ${label}">
         <source src="${src}" type="video/mp4">
@@ -805,6 +829,12 @@
   function priceRowHTML(p) {
     const p400 = api.formatPrice(p.price400);
     const p800 = api.formatPrice(p.price800);
+    /* "achar price per kg" is a real search people make (we rank position 3
+       for it and get no clicks, because the page never says "per kg").
+       Derive it from the 800g jar, rounded to the nearest 10. */
+    let perKg = "";
+    const raw800 = Number(p.price800);
+    if (raw800 > 0) perKg = api.formatPrice(Math.round((raw800 / 0.8) / 10) * 10);
     return `
       <tr>
         <td>
@@ -813,6 +843,7 @@
         </td>
         <td class="price-table__price" data-empty="${!p400}">${p400 || "Contact for Price"}</td>
         <td class="price-table__price" data-empty="${!p800}">${p800 || "Contact for Price"}</td>
+        <td class="price-table__price price-table__perkg" data-empty="${!perKg}">${perKg || "—"}</td>
         <td class="price-table__cta">
           <a class="btn btn--outline-dark btn--sm" href="/products/${p.slug}">View</a>
           <button type="button" class="btn btn--gold btn--sm" data-price-add-cart="${p.slug}" aria-label="Add ${p.nameEn} to cart">Add to Cart</button>
@@ -841,7 +872,7 @@
       list = api.search(list, activeQuery);
       tbody.innerHTML = list.length
         ? list.map(priceRowHTML).join("")
-        : `<tr><td colspan="4" class="text-center">No products match your search.</td></tr>`;
+        : `<tr><td colspan="5" class="text-center">No products match your search.</td></tr>`;
       if (resultCount) resultCount.textContent = `${list.length} product${list.length === 1 ? "" : "s"}`;
       if (filterBar) {
         filterBar.querySelectorAll(".category-pill").forEach((btn) => {

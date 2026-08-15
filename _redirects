@@ -1,3 +1,9 @@
+# --- www -> non-www (301) ---
+# Search Console shows www.shikarpuriachar.pk indexed separately from
+# shikarpuriachar.pk (360 impressions on its own), which splits ranking
+# authority across two "sites". This forces one canonical hostname.
+https://www.shikarpuriachar.pk/*  https://shikarpuriachar.pk/:splat  301!
+
 /home  /  301
 /index /  301
 

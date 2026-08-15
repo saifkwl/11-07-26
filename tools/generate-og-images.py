@@ -120,7 +120,7 @@ def render_card(main_text, sub_text, filename):
 
 
 def generate_default():
-    render_card("ShikarpuriAchar.pk", "Original Shikarpuri Achar · Since 1985", "og-default.png")
+    render_card("ShikarpuriAchar.pk", "Original Shikarpuri Achar · Since 1974", "og-default.png")
     print("  wrote assets/og/og-default.png")
 
 
