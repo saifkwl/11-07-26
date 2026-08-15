@@ -1372,6 +1372,58 @@ p { color: var(--color-text-muted); }
 .faq-item > summary { list-style: none; cursor: pointer; }
 
 /* -------------------------------------------------------------------------
+   12b. LATEST REVIEW TEASER (collapsible, swipeable — homepage, below hero)
+   ------------------------------------------------------------------------- */
+.latest-review-wrap { position: relative; z-index: 2; margin-top: -1.75rem; margin-bottom: var(--space-lg); }
+.latest-review-item {
+  background: linear-gradient(135deg, var(--color-mustard-light), var(--color-mustard));
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.latest-review-item > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+}
+.latest-review-item > summary::-webkit-details-marker { display: none; }
+.latest-review-item__label { display: flex; align-items: center; gap: .6rem; font-family: var(--font-heading); font-weight: 700; color: var(--color-ink); }
+.latest-review-item__stars { color: var(--color-dark-red); letter-spacing: 1px; font-size: .85rem; }
+.latest-review-item__chev { flex-shrink: 0; transition: transform var(--transition-fast); color: var(--color-ink); }
+.latest-review-item[open] .latest-review-item__chev { transform: rotate(180deg); }
+.latest-review-item__panel { padding: 0 var(--space-md) var(--space-md); background: var(--color-cream); }
+.latest-review-track {
+  display: flex;
+  gap: var(--space-sm);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-top: var(--space-sm);
+}
+.latest-review-track::-webkit-scrollbar { display: none; }
+.latest-review-track .review-card { min-width: 82%; scroll-snap-align: center; }
+@media (min-width: 640px) { .latest-review-track .review-card { min-width: 320px; } }
+.latest-review-hint { text-align: center; font-size: .78rem; color: var(--color-text-muted); margin-top: .5rem; }
+
+/* -------------------------------------------------------------------------
+   12c. FACEBOOK TRUST WIDGET (live like count via official Meta Page Plugin)
+   ------------------------------------------------------------------------- */
+.fb-trust { text-align: center; }
+.fb-trust__widget {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.fb-trust__widget iframe { max-width: 100%; border: none; }
+
+/* -------------------------------------------------------------------------
    13. FORMS
    ------------------------------------------------------------------------- */
 .form-field { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: var(--space-sm); }
