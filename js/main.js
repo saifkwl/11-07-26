@@ -185,6 +185,32 @@
   }
 
   /* ---------------------------------------------------------------
+     Facebook trust widget — official Meta "Page Plugin" (a plain
+     lazy-loaded iframe, no SDK script needed) showing live like/
+     follower count. Always reads cfg.facebookUrl, so updating that
+     one value in SITE_CONFIG updates the footer icon AND this widget
+     together — never hardcode the Facebook URL anywhere else.
+  --------------------------------------------------------------- */
+  function initFacebookWidget() {
+    const holder = document.querySelector("[data-fb-widget]");
+    if (!holder || !cfg.facebookUrl) return;
+    const width = window.innerWidth < 480 ? 340 : 380;
+    const src = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(cfg.facebookUrl)}&tabs=timeline&width=${width}&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true`;
+    const iframe = document.createElement("iframe");
+    iframe.src = src;
+    iframe.width = String(width);
+    iframe.height = "500";
+    iframe.loading = "lazy";
+    iframe.style.border = "none";
+    iframe.style.overflow = "hidden";
+    iframe.scrolling = "no";
+    iframe.frameBorder = "0";
+    iframe.setAttribute("allowfullscreen", "true");
+    iframe.setAttribute("allow", "autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share");
+    holder.appendChild(iframe);
+  }
+
+  /* ---------------------------------------------------------------
      YouTube facade (click-to-load) for performance
   --------------------------------------------------------------- */
   /* Self-hosted video (assets/videos/*.mp4). Preferred when a product has
@@ -941,6 +967,28 @@
   }
 
   /**
+   * Small swipeable teaser below the hero — shows the 2 most recent
+   * reviews.json entries (array order = newest first). Collapsed by
+   * default via the parent <details>; nothing renders here until the
+   * visitor taps to expand it.
+   */
+  function renderLatestReviewsTeaser(reviews) {
+    const track = document.querySelector("[data-latest-reviews-track]");
+    if (!track) return;
+    const latest = reviews.slice(0, 2);
+    if (!latest.length) return;
+    track.innerHTML = latest.map((r) => `
+      <article class="review-card">
+        <div class="review-card__stars" role="img" aria-label="${r.rating} out of 5 stars">${starsHTML(r.rating)}</div>
+        <p class="review-card__text">&ldquo;${r.text}&rdquo;</p>
+        <div class="review-card__author">
+          <span class="review-card__avatar" aria-hidden="true">${initialsOf(r.name)}</span>
+          <div><strong>${r.name}</strong>${r.city ? `<span> ${r.city}</span>` : ""}</div>
+        </div>
+      </article>`).join("");
+  }
+
+  /**
    * Merges aggregateRating + review into the homepage's existing LocalBusiness
    * JSON-LD, generated live from reviews.json (never hardcoded in HTML) so
    * structured data can never drift out of sync with the visible reviews.
@@ -1554,6 +1602,7 @@
     initWhatsAppLinks();
     initYouTubeLinks();
     initSocialLinks();
+    initFacebookWidget();
     initContactForm();
     initDynamicConfigText();
     initFaq();
@@ -1580,7 +1629,10 @@
       if (window.CartAPI) renderCart(products);
 
       const reviewsApi = window.ReviewsAPI;
-      if (reviewsApi) reviewsApi.ready.then((reviews) => renderReviews(reviews, products));
+      if (reviewsApi) reviewsApi.ready.then((reviews) => {
+        renderReviews(reviews, products);
+        renderLatestReviewsTeaser(reviews);
+      });
 
       if (blogApi) {
         blogApi.ready.then((articles) => {
