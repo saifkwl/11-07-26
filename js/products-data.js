@@ -27,7 +27,7 @@
 
 const SITE_CONFIG = {
   brandName: "ShikarpuriAchar.pk",
-  tagline: "Original Shikarpuri Achar Since 1985",
+  tagline: "Original Shikarpuri Achar Since 1974",
   whatsappNumber: "923128461211", // international format, no + or leading 0
   whatsappDisplay: "0312 8461211",
   youtubeChannelUrl: "https://www.youtube.com/@Shikarpuriachar-m9i",

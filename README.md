@@ -1,6 +1,6 @@
 # ShikarpuriAchar.pk
 
-Original Shikarpuri Achar Since 1985 — production website. Plain HTML5, modern CSS and vanilla JavaScript. No frameworks, no build step. Built for Cloudflare Pages + GitHub.
+Original Shikarpuri Achar Since 1974 — production website. Plain HTML5, modern CSS and vanilla JavaScript. No frameworks, no build step. Built for Cloudflare Pages + GitHub.
 
 ## Architecture
 
