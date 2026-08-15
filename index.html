@@ -205,6 +205,23 @@ src="https://www.facebook.com/tr?id=225331831997469&ev=PageView&noscript=1"/></n
     </div>
   </section>
 
+  <!-- ============================ LATEST REVIEW (collapsed by default, tap to reveal, swipe) ============================ -->
+  <div class="container latest-review-wrap">
+    <details class="latest-review-item">
+      <summary>
+        <span class="latest-review-item__label">
+          <span class="latest-review-item__stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span>Latest Customer Review — Tap to Read</span>
+        </span>
+        <svg class="latest-review-item__chev" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </summary>
+      <div class="latest-review-item__panel">
+        <div class="latest-review-track" data-latest-reviews-track></div>
+        <p class="latest-review-hint">&larr; Swipe for more reviews &rarr;</p>
+      </div>
+    </details>
+  </div>
+
   <div class="sindhi-border--rich" role="presentation"></div>
 
   <!-- ============================ FEATURED PRODUCTS ============================ -->
@@ -343,6 +360,18 @@ src="https://www.facebook.com/tr?id=225331831997469&ev=PageView&noscript=1"/></n
         <p>What our customers say after ordering their favourite Shikarpuri Achar.</p>
       </div>
       <div class="grid grid-3" data-reviews-grid></div>
+    </div>
+  </section>
+
+  <!-- ============================ FACEBOOK TRUST WIDGET (live like count) ============================ -->
+  <section class="section section--alt fb-trust">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Join Our Community</span>
+        <h2>Trusted By <span class="text-gold">Thousands On Facebook</span></h2>
+        <p>Real customers, real reviews, real photos. Follow our page and see what people are saying.</p>
+      </div>
+      <div class="fb-trust__widget" data-reveal data-fb-widget></div>
     </div>
   </section>
 
