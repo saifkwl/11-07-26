@@ -2,12 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!-- Meta Pixel Code -->
+<!-- Meta Pixel Code (script fetch deferred until page load/first interaction —
+     fbq() calls below queue instantly either way, so no tracking data is lost,
+     it just stops competing with critical resources during initial render) -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];
+function _fbLoad(){if(f._fbqScriptLoaded)return;f._fbqScriptLoaded=!0;
+t=b.createElement(e);t.async=!0;t.src=v;
+s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s);}
+if(b.readyState==='complete'){setTimeout(_fbLoad,0);}
+else{f.addEventListener('load',function(){setTimeout(_fbLoad,0);});}
+['scroll','keydown','mousemove','touchstart'].forEach(function(ev){
+f.addEventListener(ev,_fbLoad,{once:!0,passive:!0});});
+}(window,
 document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '225331831997469');
 fbq('track', 'PageView');
@@ -37,8 +46,9 @@ src="https://www.facebook.com/tr?id=225331831997469&ev=PageView&noscript=1"/></n
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@500;700&family=Gulzar&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@500;700&family=Gulzar&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@500;700&family=Gulzar&display=swap"></noscript>
+<link rel="stylesheet" href="/css/style.css?v=20260816">
 <script type="application/ld+json" data-article-schema>{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "ہری چٹنی بنانے کی ترکیب (Hari Chutney Recipe)", "description": "Taaza hari mirch aur dhaniya se teekhi Hari Chutney ghar par banane ka aasan tareeqa.", "url": "https://shikarpuriachar.pk/blog/hari-chutney-recipe.html", "datePublished": "2026-07-12", "author": {"@type": "Organization", "name": "ShikarpuriAchar.pk"}, "publisher": {"@type": "Organization", "name": "ShikarpuriAchar.pk", "logo": {"@type": "ImageObject", "url": "https://shikarpuriachar.pk/assets/og/og-default.png"}}, "image": "https://shikarpuriachar.pk/assets/og/og-default.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://shikarpuriachar.pk/blog/hari-chutney-recipe.html"}}</script>
 <script type="application/ld+json" data-breadcrumb-schema>{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://shikarpuriachar.pk/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://shikarpuriachar.pk/blog.html"}, {"@type": "ListItem", "position": 3, "name": "ہری چٹنی بنانے کی ترکیب (Hari Chutney Recipe)", "item": "https://shikarpuriachar.pk/blog/hari-chutney-recipe.html"}]}</script>
 </head>
@@ -205,7 +215,7 @@ src="https://www.facebook.com/tr?id=225331831997469&ev=PageView&noscript=1"/></n
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
-<script src="/js/products-data.js"></script>
-<script src="/js/main.js"></script>
+<script src="/js/products-data.js?v=20260816"></script>
+<script src="/js/main.js?v=20260816"></script>
 </body>
 </html>
