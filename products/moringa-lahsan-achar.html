@@ -2,12 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!-- Meta Pixel Code -->
+<!-- Meta Pixel Code (script fetch deferred until page load/first interaction —
+     fbq() calls below queue instantly either way, so no tracking data is lost,
+     it just stops competing with critical resources during initial render) -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];
+function _fbLoad(){if(f._fbqScriptLoaded)return;f._fbqScriptLoaded=!0;
+t=b.createElement(e);t.async=!0;t.src=v;
+s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s);}
+if(b.readyState==='complete'){setTimeout(_fbLoad,0);}
+else{f.addEventListener('load',function(){setTimeout(_fbLoad,0);});}
+['scroll','keydown','mousemove','touchstart'].forEach(function(ev){
+f.addEventListener(ev,_fbLoad,{once:!0,passive:!0});});
+}(window,
 document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '225331831997469');
 fbq('track', 'PageView');
@@ -37,8 +46,9 @@ src="https://www.facebook.com/tr?id=225331831997469&ev=PageView&noscript=1"/></n
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@500;700&family=Gulzar&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@500;700&family=Gulzar&display=swap"></noscript>
+<link rel="stylesheet" href="/css/style.css?v=20260816">
 <script type="application/ld+json" data-product-schema>{"@context": "https://schema.org", "@type": "Product", "name": "Moringa Lahsan Achar", "alternateName": "سہانجنا لہسن اچار", "description": "Moringa and garlic pickled together for a bold, earthy, aromatic achar.", "category": "Achar", "sku": "P063", "url": "https://shikarpuriachar.pk/products/moringa-lahsan-achar.html", "image": "https://shikarpuriachar.pk/assets/og/moringa-lahsan-achar.png", "brand": {"@type": "Brand", "name": "ShikarpuriAchar.pk"}, "offers": [{"@type": "Offer", "name": "400g", "price": 650, "priceCurrency": "PKR", "availability": "https://schema.org/InStock"}, {"@type": "Offer", "name": "800g", "price": 1300, "priceCurrency": "PKR", "availability": "https://schema.org/InStock"}]}</script>
 <script type="application/ld+json" data-breadcrumb-schema>{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://shikarpuriachar.pk/"}, {"@type": "ListItem", "position": 2, "name": "Products", "item": "https://shikarpuriachar.pk/products.html"}, {"@type": "ListItem", "position": 3, "name": "Moringa Lahsan Achar", "item": "https://shikarpuriachar.pk/products/moringa-lahsan-achar.html"}]}</script>
 <script type="application/ld+json" data-faq-schema>{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How spicy is Moringa Lahsan Achar?", "acceptedAnswer": {"@type": "Answer", "text": "Moringa Lahsan Achar has a balanced, traditional medium spice level — flavourful without being overwhelming."}}, {"@type": "Question", "name": "How long does Moringa Lahsan Achar last?", "acceptedAnswer": {"@type": "Answer", "text": "Traditional oil pickles keep for many months at room temperature — the flavour actually matures and improves with time."}}, {"@type": "Question", "name": "Does it need refrigeration?", "acceptedAnswer": {"@type": "Answer", "text": "No refrigeration needed — mustard oil is a natural preservative. Keep the jar tightly closed in a cool, dry place, keep the pieces submerged in oil, and always use a dry spoon."}}, {"@type": "Question", "name": "Is delivery available across Pakistan?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — we deliver Moringa Lahsan Achar nationwide. Delivery charges are Rs. 300, minimum product order Rs. 1500, and Cash on Delivery is available on orders of Rs. 1500 or more."}}, {"@type": "Question", "name": "How do I order on WhatsApp?", "acceptedAnswer": {"@type": "Answer", "text": "Choose your jar size (400g or 800g) and quantity above, then tap \"Order on WhatsApp\" — your message is pre-filled with the product, weight and price. The 400g jar is Rs. 650 and the 800g jar is Rs. 1,300. Advance payment gets 10% off."}}]}</script>
@@ -217,7 +227,7 @@ src="https://www.facebook.com/tr?id=225331831997469&ev=PageView&noscript=1"/></n
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
-<script src="/js/products-data.js"></script>
-<script src="/js/main.js"></script>
+<script src="/js/products-data.js?v=20260816"></script>
+<script src="/js/main.js?v=20260816"></script>
 </body>
 </html>
