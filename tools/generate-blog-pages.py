@@ -43,7 +43,7 @@ def build_article_jsonld(a):
         "@type": "BlogPosting",
         "headline": a["title"],
         "description": a.get("excerpt", ""),
-        "url": f"{BASE_URL}/blog/{a['slug']}.html",
+        "url": f"{BASE_URL}/blog/{a['slug']}",
         "datePublished": a.get("publishedDate", ""),
         "author": {"@type": "Organization", "name": "ShikarpuriAchar.pk"},
         "publisher": {
@@ -52,7 +52,7 @@ def build_article_jsonld(a):
             "logo": {"@type": "ImageObject", "url": f"{BASE_URL}/assets/og/og-default.png"},
         },
         "image": f"{BASE_URL}/assets/og/og-default.png",
-        "mainEntityOfPage": {"@type": "WebPage", "@id": f"{BASE_URL}/blog/{a['slug']}.html"},
+        "mainEntityOfPage": {"@type": "WebPage", "@id": f"{BASE_URL}/blog/{a['slug']}"},
     }
     return json.dumps(data, ensure_ascii=False)
 
@@ -63,8 +63,8 @@ def build_breadcrumb(a):
         "@type": "BreadcrumbList",
         "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Home", "item": f"{BASE_URL}/"},
-            {"@type": "ListItem", "position": 2, "name": "Blog", "item": f"{BASE_URL}/blog.html"},
-            {"@type": "ListItem", "position": 3, "name": a["title"], "item": f"{BASE_URL}/blog/{a['slug']}.html"},
+            {"@type": "ListItem", "position": 2, "name": "Blog", "item": f"{BASE_URL}/blog"},
+            {"@type": "ListItem", "position": 3, "name": a["title"], "item": f"{BASE_URL}/blog/{a['slug']}"},
         ],
     }
     return json.dumps(data, ensure_ascii=False)
@@ -116,12 +116,12 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
     <nav class="main-nav" aria-label="Primary">
       <ul class="main-nav__list">
         <li><a class="site-header__link" href="/">Home</a></li>
-        <li><a class="site-header__link" href="/products.html">Products</a></li>
-        <li><a class="site-header__link" href="/price-list.html">Price Lists</a></li>
-        <li><a class="site-header__link" href="/blog.html">Blog</a></li>
-        <li><a class="site-header__link" href="/about.html">About</a></li>
-        <li><a class="site-header__link" href="/faq.html">FAQ</a></li>
-        <li><a class="site-header__link" href="/contact.html">Contact</a></li>
+        <li><a class="site-header__link" href="/products">Products</a></li>
+        <li><a class="site-header__link" href="/price-list">Price Lists</a></li>
+        <li><a class="site-header__link" href="/blog">Blog</a></li>
+        <li><a class="site-header__link" href="/about">About</a></li>
+        <li><a class="site-header__link" href="/faq">FAQ</a></li>
+        <li><a class="site-header__link" href="/contact">Contact</a></li>
         <li><a class="site-header__link" data-yt-channel href="#" target="_blank" rel="noopener">YouTube</a></li>
       </ul>
     </nav>
@@ -140,12 +140,12 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
     <button class="mobile-nav__close" aria-label="Close menu">&times;</button>
     <ul class="mobile-nav__list">
       <li><a href="/">Home</a></li>
-      <li><a href="/products.html">Products</a></li>
-      <li><a href="/price-list.html">Price Lists</a></li>
-      <li><a href="/blog.html">Blog</a></li>
-      <li><a href="/about.html">About</a></li>
-      <li><a href="/faq.html">FAQ</a></li>
-      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/products">Products</a></li>
+      <li><a href="/price-list">Price Lists</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/faq">FAQ</a></li>
+      <li><a href="/contact">Contact</a></li>
       <li><a data-yt-channel href="#" target="_blank" rel="noopener">YouTube</a></li>
     </ul>
     <div class="mobile-nav__foot">
@@ -158,7 +158,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
   <section class="page-hero page-hero--compact">
     <div class="container page-hero__inner">
       <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="/">Home</a><span>/</span><a href="/blog.html">Blog</a><span>/</span>
+        <a href="/">Home</a><span>/</span><a href="/blog">Blog</a><span>/</span>
         <span data-blog-breadcrumb-current>__TITLE__</span>
       </nav>
       <h1 data-blog-title style="font-size:clamp(1.7rem,4vw,2.4rem)">__TITLE__</h1>
@@ -218,12 +218,12 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
         <h4>Quick Links</h4>
         <ul>
           <li><a href="/">Home</a></li>
-          <li><a href="/products.html">Products</a></li>
-          <li><a href="/price-list.html">Price Lists</a></li>
-          <li><a href="/blog.html">Blog</a></li>
-          <li><a href="/about.html">About</a></li>
-          <li><a href="/faq.html">FAQ</a></li>
-          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="/products">Products</a></li>
+          <li><a href="/price-list">Price Lists</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="/contact">Contact</a></li>
         </ul>
       </nav>
       <nav class="footer-col" aria-label="Popular products">
@@ -246,7 +246,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
         <ul>
           <li><a data-wa-link href="#" target="_blank" rel="noopener">WhatsApp: 0312 8461211</a></li>
           <li><span>Pakistan &middot; Nationwide Delivery</span></li>
-          <li><a href="/contact.html">Contact Form</a></li>
+          <li><a href="/contact">Contact Form</a></li>
         </ul>
       </div>
     </div>
@@ -272,12 +272,12 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 
 SITEMAP_CORE = [
     ("/", "weekly", "1.0"),
-    ("/products.html", "weekly", "0.9"),
-    ("/price-list.html", "weekly", "0.8"),
-    ("/blog.html", "weekly", "0.7"),
-    ("/about.html", "monthly", "0.6"),
-    ("/faq.html", "monthly", "0.6"),
-    ("/contact.html", "monthly", "0.6"),
+    ("/products", "weekly", "0.9"),
+    ("/price-list", "weekly", "0.8"),
+    ("/blog", "weekly", "0.7"),
+    ("/about", "monthly", "0.6"),
+    ("/faq", "monthly", "0.6"),
+    ("/contact", "monthly", "0.6"),
 ]
 
 
@@ -292,12 +292,12 @@ def write_sitemap(products, articles):
         )
     for p in products:
         lines.append(
-            f"  <url><loc>{BASE_URL}/products/{p['slug']}.html</loc><lastmod>{today}</lastmod>"
+            f"  <url><loc>{BASE_URL}/products/{p['slug']}</loc><lastmod>{today}</lastmod>"
             f"<changefreq>weekly</changefreq><priority>0.8</priority></url>"
         )
     for a in articles:
         lines.append(
-            f"  <url><loc>{BASE_URL}/blog/{a['slug']}.html</loc><lastmod>{today}</lastmod>"
+            f"  <url><loc>{BASE_URL}/blog/{a['slug']}</loc><lastmod>{today}</lastmod>"
             f"<changefreq>monthly</changefreq><priority>0.6</priority></url>"
         )
     lines.append("</urlset>")
@@ -323,7 +323,7 @@ def main():
             PAGE_TEMPLATE.replace("__SEO_TITLE__", esc(a.get("seoTitle") or f"{a['title']} | ShikarpuriAchar.pk"))
             .replace("__SEO_DESC__", esc(a.get("seoDescription") or a.get("excerpt", "")))
             .replace("__KEYWORDS__", esc(", ".join(a.get("metaKeywords", []))))
-            .replace("__CANONICAL__", f"{BASE_URL}/blog/{a['slug']}.html")
+            .replace("__CANONICAL__", f"{BASE_URL}/blog/{a['slug']}")
             .replace("__OG_IMAGE__", f"{BASE_URL}/assets/og/og-default.png")
             .replace("__JSONLD__", build_article_jsonld(a))
             .replace("__BREADCRUMB__", build_breadcrumb(a))

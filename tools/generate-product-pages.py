@@ -46,7 +46,7 @@ def build_jsonld(p):
         "description": p.get("shortDescription") or p.get("seoDescription", ""),
         "category": p["category"],
         "sku": p["id"],
-        "url": f"{BASE_URL}/products/{p['slug']}.html",
+        "url": f"{BASE_URL}/products/{p['slug']}",
         "image": f"{BASE_URL}/assets/og/{p['slug']}.png",
         "brand": {"@type": "Brand", "name": "ShikarpuriAchar.pk"},
     }
@@ -213,8 +213,8 @@ def build_breadcrumb(p):
         "@type": "BreadcrumbList",
         "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Home", "item": f"{BASE_URL}/"},
-            {"@type": "ListItem", "position": 2, "name": "Products", "item": f"{BASE_URL}/products.html"},
-            {"@type": "ListItem", "position": 3, "name": p["nameEn"], "item": f"{BASE_URL}/products/{p['slug']}.html"},
+            {"@type": "ListItem", "position": 2, "name": "Products", "item": f"{BASE_URL}/products"},
+            {"@type": "ListItem", "position": 3, "name": p["nameEn"], "item": f"{BASE_URL}/products/{p['slug']}"},
         ],
     }
     return json.dumps(data, ensure_ascii=False)
@@ -267,12 +267,12 @@ __VIDEOJSONLD_TAG__</head>
     <nav class="main-nav" aria-label="Primary">
       <ul class="main-nav__list">
         <li><a class="site-header__link" href="/">Home</a></li>
-        <li><a class="site-header__link" href="/products.html">Products</a></li>
-        <li><a class="site-header__link" href="/price-list.html">Price Lists</a></li>
-        <li><a class="site-header__link" href="/blog.html">Blog</a></li>
-        <li><a class="site-header__link" href="/about.html">About</a></li>
-        <li><a class="site-header__link" href="/faq.html">FAQ</a></li>
-        <li><a class="site-header__link" href="/contact.html">Contact</a></li>
+        <li><a class="site-header__link" href="/products">Products</a></li>
+        <li><a class="site-header__link" href="/price-list">Price Lists</a></li>
+        <li><a class="site-header__link" href="/blog">Blog</a></li>
+        <li><a class="site-header__link" href="/about">About</a></li>
+        <li><a class="site-header__link" href="/faq">FAQ</a></li>
+        <li><a class="site-header__link" href="/contact">Contact</a></li>
         <li><a class="site-header__link" data-yt-channel href="#" target="_blank" rel="noopener">YouTube</a></li>
       </ul>
     </nav>
@@ -291,12 +291,12 @@ __VIDEOJSONLD_TAG__</head>
     <button class="mobile-nav__close" aria-label="Close menu">&times;</button>
     <ul class="mobile-nav__list">
       <li><a href="/">Home</a></li>
-      <li><a href="/products.html">Products</a></li>
-      <li><a href="/price-list.html">Price Lists</a></li>
-      <li><a href="/blog.html">Blog</a></li>
-      <li><a href="/about.html">About</a></li>
-      <li><a href="/faq.html">FAQ</a></li>
-      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/products">Products</a></li>
+      <li><a href="/price-list">Price Lists</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/faq">FAQ</a></li>
+      <li><a href="/contact">Contact</a></li>
       <li><a data-yt-channel href="#" target="_blank" rel="noopener">YouTube</a></li>
     </ul>
     <div class="mobile-nav__foot">
@@ -309,7 +309,7 @@ __VIDEOJSONLD_TAG__</head>
   <section class="page-hero page-hero--compact">
     <div class="container page-hero__inner">
       <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="/">Home</a><span>/</span><a href="/products.html">Products</a><span>/</span>
+        <a href="/">Home</a><span>/</span><a href="/products">Products</a><span>/</span>
         <span data-breadcrumb-current>__NAME_EN__</span>
       </nav>
       <h1 data-product-hero-title style="font-size:clamp(1.7rem,4vw,2.4rem)">__NAME_EN__</h1>
@@ -380,12 +380,12 @@ __VIDEOJSONLD_TAG__</head>
         <h4>Quick Links</h4>
         <ul>
           <li><a href="/">Home</a></li>
-          <li><a href="/products.html">Products</a></li>
-          <li><a href="/price-list.html">Price Lists</a></li>
-          <li><a href="/blog.html">Blog</a></li>
-          <li><a href="/about.html">About</a></li>
-          <li><a href="/faq.html">FAQ</a></li>
-          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="/products">Products</a></li>
+          <li><a href="/price-list">Price Lists</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="/contact">Contact</a></li>
         </ul>
       </nav>
       <nav class="footer-col" aria-label="Popular products">
@@ -408,7 +408,7 @@ __VIDEOJSONLD_TAG__</head>
         <ul>
           <li><a data-wa-link href="#" target="_blank" rel="noopener">WhatsApp: 0312 8461211</a></li>
           <li><span>Pakistan &middot; Nationwide Delivery</span></li>
-          <li><a href="/contact.html">Contact Form</a></li>
+          <li><a href="/contact">Contact Form</a></li>
         </ul>
       </div>
     </div>
@@ -434,12 +434,12 @@ __VIDEOJSONLD_TAG__</head>
 
 SITEMAP_CORE = [
     ("/", "weekly", "1.0"),
-    ("/products.html", "weekly", "0.9"),
-    ("/price-list.html", "weekly", "0.8"),
-    ("/blog.html", "weekly", "0.7"),
-    ("/about.html", "monthly", "0.6"),
-    ("/faq.html", "monthly", "0.6"),
-    ("/contact.html", "monthly", "0.6"),
+    ("/products", "weekly", "0.9"),
+    ("/price-list", "weekly", "0.8"),
+    ("/blog", "weekly", "0.7"),
+    ("/about", "monthly", "0.6"),
+    ("/faq", "monthly", "0.6"),
+    ("/contact", "monthly", "0.6"),
 ]
 
 
@@ -463,7 +463,7 @@ def main():
             PAGE_TEMPLATE.replace("__SEO_TITLE__", esc(p.get("seoTitle") or f"{p['nameEn']} | ShikarpuriAchar.pk"))
             .replace("__SEO_DESC__", esc(p.get("seoDescription") or p.get("shortDescription", "")))
             .replace("__KEYWORDS__", esc(", ".join(p.get("metaKeywords", []))))
-            .replace("__CANONICAL__", f"{BASE_URL}/products/{p['slug']}.html")
+            .replace("__CANONICAL__", f"{BASE_URL}/products/{p['slug']}")
             .replace("__OG_IMAGE__", f"{BASE_URL}/assets/og/{p['slug']}.png")
             .replace("__JSONLD__", build_jsonld(p))
             .replace("__BREADCRUMB__", build_breadcrumb(p))
@@ -511,12 +511,12 @@ def main():
         else:
             video_block = ""
         lines.append(
-            f"  <url><loc>{BASE_URL}/products/{p['slug']}.html</loc><lastmod>{today}</lastmod>"
+            f"  <url><loc>{BASE_URL}/products/{p['slug']}</loc><lastmod>{today}</lastmod>"
             f"<changefreq>weekly</changefreq><priority>0.8</priority>{video_block}</url>"
         )
     for a in articles:
         lines.append(
-            f"  <url><loc>{BASE_URL}/blog/{a['slug']}.html</loc><lastmod>{today}</lastmod>"
+            f"  <url><loc>{BASE_URL}/blog/{a['slug']}</loc><lastmod>{today}</lastmod>"
             f"<changefreq>monthly</changefreq><priority>0.6</priority></url>"
         )
     lines.append("</urlset>")
