@@ -48,8 +48,20 @@ https://www.shikarpuriachar.pk/*  https://shikarpuriachar.pk/:splat  301!
 /collections/gajar-ka-achar /products/gajar-ka-achar 301
 /collections/mix-achar      /products/mix-achar      301
 
+/products/murgh-ka-achar-oil-export-quality  /products/chicken-achar  301
+/collections/lemon-achar    /products/lemon-ka-achar 301
+
+# Shopify collection feeds (.atom) - Search Console me 404 aa rahe the
+/collections/gajar-ka-achar.atom /products/gajar-ka-achar 301
+/collections/shop-all.atom       /products                301
+/collections/*                   /products                301
+
 # Old Shopify pages
 /pages/contact               /contact        301
+/pages/about-us              /about          301
+
+# Browsers/crawlers /favicon.ico khud maangte hain
+/favicon.ico                 /assets/icons/favicon.svg 301
 
 # NOTE: Cloudflare Pages already redirects /page.html -> /page automatically
 # for any static asset (this is a fixed platform behavior, not configurable
