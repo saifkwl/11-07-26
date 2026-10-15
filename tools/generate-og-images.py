@@ -44,8 +44,31 @@ MUSTARD_LIGHT = "#E4B75A"
 MUSTARD_DARK = "#A67A1C"
 
 FONT_DIR = "C:/Windows/Fonts"
-SERIF_BOLD = os.path.join(FONT_DIR, "georgiab.ttf")
-SERIF_ITALIC = os.path.join(FONT_DIR, "georgiai.ttf")
+
+
+def _pick_font(*candidates):
+    """First font file that actually exists. Georgia (Windows) stays the
+    preferred look; the Linux serif fallbacks let this run on a build box
+    or CI machine instead of failing outright."""
+    for path in candidates:
+        if os.path.exists(path):
+            return path
+    raise SystemExit(
+        "No usable serif font found. Install Georgia (Windows) or "
+        "fonts-liberation / fonts-dejavu (Linux)."
+    )
+
+
+SERIF_BOLD = _pick_font(
+    os.path.join(FONT_DIR, "georgiab.ttf"),
+    "/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf",
+)
+SERIF_ITALIC = _pick_font(
+    os.path.join(FONT_DIR, "georgiai.ttf"),
+    "/usr/share/fonts/truetype/liberation/LiberationSerif-Italic.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Italic.ttf",
+)
 
 _font_cache = {}
 

@@ -2,7 +2,7 @@
   "meta": {
     "note": "SINGLE SOURCE OF TRUTH for all product content, prices and video links. Every page on the site (home, products, price list, product pages, category filters, search, WhatsApp order messages) reads from this file. Edit here only — nothing else needs to change. Catalog and pricing sourced from the official Shikarpuri Achar rate-list PDFs (Pickles-Oil, Pickles-Vinegar, Chutneys, Murabba).",
     "currency": "PKR",
-    "updated": "2026-07-11"
+    "updated": "2026-10-15"
   },
   "products": [
     {
@@ -164,41 +164,57 @@
       "videoPoster": "/assets/posters/poster-lehsan.jpg"
     },
     {
-      "id": "P005",
-      "slug": "adrak-ka-achar",
-      "nameEn": "Adrak Ka Achar",
-      "nameUr": "ادرک کا اچار",
-      "category": "Vinegar Pickles",
-      "shortDescription": "Fresh ginger, julienned and pickled with a warm spice mix — sharp, aromatic and digestive.",
-      "description": "Fresh ginger is cut fine and pickled in mustard oil with a warm, aromatic spice blend. Sharp and zesty, our Adrak Ka Achar is a traditional favorite for cutting through rich, heavy meals.",
+      "id": "P073",
+      "slug": "khajoor-5kg",
+      "nameEn": "Fresh Sindhi Khajoor (Dates)",
+      "nameUr": "تازہ سندھی کھجور",
+      "category": "Super Foods",
+      "shortDescription": "Fresh Sindhi khajoor in a 5kg box — soft, naturally sweet dates from Sindh's own date belt, with no added sugar, syrup or glucose coating.",
+      "description": "Our fresh khajoor comes from Sindh's date belt, the same soil that grows most of Pakistan's dates. These are fresh dates — soft, heavy and naturally glossy — not the hard, shrunken dry khajoor sold loose in most shops. Each 5kg box is packed whole, so you get full-size dates with their natural moisture intact, nothing added and nothing polished on top. It is the family-size pack people buy for Ramzan, for daily use with milk or tea, and for gifting.",
       "ingredients": [
-        "Fresh Ginger",
-        "Mustard Oil",
-        "Mustard Seeds",
-        "Red Chili",
-        "Turmeric",
-        "Rock Salt"
+        "Fresh Sindhi Dates (Khajoor)"
       ],
-      "seoTitle": "Adrak Ka Achar (ادرک کا اچار) Ginger Pickle | ShikarpuriAchar.pk",
-      "seoDescription": "Traditional Shikarpuri ginger pickle (Adrak Achar) in mustard oil. 400g & 800g. Order online, Cash on Delivery across Pakistan.",
+      "seoTitle": "Khajoor 5kg Box (کھجور) | Fresh Sindhi Dates Price in Pakistan",
+      "seoDescription": "Fresh Sindhi khajoor — 5kg box, Rs. 3,000. Buy khajoor (dates) online in Pakistan with Cash on Delivery and nationwide delivery. Order on WhatsApp.",
       "metaKeywords": [
-        "adrak achar",
-        "ginger pickle pakistan",
-        "ادرک کا اچار"
+        "khajoor",
+        "khajur",
+        "dates",
+        "khajoor price in pakistan",
+        "khajur price per kg",
+        "khajoor 5kg price",
+        "buy khajoor online",
+        "khajoor online shopping",
+        "sindhi khajoor",
+        "fresh dates pakistan",
+        "original khajoor",
+        "best khajoor",
+        "khajoor near me",
+        "کھجور"
       ],
-      "price400": 800,
-      "price800": 1600,
-      "youtubeUrl": "https://www.youtube.com/shorts/jHaeEL_A2cM",
-      "whatsappProductName": "Adrak Ka Achar",
+      "price400": 3000,
+      "packLabel": "5kg Box",
+      "directOrder": true,
+      "youtubeUrl": "",
+      "whatsappProductName": "Fresh Sindhi Khajoor",
       "featured": true,
       "status": "active",
-      "whatIsIt": "Adrak Ka Achar is fresh ginger, cut fine and pickled in mustard oil with a warm, aromatic spice blend — sharp, zesty and noticeably more warming than our other achar.",
-      "traditionalBackground": "Ginger achar has a practical history in Sindhi households — it was traditionally kept close at hand during the monsoon and winter months, valued for cutting through heavy, oil-rich meals and for its warming effect. Unlike mango or lasora achar, which need months to mature, ginger achar is often ready sooner, making it a common quick-turnaround pickle in home kitchens.",
-      "tasteProfileText": "The dominant note is ginger's own sharp heat, not chili heat — it warms rather than burns, with mustard seed and turmeric adding an earthy, slightly bitter undertone. It's more aromatic than most of our other achar, noticeably so as soon as the jar is opened.",
-      "howToEat": "A small amount goes a long way — a few pieces alongside rich or fried food (paratha, fried fish, heavier curries) helps cut through the oiliness. It's also commonly eaten in small amounts on its own as a digestive after a heavy meal.",
-      "whoShouldBuy": "Good for anyone who wants a warming, aromatic achar rather than a sour or fiery one, or who specifically enjoys ginger's flavour on its own terms.",
-      "videoFile": "/assets/videos/adrak.mp4",
-      "videoPoster": "/assets/posters/poster-adrak.jpg"
+      "whatIsIt": "Khajoor — dates — is the fruit of the date palm, and Sindh grows most of what Pakistan eats. This is the fresh kind: soft dates packed straight into a 5kg box instead of being dried hard and sugar-coated. One box is roughly a month of daily khajoor for an average household.",
+      "traditionalBackground": "Dates have been a Sindhi staple far longer than any pickle. The date palm groves of upper Sindh sit in the same belt as Shikarpur, and through the season families buy khajoor by the sack rather than the packet — for iftar, for guests, and for sending to relatives in the cities. Selling it in a 5kg box is simply how it has always moved here: whole, loose and fresh, not portioned into small boxes.",
+      "descriptionHeading": "About Our Fresh Khajoor",
+      "tasteProfileText": "Fresh khajoor is softer and less cloying than dry dates. The sweetness is round and caramel-like rather than sharp, the skin gives easily, and the flesh stays moist all the way to the stone. Because nothing is added, the sweetness tastes like fruit, not syrup.",
+      "howToEat": "Two or three khajoor with a glass of milk is the usual way here — at sehri, at iftar, or simply with morning tea. They also work stuffed with almonds or walnuts, blended into milkshakes and smoothies, chopped into kheer and halwa, or used in place of sugar in homemade desserts.",
+      "whoShouldBuy": "If your household goes through khajoor regularly — especially in Ramzan — the 5kg box works out far cheaper than buying small packets week to week. It also suits shops, offices and anyone sending gift boxes to family.",
+      "tasteChips": [
+        "Naturally Sweet",
+        "Soft",
+        "No Added Sugar"
+      ],
+      "spiceText": "Khajoor is not spicy at all — it is a naturally sweet fruit with nothing added, suitable for the whole family including children.",
+      "shelfLifeText": "Fresh khajoor keeps well for several months in a cool, dry place, and longer still if you refrigerate the box after opening. Dates naturally firm up and darken over time — that is normal, not spoilage.",
+      "storageText": "Keep the box closed in a cool, dry place away from direct sunlight. In hot weather, or once the box is open, refrigerating keeps the dates soft and stops them drying out. Always use a clean, dry hand or spoon.",
+      "videoFile": "/assets/videos/khajoor.mp4",
+      "videoPoster": "/assets/posters/poster-khajoor.jpg"
     },
     {
       "id": "P006",
@@ -346,6 +362,43 @@
       "whoShouldBuy": "Best for anyone who wants a fresh, fast condiment rather than a slow-matured pickle — ideal alongside snacks, barbecue or fried food rather than eaten the way achar typically is with daal chawal.",
       "videoFile": "/assets/videos/green-chutney.mp4",
       "videoPoster": "/assets/posters/poster-green-chutney.jpg"
+    },
+    {
+      "id": "P005",
+      "slug": "adrak-ka-achar",
+      "nameEn": "Adrak Ka Achar",
+      "nameUr": "ادرک کا اچار",
+      "category": "Vinegar Pickles",
+      "shortDescription": "Fresh ginger, julienned and pickled with a warm spice mix — sharp, aromatic and digestive.",
+      "description": "Fresh ginger is cut fine and pickled in mustard oil with a warm, aromatic spice blend. Sharp and zesty, our Adrak Ka Achar is a traditional favorite for cutting through rich, heavy meals.",
+      "ingredients": [
+        "Fresh Ginger",
+        "Mustard Oil",
+        "Mustard Seeds",
+        "Red Chili",
+        "Turmeric",
+        "Rock Salt"
+      ],
+      "seoTitle": "Adrak Ka Achar (ادرک کا اچار) Ginger Pickle | ShikarpuriAchar.pk",
+      "seoDescription": "Traditional Shikarpuri ginger pickle (Adrak Achar) in mustard oil. 400g & 800g. Order online, Cash on Delivery across Pakistan.",
+      "metaKeywords": [
+        "adrak achar",
+        "ginger pickle pakistan",
+        "ادرک کا اچار"
+      ],
+      "price400": 800,
+      "price800": 1600,
+      "youtubeUrl": "https://www.youtube.com/shorts/jHaeEL_A2cM",
+      "whatsappProductName": "Adrak Ka Achar",
+      "featured": false,
+      "status": "active",
+      "whatIsIt": "Adrak Ka Achar is fresh ginger, cut fine and pickled in mustard oil with a warm, aromatic spice blend — sharp, zesty and noticeably more warming than our other achar.",
+      "traditionalBackground": "Ginger achar has a practical history in Sindhi households — it was traditionally kept close at hand during the monsoon and winter months, valued for cutting through heavy, oil-rich meals and for its warming effect. Unlike mango or lasora achar, which need months to mature, ginger achar is often ready sooner, making it a common quick-turnaround pickle in home kitchens.",
+      "tasteProfileText": "The dominant note is ginger's own sharp heat, not chili heat — it warms rather than burns, with mustard seed and turmeric adding an earthy, slightly bitter undertone. It's more aromatic than most of our other achar, noticeably so as soon as the jar is opened.",
+      "howToEat": "A small amount goes a long way — a few pieces alongside rich or fried food (paratha, fried fish, heavier curries) helps cut through the oiliness. It's also commonly eaten in small amounts on its own as a digestive after a heavy meal.",
+      "whoShouldBuy": "Good for anyone who wants a warming, aromatic achar rather than a sour or fiery one, or who specifically enjoys ginger's flavour on its own terms.",
+      "videoFile": "/assets/videos/adrak.mp4",
+      "videoPoster": "/assets/posters/poster-adrak.jpg"
     },
     {
       "id": "P010",

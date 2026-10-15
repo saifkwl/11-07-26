@@ -56,7 +56,12 @@ def build_jsonld(p):
         if p.get("status") == "active"
         else "https://schema.org/PreOrder"
     )
-    for size, key in (("400g", "price400"), ("800g", "price800")):
+    pack_sizes = (
+        ((p["packLabel"], "price400"),)
+        if p.get("packLabel")
+        else (("400g", "price400"), ("800g", "price800"))
+    )
+    for size, key in pack_sizes:
         if p.get(key):
             offers.append(
                 {
@@ -130,6 +135,8 @@ def load_site_config():
 
 
 def spice_level_info(p):
+    if p.get("spiceText"):
+        return p["spiceText"]
     name = p["nameEn"].lower()
     cat = p["category"].lower()
     if "super food" in cat:
@@ -144,6 +151,8 @@ def spice_level_info(p):
 
 
 def shelf_life_info(p):
+    if p.get("shelfLifeText"):
+        return p["shelfLifeText"]
     cat = p["category"].lower()
     if "super food" in cat:
         return "Several months when stored in a cool, dry, airtight container — check the pack for the exact best-before date."
@@ -157,6 +166,8 @@ def shelf_life_info(p):
 
 
 def storage_info(p):
+    if p.get("storageText"):
+        return p["storageText"]
     cat = p["category"].lower()
     if "super food" in cat:
         return "Store in a cool, dry, airtight container away from direct sunlight and moisture. No refrigeration needed."
@@ -172,12 +183,19 @@ def storage_info(p):
 def build_faq_jsonld(p, cfg):
     """Mirrors productFaqs() in js/main.js exactly, so the static schema and
     the live accordion text can never drift apart."""
-    if p.get("price400"):
+    if p.get("price400") and p.get("packLabel"):
+        price_text = f"One {p['packLabel']} is Rs. {int(p['price400']):,}."
+    elif p.get("price400"):
         price_text = (
             f"The 400g jar is Rs. {int(p['price400']):,} and the 800g jar is Rs. {int(p['price800']):,}."
         )
     else:
         price_text = "Message us on WhatsApp for the current price."
+
+    if p.get("packLabel"):
+        size_text = f"Choose your pack ({p['packLabel']})"
+    else:
+        size_text = "Choose your jar size (400g or 800g)"
 
     faqs = [
         {"q": f"How spicy is {p['nameEn']}?", "a": spice_level_info(p)},
@@ -191,7 +209,7 @@ def build_faq_jsonld(p, cfg):
         },
         {
             "q": "How do I order on WhatsApp?",
-            "a": f'Choose your jar size (400g or 800g) and quantity above, then tap "Order on WhatsApp" — your '
+            "a": f'{size_text} and quantity above, then tap "Order on WhatsApp" — your '
                  f"message is pre-filled with the product, weight and price. {price_text} Advance payment gets "
                  f"{cfg['advanceDiscountPercent']}% off.",
         },
@@ -224,6 +242,28 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<!-- Meta Pixel Code (script fetch deferred until page load/first interaction —
+     fbq() calls below queue instantly either way, so no tracking data is lost,
+     it just stops competing with critical resources during initial render) -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];
+function _fbLoad(){if(f._fbqScriptLoaded)return;f._fbqScriptLoaded=!0;
+t=b.createElement(e);t.async=!0;t.src=v;
+s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s);}
+if(b.readyState==='complete'){setTimeout(_fbLoad,0);}
+else{f.addEventListener('load',function(){setTimeout(_fbLoad,0);});}
+['scroll','keydown','mousemove','touchstart'].forEach(function(ev){
+f.addEventListener(ev,_fbLoad,{once:!0,passive:!0});});
+}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '225331831997469');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=225331831997469&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>__SEO_TITLE__</title>
 <meta name="description" content="__SEO_DESC__">
@@ -246,8 +286,9 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@500;700&display=optional" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@500;700&family=Gulzar&display=optional" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@500;700&family=Gulzar&display=optional"></noscript>
+<link rel="stylesheet" href="/css/style.css?v=20260816">
 <script type="application/ld+json" data-product-schema>__JSONLD__</script>
 <script type="application/ld+json" data-breadcrumb-schema>__BREADCRUMB__</script>
 <script type="application/ld+json" data-faq-schema>__FAQJSONLD__</script>
@@ -426,8 +467,8 @@ __VIDEOJSONLD_TAG__</head>
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
-<script src="/js/products-data.js"></script>
-<script src="/js/main.js"></script>
+<script src="/js/products-data.js?v=20260816"></script>
+<script src="/js/main.js?v=20260816"></script>
 </body>
 </html>
 """
