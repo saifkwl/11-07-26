@@ -440,6 +440,9 @@ SITEMAP_CORE = [
     ("/about", "monthly", "0.6"),
     ("/faq", "monthly", "0.6"),
     ("/contact", "monthly", "0.6"),
+    # Hand-written static page, not driven by products.json — keep it here so
+    # regenerating the sitemap does not silently drop it.
+    ("/products/khajoor-dates", "weekly", "0.8"),
 ]
 
 

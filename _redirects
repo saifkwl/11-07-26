@@ -63,6 +63,9 @@ https://www.shikarpuriachar.pk/*  https://shikarpuriachar.pk/:splat  301!
 # Browsers/crawlers /favicon.ico khud maangte hain
 /favicon.ico                 /assets/icons/favicon.svg 301
 
+# Alternate spelling of khajoor so a shared/typed link still lands
+/products/khajur-dates       /products/khajoor-dates  301
+
 # NOTE: Cloudflare Pages already redirects /page.html -> /page automatically
 # for any static asset (this is a fixed platform behavior, not configurable
 # here). Do NOT add extensionless -> .html rules here — that fights the
