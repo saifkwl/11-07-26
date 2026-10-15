@@ -353,7 +353,7 @@ __VIDEOJSONLD_TAG__</head>
         <a href="/">Home</a><span>/</span><a href="/products">Products</a><span>/</span>
         <span data-breadcrumb-current>__NAME_EN__</span>
       </nav>
-      <h1 data-product-hero-title style="font-size:clamp(1.7rem,4vw,2.4rem)">__NAME_EN__</h1>
+      <h1 data-product-hero-title style="font-size:clamp(1.7rem,4vw,2.4rem)">__HERO_H1__</h1>
       <p class="product-detail__title-ur" data-product-hero-ur style="color:var(--color-mustard-light);margin-bottom:0">__NAME_UR__</p>
     </div>
   </section>
@@ -510,6 +510,7 @@ def main():
             .replace("__BREADCRUMB__", build_breadcrumb(p))
             .replace("__FAQJSONLD__", build_faq_jsonld(p, site_cfg))
             .replace("__VIDEOJSONLD_TAG__", video_tag)
+            .replace("__HERO_H1__", esc(p.get("heroHeading") or p["nameEn"]))
             .replace("__NAME_EN__", esc(p["nameEn"]))
             .replace("__NAME_UR__", esc(p["nameUr"]))
             .replace("__SLUG__", p["slug"])
