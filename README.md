@@ -54,7 +54,7 @@ Open `products.json`. Each product object supports:
 | `ingredients` | Array of strings, shown as a chip list on the detail page |
 | `seoTitle` / `seoDescription` | Injected as `<title>` / meta description on that product's page |
 | `metaKeywords` | Array, joined into `<meta name="keywords">` |
-| `price400` / `price800` | Numbers in PKR. Leave `null` to show "Contact for Price" |
+| `price400` / `price800` | Numbers in PKR for the **500g** and **1kg** jars (field names kept from the old 400g/800g sizes). Leave `null` to show "Contact for Price" |
 | `youtubeUrl` | Full YouTube/Shorts URL. Leave `""` for a "Video Coming Soon" placeholder |
 | `whatsappProductName` | Name used inside the WhatsApp order message |
 | `featured` | `true`/`false` — controls the homepage featured grid |
