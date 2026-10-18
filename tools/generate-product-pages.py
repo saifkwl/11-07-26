@@ -56,7 +56,7 @@ def build_jsonld(p):
         if p.get("status") == "active"
         else "https://schema.org/PreOrder"
     )
-    for size, key in (("400g", "price400"), ("800g", "price800")):
+    for size, key in (("500g", "price400"), ("1kg", "price800")):
         if p.get(key):
             offers.append(
                 {
@@ -174,7 +174,7 @@ def build_faq_jsonld(p, cfg):
     the live accordion text can never drift apart."""
     if p.get("price400"):
         price_text = (
-            f"The 400g jar is Rs. {int(p['price400']):,} and the 800g jar is Rs. {int(p['price800']):,}."
+            f"The 500g jar is Rs. {int(p['price400']):,} and the 1kg jar is Rs. {int(p['price800']):,}."
         )
     else:
         price_text = "Message us on WhatsApp for the current price."
@@ -191,7 +191,7 @@ def build_faq_jsonld(p, cfg):
         },
         {
             "q": "How do I order on WhatsApp?",
-            "a": f'Choose your jar size (400g or 800g) and quantity above, then tap "Order on WhatsApp" — your '
+            "a": f'Choose your jar size (500g or 1kg) and quantity above, then tap "Order on WhatsApp" — your '
                  f"message is pre-filled with the product, weight and price. {price_text} Advance payment gets "
                  f"{cfg['advanceDiscountPercent']}% off.",
         },
